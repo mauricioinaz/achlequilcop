@@ -7,33 +7,21 @@ import {
   WelcomeScreen,
   LanguageScreen
 } from '../screens';
-//import { Provider } from 'src/redux';
+import { Provider } from 'react-redux';
 
 import {
   WELCOME_SCREEN,
   LANGUAGE_SCREEN,
   SINGLE_APP_SCREEN,
 } from './Screens';
+import configureStore from '../redux/configureStore';
 
-
-function WrappedComponent(Component) {
-  return function inject(props) {
-    const EnhancedComponent = () => (
-
-        <Provider>
-          <Component
-            {...props}
-          />
-        </Provider>
-    );
-
-    return <EnhancedComponent />;
-  };
-}
+const store = configureStore();
 
 export default function () {   //WrappedComponent(WelcomeScreen)
-  Navigation.registerComponent(WELCOME_SCREEN, () => WelcomeScreen)
-  Navigation.registerComponent(LANGUAGE_SCREEN, () => LanguageScreen)
+    Navigation.registerComponentWithRedux(WELCOME_SCREEN, () => WelcomeScreen, Provider, store)
+  //Navigation.registerComponent(WELCOME_SCREEN, () => WelcomeScreen)
+  Navigation.registerComponentWithRedux(LANGUAGE_SCREEN, () => LanguageScreen, Provider, store)
   //Navigation.registerComponent(SINGLE_APP_SCREEN, () => SingleAppScreen);
   console.info('All screens have been registered...');
 }

@@ -1,0 +1,2 @@
+export const FETCH_SPANISH = 'FETCH_SPANISH';
+export const FETCH_TSELTAL = 'FETCH_TSELTAL';

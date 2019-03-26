@@ -6,8 +6,10 @@ import {
   Text,
   Button
 } from 'react-native';
-//import { Button } from 'react-native-elements';
 import { Navigation } from 'react-native-navigation';
+
+import {connect} from 'react-redux';
+import * as actions from '../../redux/actions'
 
 import { LANGUAGE_SCREEN } from '../../navigation';
 
@@ -42,6 +44,7 @@ const styles = StyleSheet.create({
 class WelcomeScreen extends Component {
 
   handleGetStartAction = () => {
+      this.props.onSpanishSelected()
       console.log('PICANDO?');
     Navigation.push(this.props.componentId, {
       component: {
@@ -60,11 +63,6 @@ class WelcomeScreen extends Component {
     });
   };
 
-  // <Image
-  //   style={styles.logo}
-  //   source={require('assets/images/logo.png')}
-  // />
-
   render() {
     return (
       <View style={styles.flex}>
@@ -74,9 +72,22 @@ class WelcomeScreen extends Component {
           title="PÍCAME!"
           color='#00678F'
         />
+        <Text>{this.props.status}</Text>
       </View>
     );
   }
 }
 
-export default WelcomeScreen;
+const mapStateToProps = state => {
+  return {
+    status: state.lang.languageData
+  };
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onSpanishSelected: () => dispatch(actions.fetchSpanish()),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(WelcomeScreen);

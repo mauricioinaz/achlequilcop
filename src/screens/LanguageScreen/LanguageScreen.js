@@ -11,6 +11,7 @@ import {
     Recorder,
     MediaStates
 } from 'react-native-audio-toolkit';
+import {connect} from 'react-redux';
 
 // import { connectData } from 'src/redux';
 //import { pushSingleScreenApp, pushTabBasedApp } from 'src/navigation';
@@ -72,17 +73,14 @@ class LanguageScreen extends Component {
               MusicControl.enableControl('remoteVolume', false)
 
               MusicControl.on('play', () => {
-                  // A valid funcion must be present
                 this._playPause()
             })
 
                 MusicControl.on('pause', () => {
-                    // A valid funcion must be present
                   this._playPause()
               })
 
               MusicControl.on('stop', () => {
-                  // A valid funcion must be present
                 this._stop()
             })
         }
@@ -92,13 +90,6 @@ class LanguageScreen extends Component {
         this.lastSeek = 0;
 
         this._reloadPlayer();
-
-
-        // this._progressInterval = setInterval(() => {
-        //   if (this.player && this._shouldUpdateProgressBar()) {// && !this._dragging) {
-        //     this.setState({progress: Math.max(0, this.player.currentTime) / this.player.duration});
-        //   }
-        // }, 100);
       }
 
       componentWillUnmount() {
@@ -106,11 +97,6 @@ class LanguageScreen extends Component {
         // TODO
         //clearInterval(this._progressInterval);
       }
-
-      // _shouldUpdateProgressBar() {
-      //   // Debounce progress bar update by 200 ms
-      //   return Date.now() - this.lastSeek > 200;
-      // }
 
       _updateState(err) {
 
@@ -201,6 +187,7 @@ class LanguageScreen extends Component {
               onPress={this.onHandlerSigue}
             />
             <Text>----LLEGAMOS---</Text>
+            <Text>{this.props.status}</Text>
             <View>
               <View style={styles.buttonContainer}>
                 <Button title={this.state.playPauseButton} disabled={this.state.playButtonDisabled} style={styles.button} onPress={() => this._playPause()}/>
@@ -216,16 +203,12 @@ class LanguageScreen extends Component {
         }
 }
 
-// ESTO VA ADENTRO
+
+const mapStateToProps = state => {
+  return {
+    status: state.lang.languageData
+  };
+}
 
 
-
-
-
-
-// LoginScreen.propTypes = {
-//   getFacebookUserData: PropTypes.func.isRequired,
-//   screenType: PropTypes.oneOf(['Single', 'Tab']).isRequired
-// };
-// quité el connectData()
-export default LanguageScreen;
+export default connect(mapStateToProps)(LanguageScreen);
