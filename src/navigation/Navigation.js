@@ -3,7 +3,7 @@ import { Navigation } from 'react-native-navigation';
 import {
   WELCOME_SCREEN,
   SINGLE_APP_SCREEN,
-  LANGUAGE_SCREEN
+  SIDE_DRAWER
 } from './Screens';
 import registerScreens from './registerScreens';
 
@@ -31,6 +31,14 @@ export function pushInitialScreen() {
     layout: {
       orientation: ['portrait']
     },
+    leftButtons: [
+      {
+        id: 'nav_btn',
+        text: "NAV",
+        //icon: "NAV",
+        color: 'white'
+      }
+    ],
     bottomTabs: {
       titleDisplayMode: 'alwaysHide',
       backgroundColor: '#00678F'
@@ -44,36 +52,64 @@ export function pushInitialScreen() {
   });
 
   Navigation.setRoot({
-    root: {
-        stack: {
-            children: [{
-                component: {
-                  name: WELCOME_SCREEN,
+      root: {
+        sideMenu: {
+          left: {
+            component: {
+              name: SIDE_DRAWER,
+              id: 'settingsDrawer',
+              passProps: {
+                text: 'Menú Lateral'
+              }
+            }
+          },
+          center: {
+            stack: {
                   options: {
-                    topBar: {
-                      title: {
-                        text: "ACH' LEQUILC'OP"
+                  },
+                  children: [{
+                      component: {
+                        name: WELCOME_SCREEN,
+                        id: "WelcomeScreen",
+                        options: {
+                            animated: true,
+                          topBar: {
+                            title: {
+                              text: "ACH' LEQUILC'OP"
+                            },
+                            leftButtons: [
+                              {
+                                id: 'nav_btn',
+                                text: "N",
+                                //icon: "NAV",
+                                color: 'white'
+                              }
+                            ],
+                            rightButtons: [
+                              {
+                                id: 'nav_play_btn',
+                                text: "PLAY",
+                                //icon: "PLAY",
+                                color: 'white'
+                              }
+                          ],
+                          }
+                        }
                       },
-                      leftButtons: [
-                        {
-                          id: 'nav_user_btn',
-                          //icon: require('assets/icons/ic_nav_user.png'),
-                          color: 'white'
-                        }
-                      ],
-                      rightButtons: [
-                        {
-                          id: 'nav_logout_btn',
-                          //icon: require('assets/icons/ic_nav_logout.png'),
-                          color: 'white'
-                        }
-                      ]
-                    }
-                  }
-                }
-            }]
+                  }]
+              }
+          }
         }
-    }
-  });
+      }
+    });
+
+    Navigation.mergeOptions('SideMenu', {
+        sideMenu: {
+            left: {
+                visible: false,
+                enabled: false,
+            }
+        }
+    });
 
 }

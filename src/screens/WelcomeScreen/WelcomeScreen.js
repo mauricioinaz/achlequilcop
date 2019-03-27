@@ -39,6 +39,7 @@ class WelcomeScreen extends Component {
 
     constructor() {
         super();
+        //Navigation.events().bindComponent(this);
         this.state = {
         playPauseButton: 'Preparing...',
 
@@ -54,6 +55,29 @@ class WelcomeScreen extends Component {
         this._getLanguage()
     }
 
+    navigationButtonPressed({ buttonId }) {
+        const { data } = this.props;
+
+        switch (buttonId) {
+        case 'nav_btn': {
+            Navigation.mergeOptions('SideMenu', {
+                sideMenu: {
+                    left: {
+                      visible: true
+                    }
+                }
+            });
+          break;
+        }
+        case 'nav_play_btn': {
+          Alert.alert("PLAYING");
+          break;
+        }
+        default:
+          break;
+        }
+    }
+
     _getLanguage = async () => {
         try {
             const value = await AsyncStorage.getItem('ach:language');
@@ -61,21 +85,21 @@ class WelcomeScreen extends Component {
             // We have data!!
             console.log("Language async loaded is:" + value);
             } else {
-                Navigation.push(this.props.componentId, {
-                      component: {
-                        name: LANGUAGE_SCREEN,
-                        passProps: {
-                            text: 'Elige un idioma'
-                        },
-                        options: {
-                          topBar: {
-                            title: {
-                              text: 'IDIOMA'
-                            }
-                          }
-                        }
-                      }
-                    });
+                // Navigation.push(this.props.componentId, {
+                //       component: {
+                //         name: LANGUAGE_SCREEN,
+                //         passProps: {
+                //             text: 'Elige un idioma'
+                //         },
+                //         options: {
+                //           topBar: {
+                //             title: {
+                //               text: 'IDIOMA'
+                //             }
+                //           }
+                //         }
+                //       }
+                //     });
             }
         } catch (error) {
         // Error retrieving data
@@ -203,21 +227,21 @@ class WelcomeScreen extends Component {
       // TODO: ELIMINATE tmp handler
       onLanguageSelected = () => {
           console.log("push language navigation");
-          Navigation.push(this.props.componentId, {
-                component: {
-                  name: LANGUAGE_SCREEN,
-                  passProps: {
-                      text: 'Elige un idioma'
-                  },
-                  options: {
-                    topBar: {
-                      title: {
-                        text: 'IDIOMA'
-                      }
-                    }
-                  }
-                }
-              });
+          // Navigation.push(this.props.componentId, {
+          //       component: {
+          //         name: LANGUAGE_SCREEN,
+          //         passProps: {
+          //             text: 'Elige un idioma'
+          //         },
+          //         options: {
+          //           topBar: {
+          //             title: {
+          //               text: 'IDIOMA'
+          //             }
+          //           }
+          //         }
+          //       }
+          //     });
       }
 
       render() {
