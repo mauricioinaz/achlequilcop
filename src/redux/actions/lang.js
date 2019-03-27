@@ -1,13 +1,14 @@
-import { FETCH_SPANISH, FETCH_TSELTAL} from './actionTypes';
+import { SELECTED_SPANISH, SELECTED_TSELTAL} from './actionTypes';
+import {AsyncStorage} from 'react-native';
 
 export const fetchSpanish = () => {
     return {
-        type: FETCH_SPANISH
+        type: SELECTED_SPANISH
     };
 };
 
 export const fetchTseltal = () => {
     return {
-        type: FETCH_TSELTAL
+        type: SELECTED_TSELTAL
     };
 };

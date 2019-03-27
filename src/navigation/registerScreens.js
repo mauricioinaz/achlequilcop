@@ -18,10 +18,8 @@ import configureStore from '../redux/configureStore';
 
 const store = configureStore();
 
-export default function () {   //WrappedComponent(WelcomeScreen)
-    Navigation.registerComponentWithRedux(WELCOME_SCREEN, () => WelcomeScreen, Provider, store)
-  //Navigation.registerComponent(WELCOME_SCREEN, () => WelcomeScreen)
+export default function () {
+  Navigation.registerComponentWithRedux(WELCOME_SCREEN, () => WelcomeScreen, Provider, store)
   Navigation.registerComponentWithRedux(LANGUAGE_SCREEN, () => LanguageScreen, Provider, store)
-  //Navigation.registerComponent(SINGLE_APP_SCREEN, () => SingleAppScreen);
   console.info('All screens have been registered...');
 }
