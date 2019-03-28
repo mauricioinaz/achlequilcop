@@ -15,6 +15,7 @@ import {
 } from 'react-native-audio-toolkit';
 import {connect} from 'react-redux';
 import { Navigation } from 'react-native-navigation';
+import AnimatedLogo from '../../components/AnimatedLogo/AnimatedLogo'
 
 import MusicControl from 'react-native-music-control';
 
@@ -234,10 +235,13 @@ class WelcomeScreen extends Component {
       render() {
         return (
           <View style={styles.mainContainer}>
-            <Image
-                source={require('../../assets/images/logo.png')}
-                style={styles.image}
-            />
+
+            <AnimatedLogo>
+                <Image
+                    source={require('../../assets/images/logo.png')}
+                    style={styles.image}
+                />
+            </AnimatedLogo>
             <Text>{this.props.langSelected}</Text>
             <Text>{this.props.langData}</Text>
             <View>
