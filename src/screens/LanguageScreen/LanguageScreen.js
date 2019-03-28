@@ -41,6 +41,33 @@ const styles = StyleSheet.create({
 
 class LanguageScreen extends Component {
 
+    constructor(props) {
+        super(props);
+        Navigation.events().bindComponent(this);
+    }
+
+    navigationButtonPressed({buttonId}) {
+        console.log('NAVIGATING... pressed');
+        console.log(buttonId);
+      if( buttonId == 'nav_btn' ){
+
+        //(!this.sideDrawerVisible) ? this.sideDrawerVisible = true : this.sideDrawerVisible = false;
+        this.updateNavigationState();
+      }
+    }
+
+// TODO:
+// BUG: needs to be clicked twice
+updateNavigationState(){
+   Navigation.mergeOptions("sideMenu", {
+     sideMenu: {
+       left: {
+         visible: true
+       }
+     }
+   });
+ }
+
   handleGetStartAction = (language) => {
 
       if (language === "CASTELLANO") {

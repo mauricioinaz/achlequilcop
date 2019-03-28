@@ -5,7 +5,8 @@ import {
   Alert,
   Text,
   Button,
-  AsyncStorage
+  AsyncStorage,
+  Image
 } from 'react-native';
 import {
     Player,
@@ -13,11 +14,7 @@ import {
     MediaStates
 } from 'react-native-audio-toolkit';
 import {connect} from 'react-redux';
-import { LANGUAGE_SCREEN } from '../../navigation';
 import { Navigation } from 'react-native-navigation';
-
-// import { connectData } from 'src/redux';
-//import { pushSingleScreenApp, pushTabBasedApp } from 'src/navigation';
 
 import MusicControl from 'react-native-music-control';
 
@@ -30,6 +27,10 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#039893'
+  },
+  image: {
+    width: 150,
+    height: 180
   }
 });
 
@@ -37,9 +38,9 @@ let strmAchLequilcop = "http://162.210.196.145:27582/"
 
 class WelcomeScreen extends Component {
 
-    constructor() {
-        super();
-        //Navigation.events().bindComponent(this);
+    constructor(props) {
+        super(props);
+        Navigation.events().bindComponent(this);
         this.state = {
         playPauseButton: 'Preparing...',
 
@@ -52,31 +53,33 @@ class WelcomeScreen extends Component {
         error: null
         };
 
+        // get async language
         this._getLanguage()
+
     }
 
-    navigationButtonPressed({ buttonId }) {
-        const { data } = this.props;
+    navigationButtonPressed({buttonId}) {
+        console.log('NAVIGATING... pressed');
+        console.log(buttonId);
+      if( buttonId == 'nav_btn' ){
 
-        switch (buttonId) {
-        case 'nav_btn': {
-            Navigation.mergeOptions('SideMenu', {
-                sideMenu: {
-                    left: {
-                      visible: true
-                    }
-                }
-            });
-          break;
-        }
-        case 'nav_play_btn': {
-          Alert.alert("PLAYING");
-          break;
-        }
-        default:
-          break;
-        }
+        //(!this.sideDrawerVisible) ? this.sideDrawerVisible = true : this.sideDrawerVisible = false;
+        this.updateNavigationState();
+      }
     }
+
+// TODO:
+// BUG: needs to be clicked twice
+   updateNavigationState(){
+      Navigation.mergeOptions("sideMenu", {
+        sideMenu: {
+          left: {
+            visible: true
+          }
+        }
+      });
+    }
+
 
     _getLanguage = async () => {
         try {
@@ -106,9 +109,9 @@ class WelcomeScreen extends Component {
         }
     }
 
+    // TODO: Move to constructor??!!
     componentDidMount() {
 
-          console.log('LOS CONTROLES?')
           MusicControl.setNowPlaying({
               state: MusicControl.STATE_BUFFERING,
               title: 'Radio',
@@ -149,11 +152,11 @@ class WelcomeScreen extends Component {
         this._reloadPlayer();
     }
 
-      componentWillUnmount() {
-        //console.log('unmount');
-        // TODO
-        //clearInterval(this._progressInterval);
-      }
+      // componentWillUnmount() {
+      //   //console.log('unmount');
+      //   // TODO
+      //   //clearInterval(this._progressInterval);
+      // }
 
       _updateState(err) {
 
@@ -224,43 +227,29 @@ class WelcomeScreen extends Component {
         });
       }
 
-      // TODO: ELIMINATE tmp handler
-      onLanguageSelected = () => {
-          console.log("push language navigation");
-          // Navigation.push(this.props.componentId, {
-          //       component: {
-          //         name: LANGUAGE_SCREEN,
-          //         passProps: {
-          //             text: 'Elige un idioma'
-          //         },
-          //         options: {
-          //           topBar: {
-          //             title: {
-          //               text: 'IDIOMA'
-          //             }
-          //           }
-          //         }
-          //       }
-          //     });
-      }
+      //Botones pendientes
+      //
+
 
       render() {
         return (
           <View style={styles.mainContainer}>
-            <Text>----ACHLEQUILCOP (animate)---</Text>
+            <Image
+                source={require('../../assets/images/logo.png')}
+                style={styles.image}
+            />
             <Text>{this.props.langSelected}</Text>
             <Text>{this.props.langData}</Text>
             <View>
-              <View style={styles.buttonContainer}>
-                <Button title={this.state.playPauseButton} disabled={this.state.playButtonDisabled} style={styles.button} onPress={() => this._playPause()}/>
-                <Button title="DETENER" disabled={this.state.stopButtonDisabled} style={styles.button} onPress={() => this._stop()}/>
-              </View>
+                <View style={styles.buttonContainer}>
+                  <Button title={this.state.playPauseButton} disabled={this.state.playButtonDisabled} style={styles.button} onPress={() => this._playPause()}/>
+                  <Button title="DETENER" disabled={this.state.stopButtonDisabled} style={styles.button} onPress={() => this._stop()}/>
+                </View>
 
               <View>
                 <Text style={styles.errorMessage}>{this.state.error}</Text>
               </View>
             </View>
-            <Button title="Elige Idioma" onPress={this.onLanguageSelected} />
           </View>
         );
         }

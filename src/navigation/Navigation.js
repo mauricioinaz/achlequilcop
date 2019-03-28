@@ -14,7 +14,8 @@ export function pushInitialScreen() {
   Navigation.setDefaultOptions({
     topBar: {
       visible: true,
-      animate: true,
+      animate: false,
+      drawBehind: true,
       buttonColor: '#0B0F0D',
       background: {
           color: '#00678F'
@@ -31,14 +32,14 @@ export function pushInitialScreen() {
     layout: {
       orientation: ['portrait']
     },
-    leftButtons: [
-      {
-        id: 'nav_btn',
-        text: "NAV",
-        //icon: "NAV",
-        color: 'white'
-      }
-    ],
+    // leftButtons: [
+    //   {
+    //     id: 'nav_btn',
+    //     text: "NAV",
+    //     //icon: "NAV",
+    //     color: 'white'
+    //   }
+    // ],
     bottomTabs: {
       titleDisplayMode: 'alwaysHide',
       backgroundColor: '#00678F'
@@ -54,25 +55,29 @@ export function pushInitialScreen() {
   Navigation.setRoot({
       root: {
         sideMenu: {
+          id: "sideMenu",
           left: {
+            //enabled: true,
             component: {
               name: SIDE_DRAWER,
-              id: 'settingsDrawer',
-              passProps: {
-                text: 'Menú Lateral'
-              }
+              //id: 'settingsDrawer',
+              // passProps: {
+              //   text: 'Menú Lateral'
+              // }
             }
           },
           center: {
+              // TODO: eliminate stack?
             stack: {
-                  options: {
-                  },
+                id: "CenterStack",
+                  // options: {
+                  // },
                   children: [{
                       component: {
                         name: WELCOME_SCREEN,
                         id: "WelcomeScreen",
                         options: {
-                            animated: true,
+                            //animated: true,
                           topBar: {
                             title: {
                               text: "ACH' LEQUILC'OP"
@@ -80,9 +85,22 @@ export function pushInitialScreen() {
                             leftButtons: [
                               {
                                 id: 'nav_btn',
-                                text: "N",
-                                //icon: "NAV",
-                                color: 'white'
+                                //text: "N",
+                                icon: require('../assets/icons/burgerMenu.png'),
+                                color: 'white',
+                                // component: {
+                                //   name: SIDE_DRAWER,
+                                //   id: 'settingsDrawer',
+                                //   passProps: {
+                                //       onPress: isOpened => Navigation.mergeOptions(WELCOME_SCREEN, {
+                                //       sideMenu: {
+                                //         left: {
+                                //           visible: isOpened,
+                                //         },
+                                //       },
+                                //     }),
+                                //   }
+                                // }
                               }
                             ],
                             rightButtons: [
@@ -103,13 +121,31 @@ export function pushInitialScreen() {
       }
     });
 
-    Navigation.mergeOptions('SideMenu', {
-        sideMenu: {
-            left: {
-                visible: false,
-                enabled: false,
-            }
-        }
-    });
+    //Navigation.setStackRoot(WELCOME_SCREEN)
+
+    // Navigation.mergeOptions('SideMenu', {
+    //     sideMenu: {
+    //         left: {
+    //             visible: false,
+    //             enabled: false,
+    //         }
+    //     }
+    // });
 
 }
+
+const buttonHamburger = componentId => ({
+  id: 'button.Hamburger',
+  component: {
+    name: 'component.Hamburger',
+    passProps: {
+      onPress: isOpened => Navigation.mergeOptions(componentId, {
+        sideMenu: {
+          left: {
+            visible: isOpened,
+          },
+        },
+      }),
+    },
+  },
+})
