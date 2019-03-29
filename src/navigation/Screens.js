@@ -1,3 +1,4 @@
-export const WELCOME_SCREEN = 'demo.WelcomeScreen';
-export const LANGUAGE_SCREEN = 'demo.LanguageScreen'; //LOGIN_SCREEN
-export const SIDE_DRAWER = 'demo.SideDrawer';
+export const WELCOME_SCREEN = 'ach.WelcomeScreen';
+export const LANGUAGE_SCREEN = 'ach.LanguageScreen'; //LOGIN_SCREEN
+export const SIDE_DRAWER = 'ach.SideDrawer';
+export const PARRILLA_SCREEN = 'ach.ParrillaScreen';

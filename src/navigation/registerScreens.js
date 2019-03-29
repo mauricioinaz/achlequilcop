@@ -6,7 +6,8 @@ import { Navigation } from 'react-native-navigation';
 import {
   WelcomeScreen,
   LanguageScreen,
-  Sidedrawer
+  Sidedrawer,
+  ParrillaScreen
 } from '../screens';
 import { Provider } from 'react-redux';
 
@@ -14,6 +15,7 @@ import {
   WELCOME_SCREEN,
   LANGUAGE_SCREEN,
   SIDE_DRAWER,
+  PARRILLA_SCREEN
 } from './Screens';
 import configureStore from '../redux/configureStore';
 
@@ -23,5 +25,6 @@ export default function () {
   Navigation.registerComponentWithRedux(WELCOME_SCREEN, () => WelcomeScreen, Provider, store)
   Navigation.registerComponentWithRedux(LANGUAGE_SCREEN, () => LanguageScreen, Provider, store),
   Navigation.registerComponent(SIDE_DRAWER, () => Sidedrawer),
+  Navigation.registerComponent(PARRILLA_SCREEN, () => ParrillaScreen),
   console.info('All screens have been registered...');
 }

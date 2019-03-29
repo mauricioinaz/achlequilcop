@@ -111,32 +111,4 @@ export function pushInitialScreen() {
         }
       }
     });
-
-    //Navigation.setStackRoot(WELCOME_SCREEN)
-
-    // Navigation.mergeOptions('SideMenu', {
-    //     sideMenu: {
-    //         left: {
-    //             visible: false,
-    //             enabled: false,
-    //         }
-    //     }
-    // });
-
 }
-
-const buttonHamburger = componentId => ({
-  id: 'button.Hamburger',
-  component: {
-    name: 'component.Hamburger',
-    passProps: {
-      onPress: isOpened => Navigation.mergeOptions(componentId, {
-        sideMenu: {
-          left: {
-            visible: isOpened,
-          },
-        },
-      }),
-    },
-  },
-})

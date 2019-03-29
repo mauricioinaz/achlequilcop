@@ -7,7 +7,12 @@ import {
 } from 'react-native';
 
 import { Navigation } from 'react-native-navigation';
-import { WELCOME_SCREEN, LANGUAGE_SCREEN, SIDE_DRAWER } from '../../navigation';
+import {
+    WELCOME_SCREEN,
+    LANGUAGE_SCREEN,
+    SIDE_DRAWER,
+    PARRILLA_SCREEN
+} from '../../navigation';
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -58,6 +63,35 @@ class Sidedrawer extends Component {
 
     }
 
+    onParrillaSelected = () => {
+
+        Navigation.push("CenterStack", {
+              component: {
+                name: PARRILLA_SCREEN,
+                passProps: {
+                    text: '...'
+                },
+                options: {
+                  topBar: {
+                    title: {
+                      text: 'HORARIOS'
+                      },
+                      leftButtons: [
+                        {
+                          id: 'nav_btn',
+                          icon: require('../../assets/icons/burgerMenu.png'),
+                          color: 'white',
+                        }
+                      ],
+                  }
+                }
+              }
+            });
+
+            Navigation.mergeOptions("settingsDrawer", { sideMenu: { left: { visible: false, }}});
+
+    }
+
       render() {
         return (
           <View style={styles.mainContainer}>
@@ -67,6 +101,9 @@ class Sidedrawer extends Component {
             </TouchableHighlight>
             <TouchableHighlight onPress={this.onLanguageSelected}>
                 <Text>IDIOMA</Text>
+            </TouchableHighlight>
+            <TouchableHighlight onPress={this.onParrillaSelected}>
+                <Text>PARRILLA</Text>
             </TouchableHighlight>
           </View>
         );
