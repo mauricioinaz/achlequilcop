@@ -27,7 +27,7 @@ class AnimatedLogo extends React.Component {
         } else {
             // TODO: return smoothly to origin
             console.log("Stop animating...");
-            Animated.timing( this.state.spinValue ).stop()
+            this.state.spinValue.stopAnimation()
         }
     }
 

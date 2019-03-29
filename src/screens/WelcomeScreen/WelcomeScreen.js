@@ -9,15 +9,13 @@ import {
   Image
 } from 'react-native';
 import {
-    Player,
-    Recorder,
-    MediaStates
+    Player
 } from 'react-native-audio-toolkit';
 import {connect} from 'react-redux';
 import { Navigation } from 'react-native-navigation';
 import AnimatedLogo from '../../components/AnimatedLogo/AnimatedLogo'
 
-import MusicControl from 'react-native-music-control';
+//import MusicControl from 'react-native-music-control';
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -60,11 +58,9 @@ class WelcomeScreen extends Component {
     }
 
     navigationButtonPressed({buttonId}) {
-        console.log('NAVIGATING... pressed');
         console.log(buttonId);
       if( buttonId == 'nav_btn' ){
 
-        //(!this.sideDrawerVisible) ? this.sideDrawerVisible = true : this.sideDrawerVisible = false;
         this.updateNavigationState();
       }
     }
@@ -81,7 +77,6 @@ class WelcomeScreen extends Component {
       });
     }
 
-
     _getLanguage = async () => {
         try {
             const value = await AsyncStorage.getItem('ach:language');
@@ -89,21 +84,21 @@ class WelcomeScreen extends Component {
             // We have data!!
             console.log("Language async loaded is:" + value);
             } else {
-                // Navigation.push(this.props.componentId, {
-                //       component: {
-                //         name: LANGUAGE_SCREEN,
-                //         passProps: {
-                //             text: 'Elige un idioma'
-                //         },
-                //         options: {
-                //           topBar: {
-                //             title: {
-                //               text: 'IDIOMA'
-                //             }
-                //           }
-                //         }
-                //       }
-                //     });
+                Navigation.push(this.props.componentId, {
+                      component: {
+                        name: LANGUAGE_SCREEN,
+                        passProps: {
+                            text: 'Elige un idioma'
+                        },
+                        options: {
+                          topBar: {
+                            title: {
+                              text: 'IDIOMA'
+                            }
+                          }
+                        }
+                      }
+                    });
             }
         } catch (error) {
         // Error retrieving data
@@ -113,42 +108,42 @@ class WelcomeScreen extends Component {
     // TODO: Move to constructor??!!
     componentDidMount() {
 
-          MusicControl.setNowPlaying({
-              state: MusicControl.STATE_BUFFERING,
-              title: 'Radio',
-              artwork: 'https://xhbak.files.wordpress.com/2014/10/screen-shot-2014-10-09-at-11-07-46-pm.png', // URL or RN's image require()
-              artist: "Ach' Lequilc'op",
-              album: 'Thriller',
-              genre: 'Post-disco, Rhythm and Blues, Funk, Dance-pop',
-              duration: 294, // (Seconds)
-              description: 'Una descripción', // Android Only
-              color: 0xeeeeee, // Notification Color - Android Only
-              rating: 84, // Android Only (Boolean or Number depending on the type)
-              notificationIcon: 'my_custom_icon', // Android Only (String), Android Drawable resource name for a custom notification icon
-              })
-
-          MusicControl.enableControl('play', true)
-          MusicControl.enableControl('pause', true)
-          MusicControl.enableControl('stop', true)
-          MusicControl.enableControl('volume', true) // Only affected when remoteVolume is enabled
-          MusicControl.enableControl('remoteVolume', false)
-
-          MusicControl.on('play', () => {
-            this._playPause()
-        })
-
-            MusicControl.on('pause', () => {
-              this._playPause()
-          })
-
-          MusicControl.on('stop', () => {
-            this._stop()
-        })
+        //   MusicControl.setNowPlaying({
+        //       state: MusicControl.STATE_BUFFERING,
+        //       title: 'Radio',
+        //       artwork: 'https://xhbak.files.wordpress.com/2014/10/screen-shot-2014-10-09-at-11-07-46-pm.png', // URL or RN's image require()
+        //       artist: "Ach' Lequilc'op",
+        //       album: 'Thriller',
+        //       genre: 'Post-disco, Rhythm and Blues, Funk, Dance-pop',
+        //       duration: 294, // (Seconds)
+        //       description: 'Una descripción', // Android Only
+        //       color: 0xeeeeee, // Notification Color - Android Only
+        //       rating: 84, // Android Only (Boolean or Number depending on the type)
+        //       notificationIcon: 'my_custom_icon', // Android Only (String), Android Drawable resource name for a custom notification icon
+        //       })
+        //
+        //   MusicControl.enableControl('play', true)
+        //   MusicControl.enableControl('pause', true)
+        //   MusicControl.enableControl('stop', true)
+        //   MusicControl.enableControl('volume', true) // Only affected when remoteVolume is enabled
+        //   MusicControl.enableControl('remoteVolume', false)
+        //
+        //   MusicControl.on('play', () => {
+        //     this._playPause()
+        // })
+        //
+        //     MusicControl.on('pause', () => {
+        //       this._playPause()
+        //   })
+        //
+        //   MusicControl.on('stop', () => {
+        //     this._stop()
+        // })
     }
 
     componentWillMount() {
         this.player = null;
-        this.lastSeek = 0;
+        //this.lastSeek = 0;
 
         this._reloadPlayer();
     }
@@ -161,22 +156,21 @@ class WelcomeScreen extends Component {
 
       _updateState(err) {
 
-        const playState = (this.player && this.player.isPlaying) ? MusicControl.STATE_PLAYING : MusicControl.STATE_PAUSED
-        MusicControl.updatePlayback({
-          title: 'RadioPICADA',
-          state: playState, // (STATE_ERROR, STATE_STOPPED, STATE_PLAYING, STATE_PAUSED, STATE_BUFFERING)
-          speed: 1, // Playback Rate
-          volume: 10, // Android Only (Number from 0 to maxVolume) - Only used when remoteVolume is enabled
-          maxVolume: 10, // Android Only (Number) - Only used when remoteVolume is enabled
-          //rating: MusicControl.RATING_PERCENTAGE // Android Only (RATING_HEART, RATING_THUMBS_UP_DOWN, RATING_3_STARS, RATING_4_STARS, RATING_5_STARS, RATING_PERCENTAGE)
-        })
+        // const playState = (this.player && this.player.isPlaying) ? MusicControl.STATE_PLAYING : MusicControl.STATE_PAUSED
+        // MusicControl.updatePlayback({
+        //   title: 'RadioPICADA',
+        //   state: playState, // (STATE_ERROR, STATE_STOPPED, STATE_PLAYING, STATE_PAUSED, STATE_BUFFERING)
+        //   speed: 1, // Playback Rate
+        //   volume: 10, // Android Only (Number from 0 to maxVolume) - Only used when remoteVolume is enabled
+        //   maxVolume: 10, // Android Only (Number) - Only used when remoteVolume is enabled
+        //   //rating: MusicControl.RATING_PERCENTAGE // Android Only (RATING_HEART, RATING_THUMBS_UP_DOWN, RATING_3_STARS, RATING_4_STARS, RATING_5_STARS, RATING_PERCENTAGE)
+        // })
 
         this.setState({
           playPauseButton:      this.player    && this.player.isPlaying     ? 'PAUSA' : 'REPRODUCIR',
 
           stopButtonDisabled:   !this.player   || !this.player.canStop,
           playButtonDisabled:   !this.player   || !this.player.canPlay,
-          recordButtonDisabled: (this.player         && !this.player.isStopped),
         });
       }
 
@@ -196,6 +190,8 @@ class WelcomeScreen extends Component {
         this.player.stop(() => {
           this._updateState();
         });
+        // TODO: verify if this reload generates problems
+        this._reloadPlayer()
         //MusicControl.stopControl()
       }
 
@@ -227,9 +223,6 @@ class WelcomeScreen extends Component {
           this._updateState();
         });
       }
-
-      //Botones pendientes
-
 
       render() {
         return (
