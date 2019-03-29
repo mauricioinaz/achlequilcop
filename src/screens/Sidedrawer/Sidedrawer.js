@@ -11,7 +11,8 @@ import {
     WELCOME_SCREEN,
     LANGUAGE_SCREEN,
     SIDE_DRAWER,
-    PARRILLA_SCREEN
+    PARRILLA_SCREEN,
+    ABOUT_SCREEN
 } from '../../navigation';
 
 const styles = StyleSheet.create({
@@ -92,6 +93,35 @@ class Sidedrawer extends Component {
 
     }
 
+    onAboutSelected = () => {
+
+        Navigation.push("CenterStack", {
+              component: {
+                name: ABOUT_SCREEN,
+                passProps: {
+                    text: '...'
+                },
+                options: {
+                  topBar: {
+                    title: {
+                      text: 'Sobre la Radio'
+                      },
+                      leftButtons: [
+                        {
+                          id: 'nav_btn',
+                          icon: require('../../assets/icons/burgerMenu.png'),
+                          color: 'white',
+                        }
+                      ],
+                  }
+                }
+              }
+            });
+
+            Navigation.mergeOptions("settingsDrawer", { sideMenu: { left: { visible: false, }}});
+
+    }
+
       render() {
         return (
           <View style={styles.mainContainer}>
@@ -104,6 +134,10 @@ class Sidedrawer extends Component {
             </TouchableHighlight>
             <TouchableHighlight onPress={this.onParrillaSelected}>
                 <Text>PARRILLA</Text>
+            </TouchableHighlight>
+            <Text>___</Text>
+            <TouchableHighlight onPress={this.onAboutSelected}>
+                <Text>SOBRE LA RADIO</Text>
             </TouchableHighlight>
           </View>
         );
