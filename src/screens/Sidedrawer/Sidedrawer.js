@@ -3,7 +3,7 @@ import {
   StyleSheet,
   View,
   Text,
-  Button
+  TouchableHighlight
 } from 'react-native';
 
 import { Navigation } from 'react-native-navigation';
@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'white'
   }
 });
 
@@ -60,9 +61,13 @@ class Sidedrawer extends Component {
       render() {
         return (
           <View style={styles.mainContainer}>
-            <Text>----MENU LATERAL (animate)---</Text>
-            <Button title="RADIO" onPress={this.onRadioSelected} />
-            <Button title="Elige Idioma" onPress={this.onLanguageSelected} />
+            <Text>----(logo)---</Text>
+            <TouchableHighlight onPress={this.onRadioSelected}>
+                <Text>RADIO</Text>
+            </TouchableHighlight>
+            <TouchableHighlight onPress={this.onLanguageSelected}>
+                <Text>IDIOMA</Text>
+            </TouchableHighlight>
           </View>
         );
         }
