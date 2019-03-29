@@ -53,12 +53,13 @@ class WelcomeScreen extends Component {
         };
 
         // get async language
+        // TODO: move to componentDidMount???
         this._getLanguage()
 
     }
 
     navigationButtonPressed({buttonId}) {
-        console.log(buttonId);
+        console.log("---->" + buttonId);
       if( buttonId == 'nav_btn' ){
 
         this.updateNavigationState();

@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#00678F'
   }
 });
 
@@ -22,36 +21,15 @@ class Sidedrawer extends Component {
 
     constructor (props) {
         super( props )
-
-        //Inspirado de :
-        //https://stackoverflow.com/questions/51944506/wix-react-native-navigation-v2-how-to-push-new-screen-to-current-screen-from-s
-        Navigation.events().registerComponentDidAppearListener( ( { componentId } ) => {
-            console.log("Quien me picó es: " + componentId);
-            // only spy on tabs we don't need other screens
-            // if (componentId === 'searchScreen' || componentId === 'secondScreen') {
-            //     this.setState({
-            //         activeComponentId: componentId
-            //     })
-        })
     }
 
     onRadioSelected = () => {
-
-
         Navigation.popToRoot("CenterStack")
-        // TODO:
-        // BUG: DOES NOT CLOSE IN ANDROID!!
-        // revisar:
-        //https://github.com/wix/react-native-navigation/issues/4003
-        Navigation.mergeOptions("sideMenu", { sideMenu: { left: { visible: false, }}});
+        Navigation.mergeOptions("settingsDrawer", { sideMenu: { left: { visible: false, }}});
     }
 
     onLanguageSelected = () => {
-        // TODO:
-        // BUG: DOES NOT CLOSE IN ANDROID!!
-        Navigation.mergeOptions("sideMenu", { sideMenu: { left: { visible: false, }}});
 
-        // TODO: Change for newRoot of stack? eliminate stack?
         Navigation.push("CenterStack", {
               component: {
                 name: LANGUAGE_SCREEN,
@@ -74,6 +52,9 @@ class Sidedrawer extends Component {
                 }
               }
             });
+
+            Navigation.mergeOptions("settingsDrawer", { sideMenu: { left: { visible: false, }}});
+
     }
 
       render() {
@@ -88,10 +69,10 @@ class Sidedrawer extends Component {
 }
 
 
-const mapStateToProps = state => {
-  return {
-
-  };
-}
+// const mapStateToProps = state => {
+//   return {
+//
+//   };
+// }
 
 export default Sidedrawer;

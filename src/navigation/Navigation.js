@@ -49,7 +49,15 @@ export function pushInitialScreen() {
       selectedTextColor: 'black',
       iconColor: 'gray',
       selectedIconColor: 'black',
-    }
+  },
+  animations: {
+      push: {
+          enabled: 'false'
+      },
+      pop: {
+          enabled: 'false'
+      }
+  }
   });
 
   Navigation.setRoot({
@@ -60,7 +68,7 @@ export function pushInitialScreen() {
             //enabled: true,
             component: {
               name: SIDE_DRAWER,
-              //id: 'settingsDrawer',
+              id: 'settingsDrawer',
               // passProps: {
               //   text: 'Menú Lateral'
               // }
@@ -70,14 +78,11 @@ export function pushInitialScreen() {
               // TODO: eliminate stack?
             stack: {
                 id: "CenterStack",
-                  // options: {
-                  // },
                   children: [{
                       component: {
                         name: WELCOME_SCREEN,
                         id: "WelcomeScreen",
                         options: {
-                            //animated: true,
                           topBar: {
                             title: {
                               text: "ACH' LEQUILC'OP"
@@ -85,22 +90,8 @@ export function pushInitialScreen() {
                             leftButtons: [
                               {
                                 id: 'nav_btn',
-                                //text: "N",
                                 icon: require('../assets/icons/burgerMenu.png'),
                                 color: 'white',
-                                // component: {
-                                //   name: SIDE_DRAWER,
-                                //   id: 'settingsDrawer',
-                                //   passProps: {
-                                //       onPress: isOpened => Navigation.mergeOptions(WELCOME_SCREEN, {
-                                //       sideMenu: {
-                                //         left: {
-                                //           visible: isOpened,
-                                //         },
-                                //       },
-                                //     }),
-                                //   }
-                                // }
                               }
                             ],
                             rightButtons: [
