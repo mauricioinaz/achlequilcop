@@ -7,29 +7,32 @@ class AnimatedLogo extends React.Component {
       spinValue: new Animated.Value(0)
     }
 
+// TODO: Add LazyLoading!?
     componentDidMount() {
 
     }
 
-
-
-    render() {
-
+    componentDidUpdate () {
         if (this.props.amimating) {
             console.log("Animating...");
             Animated.loop(Animated.timing(                  // Animate over time
               this.state.spinValue,            // The animated value to drive
               {
-                toValue: 6,                   // Animate to opacity: 1 (opaque)
-                duration: 5000,              // Make it take a while
+                toValue: 1,                   // Animate to opacity: 1 (opaque)
+                duration: 1000,              // Make it take a while
                 useNativeDriver: true
               }
             )                       // Starts the animation
         ).start();
-    } else {
-        console.log("Stop animating...");
-        Animated.timing( this.state.spinValue ).stop()
+        } else {
+            // TODO: return smoothly to origin
+            console.log("Stop animating...");
+            Animated.timing( this.state.spinValue ).stop()
+        }
     }
+
+
+    render() {
 
       //let { spinValue } = this.state;
       const spin = this.state.spinValue.interpolate({
