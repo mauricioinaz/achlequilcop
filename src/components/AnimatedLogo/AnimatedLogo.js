@@ -8,20 +8,29 @@ class AnimatedLogo extends React.Component {
     }
 
     componentDidMount() {
-          Animated.loop(Animated.timing(                  // Animate over time
-            this.state.spinValue,            // The animated value to drive
-            {
-              toValue: 6,                   // Animate to opacity: 1 (opaque)
-              duration: 5000,              // Make it take a while
-              useNativeDriver: true
-            }
-          )                       // Starts the animation
-      ).start();
+
     }
 
 
 
     render() {
+
+        if (this.props.amimating) {
+            console.log("Animating...");
+            Animated.loop(Animated.timing(                  // Animate over time
+              this.state.spinValue,            // The animated value to drive
+              {
+                toValue: 6,                   // Animate to opacity: 1 (opaque)
+                duration: 5000,              // Make it take a while
+                useNativeDriver: true
+              }
+            )                       // Starts the animation
+        ).start();
+    } else {
+        console.log("Stop animating...");
+        Animated.timing( this.state.spinValue ).stop()
+    }
+
       //let { spinValue } = this.state;
       const spin = this.state.spinValue.interpolate({
         inputRange: [0, 1],

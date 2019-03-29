@@ -229,19 +229,17 @@ class WelcomeScreen extends Component {
       }
 
       //Botones pendientes
-      //
 
 
       render() {
         return (
           <View style={styles.mainContainer}>
-
-            <AnimatedLogo>
-                <Image
-                    source={require('../../assets/images/logo.png')}
-                    style={styles.image}
-                />
-            </AnimatedLogo>
+          <AnimatedLogo amimating={this.state.playPauseButton === 'PAUSA'}>
+              <Image
+                  source={require('../../assets/images/logo.png')}
+                  style={styles.image}
+              />
+          </AnimatedLogo>
             <Text>{this.props.langSelected}</Text>
             <Text>{this.props.langData}</Text>
             <View>
