@@ -14,9 +14,6 @@ import {
 import {connect} from 'react-redux';
 import { Navigation } from 'react-native-navigation';
 import AnimatedLogo from '../../components/AnimatedLogo/AnimatedLogo'
-// import {
-//     PLAY_BUTTON
-// } from '../../navigation';
 
 //import MusicControl from 'react-native-music-control';
 
@@ -45,13 +42,7 @@ class WelcomeScreen extends Component {
 
         this.state = {
         playPauseButton: 'Preparing...',
-
-        stopButtonDisabled: true,
         playButtonDisabled: true,
-
-        loopButtonStatus: false,
-        progress: 0,
-
         error: null
         };
         Navigation.events().bindComponent(this);
@@ -77,7 +68,7 @@ class WelcomeScreen extends Component {
     //             //     passProps: {
     //             //         playButtonTitle: "CARGANDO",
     //             //         playDisabled: true, //this.state.playButtonDisabled,
-    //             //         playPause: null // this._playPause
+    //             //         playPause: null // this._playStop
     //             //     }
     //             // }
     //           }
@@ -92,7 +83,7 @@ class WelcomeScreen extends Component {
           break;
         }
         case 'nav_play_btn': {
-          this._playPause()
+          this._playStop()
           break;
         }
         default:
@@ -156,7 +147,7 @@ class WelcomeScreen extends Component {
       //               passProps: {
       //                   playButtonTitle: this.state.playPauseButton,
       //                   playButtonDisabled: this.state.playButtonDisabled,
-      //                   playPause: this._playPause
+      //                   playPause: this._playStop
       //               }
       //           }
       //         }
@@ -184,11 +175,11 @@ class WelcomeScreen extends Component {
         //   MusicControl.enableControl('remoteVolume', false)
         //
         //   MusicControl.on('play', () => {
-        //     this._playPause()
+        //     this._playStop()
         // })
         //
         //     MusicControl.on('pause', () => {
-        //       this._playPause()
+        //       this._playStop()
         //   })
         //
         //   MusicControl.on('stop', () => {
@@ -203,12 +194,6 @@ class WelcomeScreen extends Component {
         this._reloadPlayer();
     }
 
-      // componentWillUnmount() {
-      //   //console.log('unmount');
-      //   // TODO
-      //   //clearInterval(this._progressInterval);
-      // }
-
       _updateState(err) {
 
         // const playState = (this.player && this.player.isPlaying) ? MusicControl.STATE_PLAYING : MusicControl.STATE_PAUSED
@@ -222,32 +207,32 @@ class WelcomeScreen extends Component {
         // })
 
         this.setState({
-          playPauseButton:      this.player    && this.player.isPlaying     ? 'PAUSA' : 'REPRODUCIR',
-
-          stopButtonDisabled:   !this.player   || !this.player.canStop,
+          playPauseButton:      this.player    && this.player.isPlaying     ? 'DETENER' : 'REPRODUCIR',
           playButtonDisabled:   !this.player   || !this.player.canPlay,
         });
       }
 
-      _playPause() {
-
-        this.player.playPause((err, playing) => {
-          if (err) {
-            this.setState({
-              error: err.message
+      _playStop() {
+          if(!this.player.isPlaying) {
+              this.player.play((err) => {
+                if (err) {
+                  this.setState({
+                    error: err.message
+                  });
+                }
+                this._updateState();
+              });
+          } else {
+            //STOP
+            this.player.stop(() => {
+              this._updateState();
             });
+            // TODO: verify if this reload generates problems
+            this._reloadPlayer()
+            //MusicControl.stopControl()
           }
-          this._updateState();
-        });
-      }
 
-      _stop() {
-        this.player.stop(() => {
-          this._updateState();
-        });
-        // TODO: verify if this reload generates problems
-        this._reloadPlayer()
-        //MusicControl.stopControl()
+
       }
 
       _reloadPlayer() {
@@ -262,8 +247,6 @@ class WelcomeScreen extends Component {
           if (err) {
             console.log('error at _reloadPlayer():');
             console.log(err);
-          } else {
-            this.player.looping = this.state.loopButtonStatus;
           }
 
           this._updateState();
@@ -274,6 +257,7 @@ class WelcomeScreen extends Component {
         this.player.on('ended', () => {
           this._updateState();
         });
+        // TODO: eliminate?
         this.player.on('pause', () => {
           this._updateState();
         });
@@ -292,8 +276,7 @@ class WelcomeScreen extends Component {
             <Text>{this.props.langData}</Text>
             <View>
                 <View style={styles.buttonContainer}>
-                  <Button title={this.state.playPauseButton} disabled={this.state.playButtonDisabled} style={styles.button} onPress={() => this._playPause()}/>
-                  <Button title="DETENER" disabled={this.state.stopButtonDisabled} style={styles.button} onPress={() => this._stop()}/>
+                  <Button title={this.state.playPauseButton} disabled={this.state.playButtonDisabled} style={styles.button} onPress={() => this._playStop()}/>
                 </View>
 
               <View>
