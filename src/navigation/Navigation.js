@@ -3,7 +3,8 @@ import { Navigation } from 'react-native-navigation';
 import {
   WELCOME_SCREEN,
   SINGLE_APP_SCREEN,
-  SIDE_DRAWER
+  SIDE_DRAWER,
+  PLAY_BUTTON
 } from './Screens';
 import registerScreens from './registerScreens';
 
@@ -97,8 +98,11 @@ export function pushInitialScreen() {
                             rightButtons: [
                               {
                                 id: 'nav_play_btn',
-                                text: "PLAY",
-                                //icon: "PLAY",
+                                // component: {
+                                //     name: PLAY_BUTTON
+                                // },
+                                icon: require('../assets/icons/Play.png'),
+                                //text: "PLAY",
                                 color: 'white'
                               }
                           ],

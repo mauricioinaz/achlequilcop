@@ -14,6 +14,9 @@ import {
 import {connect} from 'react-redux';
 import { Navigation } from 'react-native-navigation';
 import AnimatedLogo from '../../components/AnimatedLogo/AnimatedLogo'
+// import {
+//     PLAY_BUTTON
+// } from '../../navigation';
 
 //import MusicControl from 'react-native-music-control';
 
@@ -22,7 +25,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#00678F'
+    backgroundColor: '#FFF'
   },
   button: {
     backgroundColor: '#039893'
@@ -39,7 +42,7 @@ class WelcomeScreen extends Component {
 
     constructor(props) {
         super(props);
-        Navigation.events().bindComponent(this);
+
         this.state = {
         playPauseButton: 'Preparing...',
 
@@ -51,19 +54,51 @@ class WelcomeScreen extends Component {
 
         error: null
         };
+        Navigation.events().bindComponent(this);
 
         // get async language
         // TODO: move to componentDidMount???
         this._getLanguage()
 
     }
+    //
+    // así?
+    // https://github.com/wix/react-native-navigation/issues/4247
+    //o así
+    //https://medium.com/wix-engineering/react-native-navigation-v2-is-here-5b7c87f002a
+    // static options(passProps) {
+    //     return { topBar: {
+    //         rightButtons: [
+    //           {
+    //             id: 'nav_play_btn',
+    //             text: "PLAY"
+    //             // component: {
+    //             //     name: PLAY_BUTTON,
+    //             //     passProps: {
+    //             //         playButtonTitle: "CARGANDO",
+    //             //         playDisabled: true, //this.state.playButtonDisabled,
+    //             //         playPause: null // this._playPause
+    //             //     }
+    //             // }
+    //           }
+    //       ]
+    //   }}
+    // }
 
     navigationButtonPressed({buttonId}) {
-        console.log("---->" + buttonId);
-      if( buttonId == 'nav_btn' ){
-
-        this.updateNavigationState();
+      switch (buttonId) {
+        case 'nav_btn': {
+          this.updateNavigationState();
+          break;
+        }
+        case 'nav_play_btn': {
+          this._playPause()
+          break;
+        }
+        default:
+          break;
       }
+
     }
 
 // TODO:
@@ -108,6 +143,25 @@ class WelcomeScreen extends Component {
 
     // TODO: Move to constructor??!!
     componentDidMount() {
+
+        // ¿Can this code be here?
+        // SEND THROUGH REDUX????
+      //   Navigation.mergeOptions(this.props.componentId,{ topBar: {
+      //       rightButtons: [
+      //         {
+      //           id: 'nav_play_btn',
+      //           //text: "TOCADO"
+      //           component: {
+      //               name: PLAY_BUTTON,
+      //               passProps: {
+      //                   playButtonTitle: this.state.playPauseButton,
+      //                   playButtonDisabled: this.state.playButtonDisabled,
+      //                   playPause: this._playPause
+      //               }
+      //           }
+      //         }
+      //     ]
+      // }})
 
         //   MusicControl.setNowPlaying({
         //       state: MusicControl.STATE_BUFFERING,
