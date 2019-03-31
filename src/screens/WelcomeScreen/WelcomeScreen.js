@@ -12,6 +12,7 @@ import {
     Player
 } from 'react-native-audio-toolkit';
 import {connect} from 'react-redux';
+import * as actions from '../../redux/actions'
 import { Navigation } from 'react-native-navigation';
 import AnimatedLogo from '../../components/AnimatedLogo/AnimatedLogo'
 
@@ -41,9 +42,9 @@ class WelcomeScreen extends Component {
         super(props);
 
         this.state = {
-        playPauseButton: 'Preparing...',
-        playButtonDisabled: true,
-        error: null
+        //playStopButton: 'Preparing...',
+        //playButtonDisabled: true,
+        playError: null
         };
         Navigation.events().bindComponent(this);
 
@@ -67,7 +68,7 @@ class WelcomeScreen extends Component {
     //             //     name: PLAY_BUTTON,
     //             //     passProps: {
     //             //         playButtonTitle: "CARGANDO",
-    //             //         playDisabled: true, //this.state.playButtonDisabled,
+    //             //         playDisabled: true, //this.props.playButtonDisabled,
     //             //         playPause: null // this._playStop
     //             //     }
     //             // }
@@ -145,8 +146,8 @@ class WelcomeScreen extends Component {
       //           component: {
       //               name: PLAY_BUTTON,
       //               passProps: {
-      //                   playButtonTitle: this.state.playPauseButton,
-      //                   playButtonDisabled: this.state.playButtonDisabled,
+      //                   playButtonTitle: this.props.playStopButton,
+      //                   playButtonDisabled: this.props.playButtonDisabled,
       //                   playPause: this._playStop
       //               }
       //           }
@@ -206,10 +207,21 @@ class WelcomeScreen extends Component {
         //   //rating: MusicControl.RATING_PERCENTAGE // Android Only (RATING_HEART, RATING_THUMBS_UP_DOWN, RATING_3_STARS, RATING_4_STARS, RATING_5_STARS, RATING_PERCENTAGE)
         // })
 
-        this.setState({
-          playPauseButton:      this.player    && this.player.isPlaying     ? 'DETENER' : 'REPRODUCIR',
-          playButtonDisabled:   !this.player   || !this.player.canPlay,
-        });
+        if (this.player && this.player.isPlaying) {
+            this.props.onStopPlay()
+        } else {
+            this.props.onStartPlay()
+        }
+        if (!this.player || !this.player.canPlay) {
+            this.props.onDisablePlay()
+        } else {
+            this.props.onEnablePlay()
+        }
+
+        // this.setState({
+        //  // playStopButton:      this.player    && this.player.isPlaying     ? 'DETENER' : 'REPRODUCIR',
+        //   //playButtonDisabled:   !this.player   || !this.player.canPlay,
+        // });
       }
 
       _playStop() {
@@ -217,7 +229,7 @@ class WelcomeScreen extends Component {
               this.player.play((err) => {
                 if (err) {
                   this.setState({
-                    error: err.message
+                    playError: err.message
                   });
                 }
                 this._updateState();
@@ -266,7 +278,7 @@ class WelcomeScreen extends Component {
       render() {
         return (
           <View style={styles.mainContainer}>
-          <AnimatedLogo amimating={this.state.playPauseButton === 'PAUSA'}>
+          <AnimatedLogo amimating={this.props.playStopButton === 'PAUSA'}>
               <Image
                   source={require('../../assets/images/logo.png')}
                   style={styles.image}
@@ -276,11 +288,11 @@ class WelcomeScreen extends Component {
             <Text>{this.props.langData}</Text>
             <View>
                 <View style={styles.buttonContainer}>
-                  <Button title={this.state.playPauseButton} disabled={this.state.playButtonDisabled} style={styles.button} onPress={() => this._playStop()}/>
+                  <Button title={this.props.playStopButton} disabled={this.props.playButtonDisabled} style={styles.button} onPress={() => this._playStop()}/>
                 </View>
 
               <View>
-                <Text style={styles.errorMessage}>{this.state.error}</Text>
+                <Text style={styles.errorMessage}>{this.state.playError}</Text>
               </View>
             </View>
           </View>
@@ -292,9 +304,20 @@ class WelcomeScreen extends Component {
 const mapStateToProps = state => {
   return {
     langSelected: state.lang.language,
-    langData: state.lang.languageData
+    langData: state.lang.languageData,
+    playStopButton: state.play.playStopButton,
+    playButtonDisabled: state.play.playButtonDisabled,
+    // playError: state.play.playError,
   };
 }
 
+const mapDispatchToProps = dispatch => {
+    return {
+        onStartPlay: () => dispatch(actions.startPlay()),
+        onStopPlay: () => dispatch(actions.stopPlay()),
+        onEnablePlay: () => dispatch(actions.enablePlay()),
+        onDisablePlay: () => dispatch(actions.disablePlay()),
+    }
+}
 
-export default connect(mapStateToProps)(WelcomeScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(WelcomeScreen);

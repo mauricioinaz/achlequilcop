@@ -1,5 +1,4 @@
 import { SELECTED_SPANISH, SELECTED_TSELTAL} from './actionTypes';
-import {AsyncStorage} from 'react-native';
 
 export const fetchSpanish = () => {
     return {
