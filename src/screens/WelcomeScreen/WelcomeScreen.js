@@ -41,11 +41,7 @@ class WelcomeScreen extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-        //playStopButton: 'Preparing...',
-        //playButtonDisabled: true,
-        playError: null
-        };
+        this.state = {playError: null};
         Navigation.events().bindComponent(this);
 
         // get async language
@@ -53,38 +49,11 @@ class WelcomeScreen extends Component {
         this._getLanguage()
 
     }
-    //
-    // así?
-    // https://github.com/wix/react-native-navigation/issues/4247
-    //o así
-    //https://medium.com/wix-engineering/react-native-navigation-v2-is-here-5b7c87f002a
-    // static options(passProps) {
-    //     return { topBar: {
-    //         rightButtons: [
-    //           {
-    //             id: 'nav_play_btn',
-    //             text: "PLAY"
-    //             // component: {
-    //             //     name: PLAY_BUTTON,
-    //             //     passProps: {
-    //             //         playButtonTitle: "CARGANDO",
-    //             //         playDisabled: true, //this.props.playButtonDisabled,
-    //             //         playPause: null // this._playStop
-    //             //     }
-    //             // }
-    //           }
-    //       ]
-    //   }}
-    // }
 
     navigationButtonPressed({buttonId}) {
       switch (buttonId) {
         case 'nav_btn': {
           this.updateNavigationState();
-          break;
-        }
-        case 'nav_play_btn': {
-          this._playStop()
           break;
         }
         default:
@@ -133,27 +102,8 @@ class WelcomeScreen extends Component {
         }
     }
 
-    // TODO: Move to constructor??!!
+    // TODO: Move to constructor??
     componentDidMount() {
-
-        // ¿Can this code be here?
-        // SEND THROUGH REDUX????
-      //   Navigation.mergeOptions(this.props.componentId,{ topBar: {
-      //       rightButtons: [
-      //         {
-      //           id: 'nav_play_btn',
-      //           //text: "TOCADO"
-      //           component: {
-      //               name: PLAY_BUTTON,
-      //               passProps: {
-      //                   playButtonTitle: this.props.playStopButton,
-      //                   playButtonDisabled: this.props.playButtonDisabled,
-      //                   playPause: this._playStop
-      //               }
-      //           }
-      //         }
-      //     ]
-      // }})
 
         //   MusicControl.setNowPlaying({
         //       state: MusicControl.STATE_BUFFERING,
@@ -190,9 +140,14 @@ class WelcomeScreen extends Component {
 
     componentWillMount() {
         this.player = null;
-        //this.lastSeek = 0;
 
         this._reloadPlayer();
+    }
+
+    componentDidUpdate(prevProps) {
+        if(prevProps.playToggle !== this.props.playToggle) {
+            this._playStop()
+        }
     }
 
       _updateState(err) {
@@ -217,11 +172,6 @@ class WelcomeScreen extends Component {
         } else {
             this.props.onEnablePlay()
         }
-
-        // this.setState({
-        //  // playStopButton:      this.player    && this.player.isPlaying     ? 'DETENER' : 'REPRODUCIR',
-        //   //playButtonDisabled:   !this.player   || !this.player.canPlay,
-        // });
       }
 
       _playStop() {
@@ -243,8 +193,6 @@ class WelcomeScreen extends Component {
             this._reloadPlayer()
             //MusicControl.stopControl()
           }
-
-
       }
 
       _reloadPlayer() {
@@ -278,7 +226,7 @@ class WelcomeScreen extends Component {
       render() {
         return (
           <View style={styles.mainContainer}>
-          <AnimatedLogo amimating={this.props.playStopButton === 'PAUSA'}>
+          <AnimatedLogo amimating={this.props.playStopButton === 'DETENER'}>
               <Image
                   source={require('../../assets/images/logo.png')}
                   style={styles.image}
@@ -287,9 +235,6 @@ class WelcomeScreen extends Component {
             <Text>{this.props.langSelected}</Text>
             <Text>{this.props.langData}</Text>
             <View>
-                <View style={styles.buttonContainer}>
-                  <Button title={this.props.playStopButton} disabled={this.props.playButtonDisabled} style={styles.button} onPress={() => this._playStop()}/>
-                </View>
 
               <View>
                 <Text style={styles.errorMessage}>{this.state.playError}</Text>
@@ -307,6 +252,7 @@ const mapStateToProps = state => {
     langData: state.lang.languageData,
     playStopButton: state.play.playStopButton,
     playButtonDisabled: state.play.playButtonDisabled,
+    playToggle: state.play.playToggle
     // playError: state.play.playError,
   };
 }

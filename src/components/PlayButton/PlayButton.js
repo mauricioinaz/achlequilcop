@@ -1,30 +1,16 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
     View,
-    //TouchableHighlight,
-    //Image,
     Button
  } from 'react-native';
 
+ import {connect} from 'react-redux';
+ import * as actions from '../../redux/actions'
+
 // TODO: SHould it be class????
-class PlayButton extends React.Component {
-    state = {
-      // fadeAnim: new Animated.Value(0),  // Initial value for opacity: 0
-      // spinValue: new Animated.Value(0)
-    }
+class PlayButton extends Component {
 
-// TODO: Add LazyLoading!?
-    componentDidMount() {
-
-    }
-
-    componentDidUpdate () {
-
-    }
-
-    onPlay = () => {
-
-    }
+// // TODO: Add LazyLoading!?
 
     //<Image source={require('../../assets/icons/Play.png')}/>
 
@@ -33,13 +19,26 @@ class PlayButton extends React.Component {
       return (
         <View>
             <Button
-                title={this.props.playButtonTitle}
+                title={this.props.playStopButton}
                 disabled={this.props.playButtonDisabled}
-                clicked={() => this.props.playPause()}/>
+                onPress={this.props.onTogglePlay}/>
         </View>
       );
     }
   }
 
+const mapStateToProps = state => {
+  return {
+    playStopButton: state.play.playStopButton,
+    playButtonDisabled: state.play.playButtonDisabled,
+  };
+}
 
-export default PlayButton
+const mapDispatchToProps = dispatch => {
+    return {
+        onTogglePlay: () => dispatch(actions.playToggle()),
+        onTseltalSelected: () => dispatch(actions.fetchTseltal())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlayButton)

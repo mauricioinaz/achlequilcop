@@ -98,10 +98,10 @@ export function pushInitialScreen() {
                             rightButtons: [
                               {
                                 id: 'nav_play_btn',
-                                // component: {
-                                //     name: PLAY_BUTTON
-                                // },
-                                icon: require('../assets/icons/Play.png'),
+                                component: {
+                                    name: PLAY_BUTTON
+                                },
+                                //icon: require('../assets/icons/Play.png'),
                                 //text: "PLAY",
                                 color: 'white'
                               }

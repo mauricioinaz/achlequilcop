@@ -12,7 +12,8 @@ import {
     LANGUAGE_SCREEN,
     SIDE_DRAWER,
     PARRILLA_SCREEN,
-    ABOUT_SCREEN
+    ABOUT_SCREEN,
+    PLAY_BUTTON
 } from '../../navigation';
 
 const styles = StyleSheet.create({
@@ -55,6 +56,17 @@ class Sidedrawer extends Component {
                           color: 'white',
                         }
                       ],
+                      rightButtons: [
+                        {
+                          id: 'nav_play_btn',
+                          component: {
+                              name: PLAY_BUTTON
+                          },
+                          //icon: require('../assets/icons/Play.png'),
+                          //text: "PLAY",
+                          //color: 'white'
+                        }
+                    ],
                   }
                 }
               }
@@ -84,6 +96,17 @@ class Sidedrawer extends Component {
                           color: 'white',
                         }
                       ],
+                      rightButtons: [
+                        {
+                          id: 'nav_play_btn',
+                          component: {
+                              name: PLAY_BUTTON
+                          },
+                          //icon: require('../assets/icons/Play.png'),
+                          //text: "PLAY",
+                          //color: 'white'
+                        }
+                    ],
                   }
                 }
               }
@@ -113,6 +136,17 @@ class Sidedrawer extends Component {
                           color: 'white',
                         }
                       ],
+                      rightButtons: [
+                        {
+                          id: 'nav_play_btn',
+                          component: {
+                              name: PLAY_BUTTON
+                          },
+                          //icon: require('../assets/icons/Play.png'),
+                          //text: "PLAY",
+                          //color: 'white'
+                        }
+                    ],
                   }
                 }
               }

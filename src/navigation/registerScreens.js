@@ -28,9 +28,10 @@ const store = configureStore();
 export default function () {
   Navigation.registerComponentWithRedux(WELCOME_SCREEN, () => WelcomeScreen, Provider, store)
   Navigation.registerComponentWithRedux(LANGUAGE_SCREEN, () => LanguageScreen, Provider, store),
+  Navigation.registerComponentWithRedux(PLAY_BUTTON, () => PlayButton, Provider, store),
   Navigation.registerComponent(SIDE_DRAWER, () => Sidedrawer),
   Navigation.registerComponent(PARRILLA_SCREEN, () => ParrillaScreen),
   Navigation.registerComponent(ABOUT_SCREEN, () => AboutScreen),
-  Navigation.registerComponent(PLAY_BUTTON, () => PlayButton),
+
   console.info('All screens have been registered...');
 }
