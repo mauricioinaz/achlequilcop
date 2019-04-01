@@ -13,6 +13,7 @@
 		00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* AchLequilcopTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* AchLequilcopTests.m */; };
+		070E54E52252B32600C39BDC /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 070E54E22252B30F00C39BDC /* libRNVectorIcons.a */; };
 		0747FCE0224AA5AD004633BC /* libMusicControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0747FCDD224AA599004633BC /* libMusicControl.a */; };
 		0747FCE1224AA5B7004633BC /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0747FCCE224AA572004633BC /* libReactNativeNavigation.a */; };
 		0747FCE2224AA5BD004633BC /* libReactNativeAudioToolkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0747FCD6224AA587004633BC /* libReactNativeAudioToolkit.a */; };
@@ -87,6 +88,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = AchLequilcop;
+		};
+		070E54E12252B30F00C39BDC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 070E54B22252B30F00C39BDC /* RNVectorIcons.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5DBEB1501B18CEA900B34395;
+			remoteInfo = RNVectorIcons;
+		};
+		070E54E32252B30F00C39BDC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 070E54B22252B30F00C39BDC /* RNVectorIcons.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A39873CE1EA65EE60051E01A;
+			remoteInfo = "RNVectorIcons-tvOS";
 		};
 		0747FCC3224AA572004633BC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -366,6 +381,7 @@
 		00E356EE1AD99517003FC87E /* AchLequilcopTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AchLequilcopTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* AchLequilcopTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AchLequilcopTests.m; sourceTree = "<group>"; };
+		070E54B22252B30F00C39BDC /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		0747FC9B224AA572004633BC /* ReactNativeNavigation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeNavigation.xcodeproj; path = "../node_modules/react-native-navigation/lib/ios/ReactNativeNavigation.xcodeproj"; sourceTree = "<group>"; };
 		0747FCD1224AA587004633BC /* ReactNativeAudioToolkit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeAudioToolkit.xcodeproj; path = "../node_modules/react-native-audio-toolkit/ios/ReactNativeAudioToolkit/ReactNativeAudioToolkit.xcodeproj"; sourceTree = "<group>"; };
 		0747FCD7224AA599004633BC /* MusicControl.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MusicControl.xcodeproj; path = "../node_modules/react-native-music-control/ios/MusicControl.xcodeproj"; sourceTree = "<group>"; };
@@ -403,6 +419,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				070E54E52252B32600C39BDC /* libRNVectorIcons.a in Frameworks */,
 				0747FCE2224AA5BD004633BC /* libReactNativeAudioToolkit.a in Frameworks */,
 				0747FCE1224AA5B7004633BC /* libReactNativeNavigation.a in Frameworks */,
 				0747FCE0224AA5AD004633BC /* libMusicControl.a in Frameworks */,
@@ -506,6 +523,15 @@
 				00E356F11AD99517003FC87E /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		070E54B32252B30F00C39BDC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				070E54E22252B30F00C39BDC /* libRNVectorIcons.a */,
+				070E54E42252B30F00C39BDC /* libRNVectorIcons-tvOS.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		0747FC9C224AA572004633BC /* Products */ = {
@@ -622,6 +648,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				070E54B22252B30F00C39BDC /* RNVectorIcons.xcodeproj */,
 				0747FCD7224AA599004633BC /* MusicControl.xcodeproj */,
 				0747FCD1224AA587004633BC /* ReactNativeAudioToolkit.xcodeproj */,
 				0747FC9B224AA572004633BC /* ReactNativeNavigation.xcodeproj */,
@@ -855,6 +882,10 @@
 					ProductGroup = 0747FC9C224AA572004633BC /* Products */;
 					ProjectRef = 0747FC9B224AA572004633BC /* ReactNativeNavigation.xcodeproj */;
 				},
+				{
+					ProductGroup = 070E54B32252B30F00C39BDC /* Products */;
+					ProjectRef = 070E54B22252B30F00C39BDC /* RNVectorIcons.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -900,6 +931,20 @@
 			fileType = archive.ar;
 			path = libRCTVibration.a;
 			remoteRef = 00C302E31ABCB9EE00DB3ED1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		070E54E22252B30F00C39BDC /* libRNVectorIcons.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNVectorIcons.a;
+			remoteRef = 070E54E12252B30F00C39BDC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		070E54E42252B30F00C39BDC /* libRNVectorIcons-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRNVectorIcons-tvOS.a";
+			remoteRef = 070E54E32252B30F00C39BDC /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		0747FCC4224AA572004633BC /* libjsi.a */ = {

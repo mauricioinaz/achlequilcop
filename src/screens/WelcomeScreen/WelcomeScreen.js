@@ -15,6 +15,8 @@ import {connect} from 'react-redux';
 import * as actions from '../../redux/actions'
 import { Navigation } from 'react-native-navigation';
 import AnimatedLogo from '../../components/AnimatedLogo/AnimatedLogo'
+import ActionButton from 'react-native-action-button';
+//import Icon from 'react-native-vector-icons/Ionicons';
 
 //import MusicControl from 'react-native-music-control';
 
@@ -31,7 +33,12 @@ const styles = StyleSheet.create({
   image: {
     width: 150,
     height: 180
-  }
+},
+actionButtonIcon: {
+    fontSize: 20,
+    height: 22,
+    color: 'white',
+  },
 });
 
 let strmAchLequilcop = "http://162.210.196.145:27582/"
@@ -240,6 +247,17 @@ class WelcomeScreen extends Component {
                 <Text style={styles.errorMessage}>{this.state.playError}</Text>
               </View>
             </View>
+            <ActionButton buttonColor="rgba(231,76,60,1)">
+                <ActionButton.Item buttonColor='#9b59b6' title="Mensaje Whatsapp" onPress={() => console.log("notes tapped!")}>
+                <Text>W</Text>
+                </ActionButton.Item>
+                <ActionButton.Item buttonColor='#3498db' title="Página Facebook" onPress={() => {}}>
+                <Text>F</Text>
+                </ActionButton.Item>
+                <ActionButton.Item buttonColor='#1abc9c' title="SMS" onPress={() => {}}>
+                <Text>SMS</Text>
+                </ActionButton.Item>
+            </ActionButton>
           </View>
         );
         }
