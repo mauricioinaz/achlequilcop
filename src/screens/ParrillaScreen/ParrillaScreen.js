@@ -52,7 +52,6 @@ updateNavigationState(){
   render() {
     return (
       <View style={styles.flex}>
-        <Text>El horario de programación:</Text>
         <Image
             source={require('../../assets/images/Parrilla.png')}
             style={styles.image}

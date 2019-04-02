@@ -31,14 +31,24 @@ const styles = StyleSheet.create({
     backgroundColor: '#039893'
   },
   image: {
-    // width: 250,
-    // height: 280
+    width: 280,
+    height: 280,
 },
 actionButtonIcon: {
     fontSize: 20,
     height: 22,
     color: 'white',
   },
+  shad: {
+    shadowColor: "#000",
+    shadowOffset: {
+    	width: 0,
+    	height: 5,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+    elevation: 10,
+  }
 });
 
 let strmAchLequilcop = "http://162.210.196.145:27582/"
@@ -234,10 +244,12 @@ class WelcomeScreen extends Component {
         return (
           <View style={styles.mainContainer}>
           <AnimatedLogo amimating={this.props.playStopButton === 'DETENER'}>
+            <View style={styles.shad}>
               <Image
-                  source={require('../../assets/images/logo.png')}
-                  style={styles.image}
+                source={require('../../assets/icons/LogoSinLetra.png')}
+                style={styles.image}
               />
+            </View>
           </AnimatedLogo>
             <Text>{/*this.props.langSelected*/}</Text>
             <Text>{/*this.props.langData*/}</Text>

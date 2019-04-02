@@ -24,8 +24,10 @@ export function pushInitialScreen() {
       borderColor: 'red',
       topMargin: 24,
       title: {
+        alignment: 'center',
         color: 'white',
-        fontSize: 24
+        fontSize: 34,
+        fontFamily: 'UbuntuCondensed-Regular'
       },
     },
     statusBar: {
@@ -81,8 +83,7 @@ export function pushInitialScreen() {
                         options: {
                           topBar: {
                             title: {
-                              alignment: 'center',
-                              text: "ACH' LEQUILC'OP"
+                              text: "Ach' Lequilc'op"
                             },
                             leftButtons: [
                               {
