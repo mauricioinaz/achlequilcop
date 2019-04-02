@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#039893'
   },
   image: {
-    width: 150,
-    height: 180
+    // width: 250,
+    // height: 280
 },
 actionButtonIcon: {
     fontSize: 20,
@@ -239,15 +239,15 @@ class WelcomeScreen extends Component {
                   style={styles.image}
               />
           </AnimatedLogo>
-            <Text>{this.props.langSelected}</Text>
-            <Text>{this.props.langData}</Text>
+            <Text>{/*this.props.langSelected*/}</Text>
+            <Text>{/*this.props.langData*/}</Text>
             <View>
 
               <View>
                 <Text style={styles.errorMessage}>{this.state.playError}</Text>
               </View>
             </View>
-            <ActionButton buttonColor="rgba(231,76,60,1)">
+            <ActionButton buttonColor="rgba(61,206,88,0.79)">
                 <ActionButton.Item buttonColor='#9b59b6' title="Mensaje Whatsapp" onPress={() => console.log("notes tapped!")}>
                 <Text>W</Text>
                 </ActionButton.Item>

@@ -23,12 +23,16 @@ export function pushInitialScreen() {
       },
       borderColor: 'red',
       topMargin: 24,
+      title: {
+        color: 'white',
+        fontSize: 24
+      },
     },
     statusBar: {
       visible: true,
       drawBehind: true,
       style: 'light',
-      backgroundColor: '#0B0F0D'
+      backgroundColor: '#045E81',
     },
     layout: {
       orientation: ['portrait']
@@ -41,16 +45,6 @@ export function pushInitialScreen() {
     //     color: 'white'
     //   }
     // ],
-    bottomTabs: {
-      titleDisplayMode: 'alwaysHide',
-      backgroundColor: '#00678F'
-    },
-    bottomTab: {
-      textColor: 'gray',
-      selectedTextColor: 'black',
-      iconColor: 'gray',
-      selectedIconColor: 'black',
-  },
   animations: {
       push: {
           enabled: 'false'
@@ -67,6 +61,7 @@ export function pushInitialScreen() {
           id: "sideMenu",
           left: {
             //enabled: true,
+            //width: 100, // Not working?
             component: {
               name: SIDE_DRAWER,
               id: 'settingsDrawer',
@@ -86,6 +81,7 @@ export function pushInitialScreen() {
                         options: {
                           topBar: {
                             title: {
+                              alignment: 'center',
                               text: "ACH' LEQUILC'OP"
                             },
                             leftButtons: [
@@ -98,10 +94,10 @@ export function pushInitialScreen() {
                             rightButtons: [
                               {
                                 id: 'nav_play_btn',
-                                component: {
-                                    name: PLAY_BUTTON
-                                },
-                                //icon: require('../assets/icons/Play.png'),
+                                // component: {
+                                //     name: PLAY_BUTTON
+                                // },
+                                icon: require('../assets/icons/Play.png'),
                                 //text: "PLAY",
                                 color: 'white'
                               }

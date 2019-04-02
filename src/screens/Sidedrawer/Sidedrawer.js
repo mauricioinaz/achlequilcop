@@ -3,7 +3,8 @@ import {
   StyleSheet,
   View,
   Text,
-  TouchableHighlight
+  TouchableHighlight,
+  Image
 } from 'react-native';
 
 import { Navigation } from 'react-native-navigation';
@@ -19,9 +20,23 @@ import {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'center',
     backgroundColor: 'white'
+},
+  menuElement: {
+    flexDirection: 'row',
+    margin: 10,
+    marginLeft: 30,
+    alignItems: 'center'
+},
+  iconElement: {
+      width: 40,
+      height: 40,
+      marginRight: 15
+  },
+  spacer: {
+    paddingBottom: 60
   }
 });
 
@@ -87,7 +102,7 @@ class Sidedrawer extends Component {
                 options: {
                   topBar: {
                     title: {
-                      text: 'HORARIOS'
+                      text: 'HORARIO'
                       },
                       leftButtons: [
                         {
@@ -159,20 +174,47 @@ class Sidedrawer extends Component {
       render() {
         return (
           <View style={styles.mainContainer}>
-            <Text>----(logo)---</Text>
-            <TouchableHighlight onPress={this.onRadioSelected}>
-                <Text>RADIO</Text>
-            </TouchableHighlight>
-            <TouchableHighlight onPress={this.onLanguageSelected}>
-                <Text>IDIOMA</Text>
-            </TouchableHighlight>
-            <TouchableHighlight onPress={this.onParrillaSelected}>
-                <Text>PARRILLA</Text>
-            </TouchableHighlight>
-            <Text>___</Text>
-            <TouchableHighlight onPress={this.onAboutSelected}>
-                <Text>SOBRE LA RADIO</Text>
-            </TouchableHighlight>
+          <View style={styles.menuElement}>
+              <Image
+                  style={styles.iconElement}
+                  source={require('../../assets/icons/LogoSinLetra.png')}/>
+              <TouchableHighlight onPress={this.onRadioSelected}>
+                  <Text>Radio</Text>
+              </TouchableHighlight>
+          </View>
+          <View style={styles.spacer}><Text> </Text></View>
+            <View style={styles.menuElement}>
+                <Image
+                    style={styles.iconElement}
+                    source={require('../../assets/icons/IconoMaiz.png')}/>
+                <TouchableHighlight onPress={this.onParrillaSelected}>
+                    <Text>Horario</Text>
+                </TouchableHighlight>
+            </View>
+            <View style={styles.menuElement}>
+                <Image
+                    style={styles.iconElement}
+                    source={require('../../assets/icons/IconoMano.png')}/>
+                <TouchableHighlight>
+                    <Text>Aprender</Text>
+                </TouchableHighlight>
+            </View>
+            <View style={styles.menuElement}>
+                <Image
+                    style={styles.iconElement}
+                    source={require('../../assets/icons/IconoPersonas.png')}/>
+                <TouchableHighlight onPress={this.onAboutSelected}>
+                    <Text>Sobre la Radio</Text>
+                </TouchableHighlight>
+            </View>
+            <View style={styles.menuElement}>
+                <Image
+                    style={styles.iconElement}
+                    source={require('../../assets/icons/IconoIdioma.png')}/>
+                <TouchableHighlight onPress={this.onLanguageSelected}>
+                    <Text>Configurar</Text>
+                </TouchableHighlight>
+            </View>
           </View>
         );
         }
