@@ -7,6 +7,7 @@ import {
   PLAY_BUTTON
 } from './Screens';
 import registerScreens from './registerScreens';
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 // Register all screens on launch
 registerScreens();
@@ -90,6 +91,7 @@ export function pushInitialScreen() {
                                 id: 'nav_btn',
                                 icon: require('../assets/icons/burgerMenu.png'),
                                 color: 'white',
+                                fontSize: 8
                               }
                             ],
                             rightButtons: [
@@ -100,7 +102,7 @@ export function pushInitialScreen() {
                                 // },
                                 icon: require('../assets/icons/Play.png'),
                                 //text: "PLAY",
-                                color: 'white'
+                                color: 'white',
                               }
                           ],
                           }

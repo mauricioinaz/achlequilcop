@@ -16,7 +16,7 @@ import * as actions from '../../redux/actions'
 import { Navigation } from 'react-native-navigation';
 import AnimatedLogo from '../../components/AnimatedLogo/AnimatedLogo'
 import ActionButton from 'react-native-action-button';
-//import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 //import MusicControl from 'react-native-music-control';
 
@@ -260,15 +260,15 @@ class WelcomeScreen extends Component {
               </View>
             </View>
             <ActionButton buttonColor="rgba(61,206,88,0.79)">
-                <ActionButton.Item buttonColor='#9b59b6' title="Mensaje Whatsapp" onPress={() => console.log("notes tapped!")}>
-                <Text>W</Text>
-                </ActionButton.Item>
-                <ActionButton.Item buttonColor='#3498db' title="Página Facebook" onPress={() => {}}>
-                <Text>F</Text>
-                </ActionButton.Item>
-                <ActionButton.Item buttonColor='#1abc9c' title="SMS" onPress={() => {}}>
-                <Text>SMS</Text>
-                </ActionButton.Item>
+              <ActionButton.Item buttonColor='#4AC25A' title="Whatsapp" onPress={() => console.log("notes tapped!")}>
+                <Icon name='whatsapp' size={30} color="white"/>
+              </ActionButton.Item>
+              <ActionButton.Item buttonColor='#4469B0' title="Página Facebook" onPress={() => {}}>
+                <Icon name='facebook-square' size={30} color="white"/>
+              </ActionButton.Item>
+              <ActionButton.Item buttonColor='#9b59b6' title="SMS" onPress={() => {}}>
+                <Icon name='envelope' size={30} color="white"/>
+              </ActionButton.Item>
             </ActionButton>
           </View>
         );

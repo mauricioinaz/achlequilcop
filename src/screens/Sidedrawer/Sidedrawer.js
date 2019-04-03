@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
 },
   menuIcon: {
-      width: 40,
-      height: 40,
+      width: 48,
+      height: 48,
       marginRight: 15,
   },
   menuText: {
@@ -180,7 +180,7 @@ class Sidedrawer extends Component {
           <View style={styles.menuElement}>
               <Image
                   style={styles.menuIcon}
-                  source={require('../../assets/icons/LogoSinLetra.png')}/>
+                  source={require('../../assets/icons/LogoSinLetraMenu.png')}/>
               <TouchableHighlight onPress={this.onRadioSelected}>
                   <Text style={styles.menuText}>Radio</Text>
               </TouchableHighlight>
