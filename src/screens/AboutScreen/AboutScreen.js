@@ -16,12 +16,14 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: 'UbuntuCondensed-Regular',
-    fontSize: 28
+    fontSize: 28,
+    color: 'black'
   },
   paragraph: {
     fontFamily: 'UbuntuCondensed-Regular',
     fontSize: 18,
-    textAlign: 'justify'
+    textAlign: 'justify',
+    color: 'black'
   },
   paragraphContainer: {
     padding: 30
