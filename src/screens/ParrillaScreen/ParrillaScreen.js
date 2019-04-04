@@ -23,29 +23,29 @@ const styles = StyleSheet.create({
 
 class ParrillaScreen extends Component {
 
-    constructor(props) {
-        super(props);
-        Navigation.events().bindComponent(this);
-        // TODO: read PARRILLA image from external source
-    }
+  constructor(props) {
+      super(props);
+      Navigation.events().bindComponent(this);
+      // TODO: read PARRILLA image from external source
+  }
 
-    navigationButtonPressed({buttonId}) {
-        console.log('NAVIGATING... pressed');
-        console.log(buttonId);
-      if( buttonId == 'nav_btn' ){
-        this.updateNavigationState();
+  navigationButtonPressed({buttonId}) {
+      console.log('NAVIGATING... pressed');
+      console.log(buttonId);
+    if( buttonId == 'nav_btn' ){
+      this.updateNavigationState();
+    }
+  }
+
+  updateNavigationState(){
+    Navigation.mergeOptions("sideMenu", {
+      sideMenu: {
+        left: {
+          visible: true
+        }
       }
-    }
-
-updateNavigationState(){
-   Navigation.mergeOptions("sideMenu", {
-     sideMenu: {
-       left: {
-         visible: true
-       }
-     }
-   });
- }
+    });
+  }
 
 
 
@@ -53,8 +53,8 @@ updateNavigationState(){
     return (
       <View style={styles.flex}>
         <Image
-            source={require('../../assets/images/Parrilla.png')}
-            style={styles.image}
+          source={require('../../assets/images/Parrilla.png')}
+          style={styles.image}
         />
       </View>
     );

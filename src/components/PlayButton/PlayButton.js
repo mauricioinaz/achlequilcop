@@ -12,20 +12,20 @@ class PlayButton extends Component {
 
 // // TODO: Add LazyLoading!?
 
-    //<Image source={require('../../assets/icons/Play.png')}/>
+  //<Image source={require('../../assets/icons/Play.png')}/>
 
-    render() {
+  render() {
 
-      return (
-        <View>
-            <Button
-                title={this.props.playStopButton}
-                disabled={this.props.playButtonDisabled}
-                onPress={this.props.onTogglePlay}/>
-        </View>
-      );
-    }
+    return (
+      <View>
+        <Button
+          title={this.props.playStopButton}
+          disabled={this.props.playButtonDisabled}
+          onPress={this.props.onTogglePlay}/>
+      </View>
+    );
   }
+}
 
 const mapStateToProps = state => {
   return {
@@ -35,10 +35,10 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-    return {
-        onTogglePlay: () => dispatch(actions.playToggle()),
-        onTseltalSelected: () => dispatch(actions.fetchTseltal())
-    }
+  return {
+    onTogglePlay: () => dispatch(actions.playToggle()),
+    onTseltalSelected: () => dispatch(actions.fetchTseltal())
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlayButton)

@@ -48,70 +48,70 @@ export function pushInitialScreen() {
     //     color: 'white'
     //   }
     // ],
-  animations: {
+    animations: {
       push: {
           enabled: 'false'
       },
       pop: {
           enabled: 'false'
-      }
-  }
+        }
+    }
   });
 
   Navigation.setRoot({
-      root: {
-        sideMenu: {
-          id: "sideMenu",
-          left: {
-            //enabled: true,
-            //width: 100, // Not working?
-            component: {
-              name: SIDE_DRAWER,
-              id: 'settingsDrawer',
-              // passProps: {
-              //   text: 'Menú Lateral'
-              // }
-            }
-          },
-          center: {
-              // TODO: eliminate stack?
-            stack: {
-                id: "CenterStack",
-                  children: [{
-                      component: {
-                        name: WELCOME_SCREEN,
-                        id: "WelcomeScreen",
-                        options: {
-                          topBar: {
-                            title: {
-                              text: "Ach' Lequilc'op"
-                            },
-                            leftButtons: [
-                              {
-                                id: 'nav_btn',
-                                icon: require('../assets/icons/burgerMenu.png'),
-                                color: 'white',
-                                fontSize: 8
-                              }
-                            ],
-                            rightButtons: [
-                              {
-                                id: 'nav_play_btn',
-                                // component: {
-                                //     name: PLAY_BUTTON
-                                // },
-                                icon: require('../assets/icons/Play.png'),
-                                //text: "PLAY",
-                                color: 'white',
-                              }
-                          ],
-                          }
-                        }
-                      },
-                  }]
-              }
+    root: {
+      sideMenu: {
+        id: "sideMenu",
+        left: {
+          //enabled: true,
+          //width: 100, // Not working?
+          component: {
+            name: SIDE_DRAWER,
+            id: 'settingsDrawer',
+            // passProps: {
+            //   text: 'Menú Lateral'
+            // }
           }
+        },
+        center: {
+            // TODO: eliminate stack?
+          stack: {
+            id: "CenterStack",
+              children: [{
+                component: {
+                  name: WELCOME_SCREEN,
+                  id: "WelcomeScreen",
+                  options: {
+                    topBar: {
+                      title: {
+                        text: "Ach' Lequilc'op"
+                      },
+                      leftButtons: [
+                        {
+                          id: 'nav_btn',
+                          icon: require('../assets/icons/burgerMenu.png'),
+                          color: 'white',
+                          fontSize: 8
+                        }
+                      ],
+                      rightButtons: [
+                        {
+                          id: 'nav_play_btn',
+                          // component: {
+                          //     name: PLAY_BUTTON
+                          // },
+                          icon: require('../assets/icons/Play.png'),
+                          //text: "PLAY",
+                          color: 'white',
+                        }
+                    ],
+                    }
+                  }
+                },
+              }]
+            }
         }
       }
-    });
+    }
+  });
 }

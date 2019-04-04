@@ -33,12 +33,12 @@ const styles = StyleSheet.create({
   image: {
     width: 280,
     height: 280,
-},
-actionButtonIcon: {
-    fontSize: 20,
-    height: 22,
-    color: 'white',
   },
+  actionButtonIcon: {
+      fontSize: 20,
+      height: 22,
+      color: 'white',
+    },
   shad: {
     shadowColor: "#000",
     shadowOffset: {
@@ -55,224 +55,223 @@ let strmAchLequilcop = "http://162.210.196.145:27582/"
 
 class WelcomeScreen extends Component {
 
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {playError: null};
-        Navigation.events().bindComponent(this);
+    this.state = {playError: null};
+    Navigation.events().bindComponent(this);
 
-        // get async language
-        // TODO: move to componentDidMount???
-        this._getLanguage()
+    // get async language
+    // TODO: move to componentDidMount???
+    this._getLanguage()
 
-    }
+  }
 
-    navigationButtonPressed({buttonId}) {
-      switch (buttonId) {
-        case 'nav_btn': {
-          this.updateNavigationState();
-          break;
-        }
-        default:
-          break;
+  navigationButtonPressed({buttonId}) {
+    switch (buttonId) {
+      case 'nav_btn': {
+        this.updateNavigationState();
+        break;
       }
-
+      default:
+        break;
     }
+  }
 
 // TODO:
 // BUG: needs to be clicked twice
-   updateNavigationState(){
-      Navigation.mergeOptions("sideMenu", {
-        sideMenu: {
-          left: {
-            visible: true
-          }
+ updateNavigationState(){
+    Navigation.mergeOptions("sideMenu", {
+      sideMenu: {
+        left: {
+          visible: true
         }
-      });
-    }
+      }
+    });
+  }
 
-    _getLanguage = async () => {
-        try {
-            const value = await AsyncStorage.getItem('ach:language');
-            if (value !== null) {
-            // We have data!!
-            console.log("Language async loaded is:" + value);
-            } else {
-                Navigation.push(this.props.componentId, {
-                      component: {
-                        name: LANGUAGE_SCREEN,
-                        passProps: {
-                            text: 'Elige un idioma'
-                        },
-                        options: {
-                          topBar: {
-                            title: {
-                              text: 'IDIOMA'
-                            }
-                          }
-                        }
-                      }
-                    });
-            }
-        } catch (error) {
-        // Error retrieving data
-        }
+  _getLanguage = async () => {
+    try {
+      const value = await AsyncStorage.getItem('ach:language');
+      if (value !== null) {
+      // We have data!!
+      console.log("Language async loaded is:" + value);
+      } else {
+        Navigation.push(this.props.componentId, {
+              component: {
+                name: LANGUAGE_SCREEN,
+                passProps: {
+                    text: 'Elige un idioma'
+                },
+                options: {
+                  topBar: {
+                    title: {
+                      text: 'IDIOMA'
+                    }
+                  }
+                }
+              }
+        });
+      }
+    } catch (error) {
+    // Error retrieving data
     }
+  }
 
     // TODO: Move to constructor??
-    componentDidMount() {
+  componentDidMount() {
 
-        //   MusicControl.setNowPlaying({
-        //       state: MusicControl.STATE_BUFFERING,
-        //       title: 'Radio',
-        //       artwork: 'https://xhbak.files.wordpress.com/2014/10/screen-shot-2014-10-09-at-11-07-46-pm.png', // URL or RN's image require()
-        //       artist: "Ach' Lequilc'op",
-        //       album: 'Thriller',
-        //       genre: 'Post-disco, Rhythm and Blues, Funk, Dance-pop',
-        //       duration: 294, // (Seconds)
-        //       description: 'Una descripción', // Android Only
-        //       color: 0xeeeeee, // Notification Color - Android Only
-        //       rating: 84, // Android Only (Boolean or Number depending on the type)
-        //       notificationIcon: 'my_custom_icon', // Android Only (String), Android Drawable resource name for a custom notification icon
-        //       })
-        //
-        //   MusicControl.enableControl('play', true)
-        //   MusicControl.enableControl('pause', true)
-        //   MusicControl.enableControl('stop', true)
-        //   MusicControl.enableControl('volume', true) // Only affected when remoteVolume is enabled
-        //   MusicControl.enableControl('remoteVolume', false)
-        //
-        //   MusicControl.on('play', () => {
-        //     this._playStop()
-        // })
-        //
-        //     MusicControl.on('pause', () => {
-        //       this._playStop()
-        //   })
-        //
-        //   MusicControl.on('stop', () => {
-        //     this._stop()
-        // })
+      //   MusicControl.setNowPlaying({
+      //       state: MusicControl.STATE_BUFFERING,
+      //       title: 'Radio',
+      //       artwork: 'https://xhbak.files.wordpress.com/2014/10/screen-shot-2014-10-09-at-11-07-46-pm.png', // URL or RN's image require()
+      //       artist: "Ach' Lequilc'op",
+      //       album: 'Thriller',
+      //       genre: 'Post-disco, Rhythm and Blues, Funk, Dance-pop',
+      //       duration: 294, // (Seconds)
+      //       description: 'Una descripción', // Android Only
+      //       color: 0xeeeeee, // Notification Color - Android Only
+      //       rating: 84, // Android Only (Boolean or Number depending on the type)
+      //       notificationIcon: 'my_custom_icon', // Android Only (String), Android Drawable resource name for a custom notification icon
+      //       })
+      //
+      //   MusicControl.enableControl('play', true)
+      //   MusicControl.enableControl('pause', true)
+      //   MusicControl.enableControl('stop', true)
+      //   MusicControl.enableControl('volume', true) // Only affected when remoteVolume is enabled
+      //   MusicControl.enableControl('remoteVolume', false)
+      //
+      //   MusicControl.on('play', () => {
+      //     this._playStop()
+      // })
+      //
+      //     MusicControl.on('pause', () => {
+      //       this._playStop()
+      //   })
+      //
+      //   MusicControl.on('stop', () => {
+      //     this._stop()
+      // })
+  }
+
+  componentWillMount() {
+    this.player = null;
+
+    this._reloadPlayer();
+  }
+
+  componentDidUpdate(prevProps) {
+    if(prevProps.playToggle !== this.props.playToggle) {
+      this._playStop()
     }
+  }
 
-    componentWillMount() {
-        this.player = null;
+  _updateState(err) {
 
-        this._reloadPlayer();
+    // const playState = (this.player && this.player.isPlaying) ? MusicControl.STATE_PLAYING : MusicControl.STATE_PAUSED
+    // MusicControl.updatePlayback({
+    //   title: 'RadioPICADA',
+    //   state: playState, // (STATE_ERROR, STATE_STOPPED, STATE_PLAYING, STATE_PAUSED, STATE_BUFFERING)
+    //   speed: 1, // Playback Rate
+    //   volume: 10, // Android Only (Number from 0 to maxVolume) - Only used when remoteVolume is enabled
+    //   maxVolume: 10, // Android Only (Number) - Only used when remoteVolume is enabled
+    //   //rating: MusicControl.RATING_PERCENTAGE // Android Only (RATING_HEART, RATING_THUMBS_UP_DOWN, RATING_3_STARS, RATING_4_STARS, RATING_5_STARS, RATING_PERCENTAGE)
+    // })
+
+    if (this.player && this.player.isPlaying) {
+      this.props.onStopPlay()
+    } else {
+      this.props.onStartPlay()
     }
-
-    componentDidUpdate(prevProps) {
-        if(prevProps.playToggle !== this.props.playToggle) {
-            this._playStop()
-        }
+    if (!this.player || !this.player.canPlay) {
+      this.props.onDisablePlay()
+    } else {
+      this.props.onEnablePlay()
     }
+  }
 
-      _updateState(err) {
-
-        // const playState = (this.player && this.player.isPlaying) ? MusicControl.STATE_PLAYING : MusicControl.STATE_PAUSED
-        // MusicControl.updatePlayback({
-        //   title: 'RadioPICADA',
-        //   state: playState, // (STATE_ERROR, STATE_STOPPED, STATE_PLAYING, STATE_PAUSED, STATE_BUFFERING)
-        //   speed: 1, // Playback Rate
-        //   volume: 10, // Android Only (Number from 0 to maxVolume) - Only used when remoteVolume is enabled
-        //   maxVolume: 10, // Android Only (Number) - Only used when remoteVolume is enabled
-        //   //rating: MusicControl.RATING_PERCENTAGE // Android Only (RATING_HEART, RATING_THUMBS_UP_DOWN, RATING_3_STARS, RATING_4_STARS, RATING_5_STARS, RATING_PERCENTAGE)
-        // })
-
-        if (this.player && this.player.isPlaying) {
-            this.props.onStopPlay()
-        } else {
-            this.props.onStartPlay()
+  _playStop() {
+    if(!this.player.isPlaying) {
+      this.player.play((err) => {
+        if (err) {
+          this.setState({
+            playError: err.message
+          });
         }
-        if (!this.player || !this.player.canPlay) {
-            this.props.onDisablePlay()
-        } else {
-            this.props.onEnablePlay()
-        }
-      }
-
-      _playStop() {
-          if(!this.player.isPlaying) {
-              this.player.play((err) => {
-                if (err) {
-                  this.setState({
-                    playError: err.message
-                  });
-                }
-                this._updateState();
-              });
-          } else {
-            //STOP
-            this.player.stop(() => {
-              this._updateState();
-            });
-            // TODO: verify if this reload generates problems
-            this._reloadPlayer()
-            //MusicControl.stopControl()
-          }
-      }
-
-      _reloadPlayer() {
-        if (this.player) {
-          this.player.destroy();
-        }
-
-        this.player = new Player(strmAchLequilcop, {
-          autoDestroy: false,
-          continuesToPlayInBackground: true
-        }).prepare((err) => {
-          if (err) {
-            console.log('error at _reloadPlayer():');
-            console.log(err);
-          }
-
-          this._updateState();
-        });
-
         this._updateState();
+      });
+    } else {
+      //STOP
+      this.player.stop(() => {
+        this._updateState();
+      });
+      // TODO: verify if this reload generates problems
+      this._reloadPlayer()
+      //MusicControl.stopControl()
+    }
+  }
 
-        this.player.on('ended', () => {
-          this._updateState();
-        });
-        // TODO: eliminate?
-        this.player.on('pause', () => {
-          this._updateState();
-        });
+  _reloadPlayer() {
+    if (this.player) {
+      this.player.destroy();
+    }
+
+    this.player = new Player(strmAchLequilcop, {
+      autoDestroy: false,
+      continuesToPlayInBackground: true
+    }).prepare((err) => {
+      if (err) {
+        console.log('error at _reloadPlayer():');
+        console.log(err);
       }
 
-      render() {
-        return (
-          <View style={styles.mainContainer}>
-          <AnimatedLogo amimating={this.props.playStopButton === 'DETENER'}>
-            <View style={styles.shad}>
-              <Image
-                source={require('../../assets/icons/LogoSinLetra.png')}
-                style={styles.image}
-              />
-            </View>
-          </AnimatedLogo>
-            <Text>{/*this.props.langSelected*/}</Text>
-            <Text>{/*this.props.langData*/}</Text>
-            <View>
+      this._updateState();
+    });
 
-              <View>
-                <Text style={styles.errorMessage}>{this.state.playError}</Text>
-              </View>
-            </View>
-            <ActionButton buttonColor="rgba(61,206,88,0.79)">
-              <ActionButton.Item buttonColor='#4AC25A' title="Whatsapp a Cabina" onPress={() => console.log("notes tapped!")}>
-                <Icon name='whatsapp' size={30} color="white"/>
-              </ActionButton.Item>
-              <ActionButton.Item buttonColor='#4469B0' title="Página Facebook" onPress={() => {}}>
-                <Icon name='facebook-square' size={30} color="white"/>
-              </ActionButton.Item>
-              <ActionButton.Item buttonColor='#9b59b6' title="SMS a Cabina" onPress={() => {}}>
-                <Icon name='envelope' size={30} color="white"/>
-              </ActionButton.Item>
-            </ActionButton>
+    this._updateState();
+
+    this.player.on('ended', () => {
+      this._updateState();
+    });
+    // TODO: eliminate?
+    this.player.on('pause', () => {
+      this._updateState();
+    });
+  }
+
+  render() {
+    return (
+      <View style={styles.mainContainer}>
+      <AnimatedLogo amimating={this.props.playStopButton === 'DETENER'}>
+        <View style={styles.shad}>
+          <Image
+            source={require('../../assets/icons/LogoSinLetra.png')}
+            style={styles.image}
+          />
+        </View>
+      </AnimatedLogo>
+        <Text>{/*this.props.langSelected*/}</Text>
+        <Text>{/*this.props.langData*/}</Text>
+        <View>
+
+          <View>
+            <Text style={styles.errorMessage}>{this.state.playError}</Text>
           </View>
-        );
-        }
+        </View>
+        <ActionButton buttonColor="rgba(61,206,88,0.79)">
+          <ActionButton.Item buttonColor='#4AC25A' title="Whatsapp a Cabina" onPress={() => console.log("notes tapped!")}>
+            <Icon name='whatsapp' size={30} color="white"/>
+          </ActionButton.Item>
+          <ActionButton.Item buttonColor='#4469B0' title="Página Facebook" onPress={() => {}}>
+            <Icon name='facebook-square' size={30} color="white"/>
+          </ActionButton.Item>
+          <ActionButton.Item buttonColor='#9b59b6' title="SMS a Cabina" onPress={() => {}}>
+            <Icon name='envelope' size={30} color="white"/>
+          </ActionButton.Item>
+        </ActionButton>
+      </View>
+    );
+    }
 }
 
 
@@ -288,12 +287,12 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-    return {
-        onStartPlay: () => dispatch(actions.startPlay()),
-        onStopPlay: () => dispatch(actions.stopPlay()),
-        onEnablePlay: () => dispatch(actions.enablePlay()),
-        onDisablePlay: () => dispatch(actions.disablePlay()),
-    }
+  return {
+    onStartPlay: () => dispatch(actions.startPlay()),
+    onStopPlay: () => dispatch(actions.stopPlay()),
+    onEnablePlay: () => dispatch(actions.enablePlay()),
+    onDisablePlay: () => dispatch(actions.disablePlay()),
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(WelcomeScreen);
