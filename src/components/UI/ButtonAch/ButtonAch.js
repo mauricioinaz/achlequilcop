@@ -23,8 +23,8 @@ const buttonAch = props => {
 
 const styles = StyleSheet.create({
   button: {
-    padding: 5,
-    margin: 5,
+    padding: 6,
+    margin: 10,
     borderRadius: 8,
     borderWidth: 1,
     borderColor: '#494D4B',
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontFamily: 'UbuntuCondensed-Regular',
-    fontSize: 18,
+    fontSize: 26,
   }
 });
 

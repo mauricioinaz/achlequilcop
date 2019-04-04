@@ -4,40 +4,64 @@ import {
   View,
   Image,
   Text,
-  Button
+  Button,
+  Switch
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import ButtonAch from '../../components/UI/ButtonAch/ButtonAch'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 import {connect} from 'react-redux';
 import * as actions from '../../redux/actions'
 
 const styles = StyleSheet.create({
-  flex: {
+  container: {
+    flex: 2,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  sectionContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
   },
-  button: {
-    backgroundColor: '#00678F',
-    width: 250,
-    marginTop: 30,
-    borderRadius: 10
+  titleContainer: {
+    height: "30%",
+    justifyContent: "center",
+    alignItems: "center"
   },
-  buttonTitle: {
-    fontSize: 14,
-    fontWeight: 'bold'
+  title: {
+    fontFamily: 'UbuntuCondensed-Regular',
+    fontSize: 32,
+    color: "#494D4B",
+    textAlign: 'center',
   },
-  logo: {
-    width: 300,
+  sectionConfigContainer: {
+    height: "70%",
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  iconContainer: {
+    width: "30%",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingLeft: 30
+  },
+  sectionIcon: {
+    width: 120,
     height: 120,
-    resizeMode: 'contain'
   },
-  logoTitle: {
-    marginTop: 10,
-    fontSize: 16,
-    fontWeight: '500'
-  }
+  buttonsContainer: {
+    width: "70%",
+    padding: 20,
+    paddingRight: 60,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  selectedButton: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
 });
 
 class LanguageScreen extends Component {
@@ -73,6 +97,8 @@ class LanguageScreen extends Component {
 
     if (language === "CASTELLANO") {
         this.props.onSpanishSelected()
+        selectedTseltal = (<Text>  </Text>)
+        selectedSpanish = (<Icon name='caret-left' size={30} color="#707070"/>)
     } else if (language === "TSELTAL") {
         this.props.onTseltalSelected()
     }
@@ -82,20 +108,57 @@ class LanguageScreen extends Component {
   };
 
   render() {
+    let selectedTseltal = (<Icon name='caret-left' size={30} color="#707070"/>)
+    let selectedSpanish = (<Text>  </Text>)
+    if (this.props.currentLanguage === "Cast") {
+      selectedSpanish = (<Icon name='caret-left' size={30} color="#707070"/>)
+      selectedTseltal = (<Text>  </Text>)
+    }
+
     return (
-      <View style={styles.flex}>
-        <Text>Elige tu idioma (meter logo)</Text>
-        <ButtonAch onPress={() => this.handleGetStartAction("CASTELLANO")}>CASTELLANO</ButtonAch>
-        <ButtonAch onPress={() => this.handleGetStartAction("TSELTAL")}>BATS'IL C'OP</ButtonAch>
-        <Text>El idioma actual es: {this.props.previousLanguage}</Text>
+      <View style={styles.container}>
+        <View style={styles.sectionContainer}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>Elige tu idioma</Text>
+          </View>
+          <View style={styles.sectionConfigContainer}>
+            <View style={styles.iconContainer}>
+              <Icon name='comments' size={80} color="#707070"/></View>
+            <View style={styles.buttonsContainer}>
+              <View style={styles.selectedButton}>
+                <ButtonAch onPress={() => this.handleGetStartAction("CASTELLANO")}>Castellano</ButtonAch>
+                {selectedSpanish}
+              </View>
+              <View style={styles.selectedButton}>
+                <ButtonAch onPress={() => this.handleGetStartAction("TSELTAL")}>Bats'il C'op</ButtonAch>
+                {selectedTseltal}
+              </View>
+            </View>
+          </View>
+        </View>
+        <View style={{ borderBottomColor: 'black', borderBottomWidth: 1, width: "100%",}}/>
+        <View style={styles.sectionContainer}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>{`Escucha la radio con\ntus datos o sólo en Wifi`}</Text>
+          </View>
+          <View style={styles.sectionConfigContainer}>
+            <View style={styles.iconContainer}>
+              <Icon name='wifi' size={75} color="#707070"/></View>
+            <View style={styles.buttonsContainer}>
+              <ButtonAch >Sólo WiFi</ButtonAch>
+              <ButtonAch >Datos</ButtonAch>
+            </View>
+          </View>
+        </View>
       </View>
+
     );
   }
 }
 
 const mapStateToProps = state => {
   return {
-    previousLanguage: state.lang.languageData
+    currentLanguage: state.lang.languageData
   };
 }
 
