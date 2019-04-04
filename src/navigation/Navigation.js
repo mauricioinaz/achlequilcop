@@ -17,19 +17,25 @@ export function pushInitialScreen() {
     topBar: {
       visible: true,
       animate: false,
-      drawBehind: true,
+      // TODO: check!
+      drawBehind: false,
       buttonColor: '#0B0F0D',
       background: {
           color: '#00678F'
       },
-      borderColor: 'red',
-      topMargin: 24,
+      topMargin: 22,
       title: {
         alignment: 'center',
         color: 'white',
         fontSize: 34,
         fontFamily: 'UbuntuCondensed-Regular'
       },
+      //height: 60
+      //Not needed?
+      //borderHeight: 1.3,
+      //borderColor: '00678F',
+      //elevation: 1.5
+
     },
     statusBar: {
       visible: true,
@@ -97,12 +103,13 @@ export function pushInitialScreen() {
                       rightButtons: [
                         {
                           id: 'nav_play_btn',
-                          // component: {
-                          //     name: PLAY_BUTTON
-                          // },
-                          icon: require('../assets/icons/Play.png'),
+                          component: {
+                              name: PLAY_BUTTON
+                          },
+                          //icon: require('../assets/icons/Play.png'),
                           //text: "PLAY",
-                          color: 'white',
+                          //color: 'white',
+                          fontSize: 12
                         }
                     ],
                     }
