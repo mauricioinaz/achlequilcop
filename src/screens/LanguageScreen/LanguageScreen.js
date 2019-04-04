@@ -7,6 +7,7 @@ import {
   Button
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
+import ButtonAch from '../../components/UI/ButtonAch/ButtonAch'
 
 import {connect} from 'react-redux';
 import * as actions from '../../redux/actions'
@@ -84,17 +85,9 @@ updateNavigationState(){
     return (
       <View style={styles.flex}>
         <Text>Elige tu idioma (meter logo)</Text>
-        <Button
-          onPress={() => this.handleGetStartAction("CASTELLANO")}
-          title="CASTELLANO"
-          color='#00678F'
-        />
-        <Button
-          onPress={() => this.handleGetStartAction("TSELTAL")}
-          title="BATS'IL C'OP"
-          color='#00678F'
-        />
-        <Text>{this.props.previousLanguage}</Text>
+        <ButtonAch onPress={() => this.handleGetStartAction("CASTELLANO")}>CASTELLANO</ButtonAch>
+        <ButtonAch onPress={() => this.handleGetStartAction("TSELTAL")}>BATS'IL C'OP</ButtonAch>
+        <Text>El idioma actual es: {this.props.previousLanguage}</Text>
       </View>
     );
   }

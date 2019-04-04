@@ -260,13 +260,13 @@ class WelcomeScreen extends Component {
               </View>
             </View>
             <ActionButton buttonColor="rgba(61,206,88,0.79)">
-              <ActionButton.Item buttonColor='#4AC25A' title="Whatsapp" onPress={() => console.log("notes tapped!")}>
+              <ActionButton.Item buttonColor='#4AC25A' title="Whatsapp a Cabina" onPress={() => console.log("notes tapped!")}>
                 <Icon name='whatsapp' size={30} color="white"/>
               </ActionButton.Item>
               <ActionButton.Item buttonColor='#4469B0' title="Página Facebook" onPress={() => {}}>
                 <Icon name='facebook-square' size={30} color="white"/>
               </ActionButton.Item>
-              <ActionButton.Item buttonColor='#9b59b6' title="SMS" onPress={() => {}}>
+              <ActionButton.Item buttonColor='#9b59b6' title="SMS a Cabina" onPress={() => {}}>
                 <Icon name='envelope' size={30} color="white"/>
               </ActionButton.Item>
             </ActionButton>
