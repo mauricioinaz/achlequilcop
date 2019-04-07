@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   }
 });
 
-let strmAchLequilcop = "http://162.210.196.145:27582/"
+let strmAchLequilcop = "http://noasrv.caster.fm:10182/live"
 
 class WelcomeScreen extends Component {
 
@@ -242,14 +242,7 @@ class WelcomeScreen extends Component {
   render() {
     return (
       <View style={styles.mainContainer}>
-      <AnimatedLogo amimating={this.props.playStopButton === 'DETENER'}>
-        <View style={styles.shad}>
-          <Image
-            source={require('../../assets/icons/LogoSinLetra.png')}
-            style={styles.image}
-          />
-        </View>
-      </AnimatedLogo>
+      <AnimatedLogo amimating={this.props.playStopButton === 'DETENER'}/>
         <Text>{/*this.props.langSelected*/}</Text>
         <Text>{/*this.props.langData*/}</Text>
         <View>
