@@ -15,8 +15,8 @@ import {connect} from 'react-redux';
 import * as actions from '../../redux/actions'
 import { Navigation } from 'react-native-navigation';
 import AnimatedLogo from '../../components/AnimatedLogo/AnimatedLogo'
-import ActionButton from 'react-native-action-button';
-import Icon from 'react-native-vector-icons/FontAwesome'
+import ShareButton from '../../components/ShareButton/ShareButton';
+
 
 //import MusicControl from 'react-native-music-control';
 
@@ -51,7 +51,8 @@ const styles = StyleSheet.create({
   }
 });
 
-let strmAchLequilcop = "http://noasrv.caster.fm:10182/live"
+//let strmAchLequilcop = "http://noasrv.caster.fm:10182/live"
+let strmAchLequilcop = "http://162.210.196.142:36923"
 
 class WelcomeScreen extends Component {
 
@@ -251,17 +252,7 @@ class WelcomeScreen extends Component {
             <Text style={styles.errorMessage}>{this.state.playError}</Text>
           </View>
         </View>
-        <ActionButton buttonColor="rgba(61,206,88,0.79)">
-          <ActionButton.Item buttonColor='#4AC25A' title="Whatsapp a Cabina" onPress={() => console.log("notes tapped!")}>
-            <Icon name='whatsapp' size={30} color="white"/>
-          </ActionButton.Item>
-          <ActionButton.Item buttonColor='#4469B0' title="Página Facebook" onPress={() => {}}>
-            <Icon name='facebook-square' size={30} color="white"/>
-          </ActionButton.Item>
-          <ActionButton.Item buttonColor='#9b59b6' title="SMS a Cabina" onPress={() => {}}>
-            <Icon name='envelope' size={30} color="white"/>
-          </ActionButton.Item>
-        </ActionButton>
+        <ShareButton />
       </View>
     );
     }
