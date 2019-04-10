@@ -31,7 +31,16 @@ class AnimatedLogo extends React.Component {
         //   }
         // )
 
+
         Animated.sequence([
+          Animated.timing(                  // Animate over time
+            this.state.sc,            // The animated value to drive
+            {
+              toValue: .85,                   // Animate to opacity: 1 (opaque)
+              duration: 700,              // Make it take a while
+              useNativeDriver: true
+            }
+          ),
           Animated.spring(                  // Animate over time
           this.state.sc,            // The animated value to drive
           {
@@ -41,14 +50,6 @@ class AnimatedLogo extends React.Component {
             tension: 20,   // más tensión más rápido
             //bounciness: 30,   // más grande, más brincador
             //speed: 5,
-            useNativeDriver: true
-          }
-        ),
-        Animated.timing(                  // Animate over time
-          this.state.sc,            // The animated value to drive
-          {
-            toValue: .85,                   // Animate to opacity: 1 (opaque)
-            duration: 700,              // Make it take a while
             useNativeDriver: true
           }
         )
