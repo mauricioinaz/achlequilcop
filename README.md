@@ -1,2 +1,3 @@
 # achlequilcop
-App for Achlequilcop radio station
+
+Androind and iOS App for Achlequilcop Tseltal radio station
