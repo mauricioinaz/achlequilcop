@@ -7,11 +7,10 @@ import {
     TouchableOpacity,
     StyleSheet
  } from 'react-native';
-
  import {connect} from 'react-redux';
  import * as actions from '../../redux/actions'
 
-// TODO: SHould it be class????
+
 class PlayButton extends Component {
 
   render() {
@@ -21,8 +20,8 @@ class PlayButton extends Component {
     } else if(this.props.playStopButton === "DETENER") {
       insideButton = (<Image style={styles.playImage} source={require('../../assets/icons/Pause.png')}/>)
     }
-    return (
 
+    return (
       <TouchableOpacity
         disabled={this.props.playButtonDisabled}
         onPress={this.props.onTogglePlay}
@@ -34,6 +33,7 @@ class PlayButton extends Component {
   }
 }
 
+
 const styles = StyleSheet.create({
   playButton: {
     // TODO: ADJUST TO NOT CROP IMAGE
@@ -43,12 +43,12 @@ const styles = StyleSheet.create({
   playImage: {
     width: 35,
     height: 35,
-    //flex: 1
   },
   playImageDisabled: {
     tintColor: "rgba(255,255,255,0.34)"
   }
 });
+
 
 const mapStateToProps = state => {
   return {
@@ -57,11 +57,13 @@ const mapStateToProps = state => {
   };
 }
 
+
 const mapDispatchToProps = dispatch => {
   return {
     onTogglePlay: () => dispatch(actions.playToggle()),
     onTseltalSelected: () => dispatch(actions.fetchTseltal())
   }
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlayButton)

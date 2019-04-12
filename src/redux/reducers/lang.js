@@ -5,10 +5,12 @@ import {
   SELECTED_TSELTAL
 } from "../actions/actionTypes";
 
+
 const initialState = {
   language: null,
   languageData: "Cast"
 };
+
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -21,5 +23,6 @@ const reducer = (state = initialState, action) => {
     default: return state;
   }
 };
+
 
 export default reducer;

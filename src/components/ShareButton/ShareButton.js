@@ -3,6 +3,7 @@ import ActionButton from 'react-native-action-button';
 import { Linking, Alert } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
+
 const linkWhatsapp = 'whatsapp://send?text=hello&phone=+5219191333777'
 const nameWA = "Whatsapp"
 const linkFacebook = 'fb://page/achlequilcop'
@@ -41,5 +42,6 @@ class ShareButton extends Component {
     )
   }
 }
+
 
 export default ShareButton

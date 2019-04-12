@@ -6,12 +6,14 @@ import {
   PLAY_TOGGLE
 } from "../actions/actionTypes";
 
+
 const initialState = {
   playToggle: true,
   playStopButton: 'Preparing...',
   playButtonDisabled: true,
   playError: null
 };
+
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {

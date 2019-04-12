@@ -20,37 +20,6 @@ import ShareButton from '../../components/ShareButton/ShareButton';
 
 //import MusicControl from 'react-native-music-control';
 
-const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#FFF'
-  },
-  button: {
-    backgroundColor: '#039893'
-  },
-  image: {
-    width: 280,
-    height: 280,
-  },
-  actionButtonIcon: {
-      fontSize: 20,
-      height: 22,
-      color: 'white',
-    },
-  shad: {
-    shadowColor: "#000",
-    shadowOffset: {
-    	width: 0,
-    	height: 5,
-    },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
-    elevation: 10,
-  }
-});
-
 //let strmAchLequilcop = "http://noasrv.caster.fm:10182/live"
 let strmAchLequilcop = "http://162.210.196.142:36923"
 
@@ -79,9 +48,7 @@ class WelcomeScreen extends Component {
     }
   }
 
-// TODO:
-// BUG: needs to be clicked twice
- updateNavigationState(){
+  updateNavigationState(){
     Navigation.mergeOptions("sideMenu", {
       sideMenu: {
         left: {
@@ -257,6 +224,38 @@ class WelcomeScreen extends Component {
     );
     }
 }
+
+
+const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FFF'
+  },
+  button: {
+    backgroundColor: '#039893'
+  },
+  image: {
+    width: 280,
+    height: 280,
+  },
+  actionButtonIcon: {
+      fontSize: 20,
+      height: 22,
+      color: 'white',
+    },
+  shad: {
+    shadowColor: "#000",
+    shadowOffset: {
+    	width: 0,
+    	height: 5,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+    elevation: 10,
+  }
+});
 
 
 const mapStateToProps = state => {

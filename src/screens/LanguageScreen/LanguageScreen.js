@@ -14,55 +14,6 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import {connect} from 'react-redux';
 import * as actions from '../../redux/actions'
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 2,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  sectionContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  titleContainer: {
-    height: "30%",
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  title: {
-    fontFamily: 'UbuntuCondensed-Regular',
-    fontSize: 32,
-    color: "#494D4B",
-    textAlign: 'center',
-  },
-  sectionConfigContainer: {
-    height: "70%",
-    flexDirection: 'row',
-    justifyContent: 'center'
-  },
-  iconContainer: {
-    width: "30%",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingLeft: 30
-  },
-  sectionIcon: {
-    width: 120,
-    height: 120,
-  },
-  buttonsContainer: {
-    width: "70%",
-    padding: 20,
-    paddingRight: 60,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  selectedButton: {
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-});
 
 class LanguageScreen extends Component {
 
@@ -72,17 +23,12 @@ class LanguageScreen extends Component {
   }
 
   navigationButtonPressed({buttonId}) {
-      console.log('NAVIGATING... pressed');
       console.log(buttonId);
     if( buttonId == 'nav_btn' ){
-
-      //(!this.sideDrawerVisible) ? this.sideDrawerVisible = true : this.sideDrawerVisible = false;
       this.updateNavigationState();
     }
   }
 
-  // TODO:
-  // BUG: needs to be clicked twice
   updateNavigationState(){
      Navigation.mergeOptions("sideMenu", {
        sideMenu: {
@@ -103,8 +49,8 @@ class LanguageScreen extends Component {
         this.props.onTseltalSelected()
     }
 
-      // TODO: MODIFY PROPS AND TITLE
-    Navigation.popToRoot(this.props.componentId) //, {
+    // only navigate at initial configuration
+    //Navigation.popToRoot(this.props.componentId) //, {
   };
 
   render() {
@@ -156,11 +102,64 @@ class LanguageScreen extends Component {
   }
 }
 
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 2,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  sectionContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  titleContainer: {
+    height: "30%",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  title: {
+    fontFamily: 'UbuntuCondensed-Regular',
+    fontSize: 32,
+    color: "#494D4B",
+    textAlign: 'center',
+  },
+  sectionConfigContainer: {
+    height: "70%",
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  iconContainer: {
+    width: "30%",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingLeft: 30
+  },
+  sectionIcon: {
+    width: 120,
+    height: 120,
+  },
+  buttonsContainer: {
+    width: "70%",
+    padding: 20,
+    paddingRight: 60,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  selectedButton: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+});
+
+
 const mapStateToProps = state => {
   return {
     currentLanguage: state.lang.languageData
   };
 }
+
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -168,5 +167,6 @@ const mapDispatchToProps = dispatch => {
     onTseltalSelected: () => dispatch(actions.fetchTseltal())
   }
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(LanguageScreen);

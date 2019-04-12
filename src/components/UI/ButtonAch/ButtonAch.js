@@ -1,6 +1,7 @@
 import React from 'react'
 import {Platform, TouchableOpacity, TouchableNativeFeedback, Text, View, StyleSheet} from 'react-native'
 
+
 const buttonAch = props => {
   const insideButton = (
     <View style={styles.button}>
@@ -21,6 +22,7 @@ const buttonAch = props => {
   )
 }
 
+
 const styles = StyleSheet.create({
   button: {
     padding: 6,
@@ -36,5 +38,6 @@ const styles = StyleSheet.create({
     fontSize: 26,
   }
 });
+
 
 export default buttonAch
