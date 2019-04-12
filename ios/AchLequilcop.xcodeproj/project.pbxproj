@@ -17,6 +17,7 @@
 		0747FCE0224AA5AD004633BC /* libMusicControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0747FCDD224AA599004633BC /* libMusicControl.a */; };
 		0747FCE1224AA5B7004633BC /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0747FCCE224AA572004633BC /* libReactNativeNavigation.a */; };
 		0747FCE2224AA5BD004633BC /* libReactNativeAudioToolkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0747FCD6224AA587004633BC /* libReactNativeAudioToolkit.a */; };
+		074F527D2261465600030C36 /* libRNCNetInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 074F52782261461400030C36 /* libRNCNetInfo.a */; };
 		07B93848225542610049271A /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 07B9381B225542610049271A /* FontAwesome.ttf */; };
 		11D1A2F320CAFA9E000508D9 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
@@ -167,6 +168,20 @@
 			proxyType = 2;
 			remoteGlobalIDString = A3FC285E1EA7A8350097B6A9;
 			remoteInfo = "MusicControl-tvOS";
+		};
+		074F52772261461400030C36 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 074F52482261461400030C36 /* RNCNetInfo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNCNetInfo;
+		};
+		074F52792261461400030C36 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 074F52482261461400030C36 /* RNCNetInfo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B5027B1B2237B30F00F1AABA;
+			remoteInfo = "RNCNetInfo-tvOS";
 		};
 		139105C01AF99BAD00B5F7CC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -387,6 +402,7 @@
 		0747FC9B224AA572004633BC /* ReactNativeNavigation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeNavigation.xcodeproj; path = "../node_modules/react-native-navigation/lib/ios/ReactNativeNavigation.xcodeproj"; sourceTree = "<group>"; };
 		0747FCD1224AA587004633BC /* ReactNativeAudioToolkit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeAudioToolkit.xcodeproj; path = "../node_modules/react-native-audio-toolkit/ios/ReactNativeAudioToolkit/ReactNativeAudioToolkit.xcodeproj"; sourceTree = "<group>"; };
 		0747FCD7224AA599004633BC /* MusicControl.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MusicControl.xcodeproj; path = "../node_modules/react-native-music-control/ios/MusicControl.xcodeproj"; sourceTree = "<group>"; };
+		074F52482261461400030C36 /* RNCNetInfo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCNetInfo.xcodeproj; path = "../node_modules/@react-native-community/netinfo/ios/RNCNetInfo.xcodeproj"; sourceTree = "<group>"; };
 		07B9381B225542610049271A /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
@@ -423,6 +439,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				074F527D2261465600030C36 /* libRNCNetInfo.a in Frameworks */,
 				070E54E52252B32600C39BDC /* libRNVectorIcons.a in Frameworks */,
 				0747FCE2224AA5BD004633BC /* libReactNativeAudioToolkit.a in Frameworks */,
 				0747FCE1224AA5B7004633BC /* libReactNativeNavigation.a in Frameworks */,
@@ -564,6 +581,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		074F52492261461400030C36 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				074F52782261461400030C36 /* libRNCNetInfo.a */,
+				074F527A2261461400030C36 /* libRNCNetInfo-tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		139105B71AF99BAD00B5F7CC /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -660,6 +686,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				074F52482261461400030C36 /* RNCNetInfo.xcodeproj */,
 				070E54B22252B30F00C39BDC /* RNVectorIcons.xcodeproj */,
 				0747FCD7224AA599004633BC /* MusicControl.xcodeproj */,
 				0747FCD1224AA587004633BC /* ReactNativeAudioToolkit.xcodeproj */,
@@ -897,6 +924,10 @@
 					ProjectRef = 0747FC9B224AA572004633BC /* ReactNativeNavigation.xcodeproj */;
 				},
 				{
+					ProductGroup = 074F52492261461400030C36 /* Products */;
+					ProjectRef = 074F52482261461400030C36 /* RNCNetInfo.xcodeproj */;
+				},
+				{
 					ProductGroup = 070E54B32252B30F00C39BDC /* Products */;
 					ProjectRef = 070E54B22252B30F00C39BDC /* RNVectorIcons.xcodeproj */;
 				},
@@ -1022,6 +1053,20 @@
 			fileType = archive.ar;
 			path = "libMusicControl-tvOS.a";
 			remoteRef = 0747FCDE224AA599004633BC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		074F52782261461400030C36 /* libRNCNetInfo.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNCNetInfo.a;
+			remoteRef = 074F52772261461400030C36 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		074F527A2261461400030C36 /* libRNCNetInfo-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRNCNetInfo-tvOS.a";
+			remoteRef = 074F52792261461400030C36 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		139105C11AF99BAD00B5F7CC /* libRCTSettings.a */ = {

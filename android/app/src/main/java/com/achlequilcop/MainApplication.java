@@ -15,6 +15,7 @@ import com.reactnativenavigation.react.ReactGateway;
 import com.tanguyantoine.react.MusicControl;
 import com.futurice.rctaudiotoolkit.AudioPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
+import com.reactnativecommunity.netinfo.NetInfoPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -43,7 +44,9 @@ public class MainApplication extends NavigationApplication {
       return Arrays.<ReactPackage>asList(
             new AudioPackage(),
             new MusicControl(),
-            new VectorIconsPackage()
+            new VectorIconsPackage(),
+            //new MainReactPackage(),
+            new NetInfoPackage()
       );
   }
 

@@ -12,8 +12,9 @@ import {
     Player
 } from 'react-native-audio-toolkit';
 import {connect} from 'react-redux';
-import * as actions from '../../redux/actions'
 import { Navigation } from 'react-native-navigation';
+import NetInfo from "@react-native-community/netinfo";
+import * as actions from '../../redux/actions'
 import AnimatedLogo from '../../components/AnimatedLogo/AnimatedLogo'
 import ShareButton from '../../components/ShareButton/ShareButton';
 
@@ -180,6 +181,12 @@ class WelcomeScreen extends Component {
   }
 
   _reloadPlayer() {
+
+    NetInfo.getConnectionInfo().then(data => {
+      console.log("Connection type", data.type);
+      console.log("Connection effective type", data.effectiveType);
+    });
+
     if (this.player) {
       this.player.destroy();
     }
