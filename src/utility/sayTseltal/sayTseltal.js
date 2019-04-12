@@ -74,6 +74,7 @@ const ORDERS = ["", "winic", "bahc'", "pic", "bahc' bahqu'etic", "mam"]
 export const sayTseltal = (n) => {
   let number = +n  // TODO: trim commas and spaces
   if (isNaN(number)) throw new Error("Solo se aceptan numeros / Yahtabal ha'nax")
+  if (!Number.isInteger(number)) throw new Error("Solo números enteros / Yahtabal ha'nax")
   if (number < 0 || number > 63999999) throw new Error("Numero fuera de rango / Yahtabal c'ax muc'")
 
   if (number === 0) return "Ma'yuc"
