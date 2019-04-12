@@ -14,6 +14,7 @@ import {
   SIDE_DRAWER,
   PARRILLA_SCREEN,
   ABOUT_SCREEN,
+  NUMBERS_SCREEN,
   PLAY_BUTTON
 } from '../../navigation';
 
@@ -170,6 +171,46 @@ class Sidedrawer extends Component {
 
   }
 
+  onNumbersSelected = () => {
+
+    Navigation.push("CenterStack", {
+          component: {
+            name: NUMBERS_SCREEN,
+            passProps: {
+                text: '...'
+            },
+            options: {
+              topBar: {
+                title: {
+                  text: 'Aprende a Contar'
+                  },
+                  leftButtons: [
+                    {
+                      id: 'nav_btn',
+                      icon: require('../../assets/icons/burgerMenu.png'),
+                      color: 'white',
+                    }
+                  ],
+                  rightButtons: [
+                    {
+                      id: 'nav_play_btn',
+                      component: {
+                          name: PLAY_BUTTON
+                      },
+                      //icon: require('../assets/icons/Play.png'),
+                      //text: "PLAY",
+                      //color: 'white'
+                    }
+                ],
+              }
+            }
+          }
+        });
+
+    Navigation.mergeOptions("settingsDrawer", { sideMenu: { left: { visible: false, }}});
+
+  }
+
   render() {
     return (
       <View style={styles.mainContainer}>
@@ -192,7 +233,7 @@ class Sidedrawer extends Component {
               <Text style={styles.menuText}>Horario</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={this.onNumbersSelected}>
           <View style={styles.menuElement}>
             <Image
               style={styles.menuIcon}

@@ -8,7 +8,8 @@ import {
   LanguageScreen,
   Sidedrawer,
   ParrillaScreen,
-  AboutScreen
+  AboutScreen,
+  NumbersScreen
 } from '../screens';
 import PlayButton from '../components/PlayButton/PlayButton'
 import { Provider } from 'react-redux';
@@ -19,6 +20,7 @@ import {
   SIDE_DRAWER,
   PARRILLA_SCREEN,
   ABOUT_SCREEN,
+  NUMBERS_SCREEN,
   PLAY_BUTTON
 } from './Screens';
 import configureStore from '../redux/configureStore';
@@ -32,6 +34,7 @@ export default function () {
   Navigation.registerComponent(SIDE_DRAWER, () => Sidedrawer),
   Navigation.registerComponent(PARRILLA_SCREEN, () => ParrillaScreen),
   Navigation.registerComponent(ABOUT_SCREEN, () => AboutScreen),
+  Navigation.registerComponent(NUMBERS_SCREEN, () => NumbersScreen),
 
   console.info('All screens have been registered...');
 }
