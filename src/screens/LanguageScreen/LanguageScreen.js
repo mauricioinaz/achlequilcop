@@ -39,12 +39,12 @@ class LanguageScreen extends Component {
      });
    }
 
-  handleGetStartAction = (language) => {
+  handleSelectLang = (language) => {
 
     if (language === "CASTELLANO") {
         this.props.onSpanishSelected()
-        selectedTseltal = (<Text>  </Text>)
-        selectedSpanish = (<Icon name='caret-left' size={30} color="#707070"/>)
+        //selectedTseltal = (<Text>  </Text>)
+        //selectedSpanish = (<Icon name='caret-left' size={30} color="#707070"/>)
     } else if (language === "TSELTAL") {
         this.props.onTseltalSelected()
     }
@@ -53,13 +53,32 @@ class LanguageScreen extends Component {
     //Navigation.popToRoot(this.props.componentId) //, {
   };
 
-  render() {
-    let selectedTseltal = (<Icon name='caret-left' size={30} color="#707070"/>)
-    let selectedSpanish = (<Text>  </Text>)
-    if (this.props.currentLanguage === "Cast") {
-      selectedSpanish = (<Icon name='caret-left' size={30} color="#707070"/>)
-      selectedTseltal = (<Text>  </Text>)
+  handleSelectConnection = (connectionType) => {
+    if (connectionType === "WifiOnly") {
+        this.props.onWifiSelected()
+        //selectedTseltal = (<Text>  </Text>)
+        //selectedSpanish = (<Icon name='caret-left' size={30} color="#707070"/>)
+    } else if (connectionType === "Always") {
+        this.props.onAlwaysSelected()
     }
+  }
+
+  render() {
+    const sel = (<Icon name='caret-left' size={30} color="#707070"/>)
+    const notSel = (<Text>  </Text>)
+    let selectedTseltal = sel
+    let selectedSpanish = notSel
+    if (this.props.currentLanguage === "Castilla") {
+      selectedSpanish = sel
+      selectedTseltal = notSel
+    }
+    let selectedWifi = sel
+    let selectedData = notSel
+    if (!this.props.connectOnlyWifi) {
+      selectedData = sel
+      selectedWifi = notSel
+    }
+
 
     return (
       <View style={styles.container}>
@@ -72,11 +91,11 @@ class LanguageScreen extends Component {
               <Icon name='comments' size={80} color="#707070"/></View>
             <View style={styles.buttonsContainer}>
               <View style={styles.selectedButton}>
-                <ButtonAch onPress={() => this.handleGetStartAction("CASTELLANO")}>Castellano</ButtonAch>
+                <ButtonAch onPress={() => this.handleSelectLang("CASTELLANO")}>Castellano</ButtonAch>
                 {selectedSpanish}
               </View>
               <View style={styles.selectedButton}>
-                <ButtonAch onPress={() => this.handleGetStartAction("TSELTAL")}>Bats'il C'op</ButtonAch>
+                <ButtonAch onPress={() => this.handleSelectLang("TSELTAL")}>Bats'il C'op</ButtonAch>
                 {selectedTseltal}
               </View>
             </View>
@@ -91,8 +110,14 @@ class LanguageScreen extends Component {
             <View style={styles.iconContainer}>
               <Icon name='wifi' size={75} color="#707070"/></View>
             <View style={styles.buttonsContainer}>
-              <ButtonAch >Sólo WiFi</ButtonAch>
-              <ButtonAch >Datos</ButtonAch>
+              <View style={styles.selectedButton}>
+                <ButtonAch onPress={() => this.handleSelectConnection("WifiOnly")}>Sólo WiFi</ButtonAch>
+                {selectedWifi}
+              </View>
+              <View style={styles.selectedButton}>
+                <ButtonAch onPress={() => this.handleSelectConnection("Always")}>Datos</ButtonAch>
+                {selectedData}
+              </View>
             </View>
           </View>
         </View>
@@ -156,7 +181,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    currentLanguage: state.lang.languageData
+    currentLanguage: state.lang.languageData,
+    connectOnlyWifi: state.lang.wifiOnly,
   };
 }
 
@@ -164,7 +190,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onSpanishSelected: () => dispatch(actions.fetchSpanish()),
-    onTseltalSelected: () => dispatch(actions.fetchTseltal())
+    onTseltalSelected: () => dispatch(actions.fetchTseltal()),
+    onWifiSelected: () => dispatch(actions.selectWifiOnly()),
+    onAlwaysSelected: () => dispatch(actions.selectedAlwaysConnected()),
   }
 }
 

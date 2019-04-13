@@ -269,6 +269,7 @@ const mapStateToProps = state => {
   return {
     langSelected: state.lang.language,
     langData: state.lang.languageData,
+    connectOnlyWifi: state.lang.wifiOnly,
     playStopButton: state.play.playStopButton,
     playButtonDisabled: state.play.playButtonDisabled,
     playToggle: state.play.playToggle
