@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import {
     View,
-    Button,
     Image,
-    Text,
     TouchableOpacity,
     StyleSheet
  } from 'react-native';
@@ -22,27 +20,38 @@ class PlayButton extends Component {
     }
 
     return (
-      <TouchableOpacity
-        disabled={this.props.playButtonDisabled}
-        onPress={this.props.onTogglePlay}
-        style={styles.playButton}
-        >
-          {insideButton}
-      </TouchableOpacity>
+      <View style={styles.container}>
+        <TouchableOpacity
+          disabled={this.props.playButtonDisabled}
+          onPress={this.props.onTogglePlay}
+          style={styles.playButton}>
+            {insideButton}
+        </TouchableOpacity>
+      </View>
     );
   }
 }
 
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   playButton: {
-    // TODO: ADJUST TO NOT CROP IMAGE
-    padding: 0,
-    margin: 0
+    // TODO: ADJUST FOR IOS
+    paddingRight: 5,
+    paddingTop: 5,
+    margin: 0,
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   playImage: {
-    width: 35,
-    height: 35,
+    //width: '50%',
+    //height: '50%',
   },
   playImageDisabled: {
     tintColor: "rgba(255,255,255,0.34)"
