@@ -21,6 +21,7 @@ import ShareButton from '../../components/ShareButton/ShareButton';
 
 //import MusicControl from 'react-native-music-control';
 
+
 //let strmAchLequilcop = "http://noasrv.caster.fm:10182/live"
 let strmAchLequilcop = "http://162.210.196.142:36923"
 
@@ -29,7 +30,7 @@ class WelcomeScreen extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {playError: null};
+    this.state = { playError: null };
     Navigation.events().bindComponent(this);
 
     // get async language
@@ -89,6 +90,8 @@ class WelcomeScreen extends Component {
 
     // TODO: Move to constructor??
   componentDidMount() {
+    NetInfo.addEventListener('connectionChange', this._handleConnectionChange);
+
 
       //   MusicControl.setNowPlaying({
       //       state: MusicControl.STATE_BUFFERING,
@@ -129,11 +132,27 @@ class WelcomeScreen extends Component {
     this._reloadPlayer();
   }
 
+  componentWillUnmount () {
+    NetInfo.removeEventListener('connectionChange', this._handleConnectionChange);
+    // TODO: Stop player???
+  }
+
   componentDidUpdate(prevProps) {
     if(prevProps.playToggle !== this.props.playToggle) {
       this._playStop()
     }
+    if (prevProps.connectOnlyWifi !== this.props.connectOnlyWifi) {
+      this._reloadPlayer()
+    }
   }
+
+  _handleConnectionChange = (data) => {
+    console.log("type is: " + data.type);
+    if (data.type !== 'wifi' && this.props.connectOnlyWifi) {
+      this._reloadPlayer()
+    }
+
+  };
 
   _updateState(err) {
 
@@ -182,36 +201,39 @@ class WelcomeScreen extends Component {
 
   _reloadPlayer() {
 
-    NetInfo.getConnectionInfo().then(data => {
-      console.log("Connection type", data.type);
-      console.log("Connection effective type", data.effectiveType);
-    });
-
     if (this.player) {
       this.player.destroy();
     }
 
-    this.player = new Player(strmAchLequilcop, {
-      autoDestroy: false,
-      continuesToPlayInBackground: true
-    }).prepare((err) => {
-      if (err) {
-        console.log('error at _reloadPlayer():');
-        console.log(err);
-      }
+    NetInfo.getConnectionInfo().then(data => {
+      console.log("Connection type", data.type);
+      console.log("Connection effective type", data.effectiveType);
+      if(data.type === 'wifi' || !this.props.connectOnlyWifi){
+        this.player = new Player(strmAchLequilcop, {
+          autoDestroy: false,
+          continuesToPlayInBackground: true
+        }).prepare((err) => {
+          if (err) {
+            console.log('error at _reloadPlayer():');
+            console.log(err);
+          }
 
-      this._updateState();
+          this._updateState();
+        });
+        // TODO: eliminate?
+        this.player.on('ended', () => {
+          this._updateState();
+        });
+      }
     });
 
     this._updateState();
 
-    this.player.on('ended', () => {
-      this._updateState();
-    });
+
     // TODO: eliminate?
-    this.player.on('pause', () => {
-      this._updateState();
-    });
+    // this.player.on('pause', () => {
+    //   this._updateState();
+    // });
   }
 
   render() {
