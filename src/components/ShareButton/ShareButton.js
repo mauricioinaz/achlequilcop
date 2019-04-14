@@ -6,8 +6,8 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 const linkWhatsapp = 'whatsapp://send?text=Bin%20awilel?&phone=+5219191333777'
 const nameWA = "Whatsapp"
-const linkFacebook = 'http://facebook.com/achlequilcop'
-//const linkFacebook = 'fb://page/achlequilcop'
+//const linkFacebook = 'http://facebook.com/achlequilcop'
+const linkFacebook = 'fb://page/achlequilcop'
 const nameFB = "Facebook"
 const linkSMS = 'sms:+5219191333777?body=Bin Awilel!...'
 
