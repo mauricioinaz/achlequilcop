@@ -17,9 +17,7 @@ import NetInfo from "@react-native-community/netinfo";
 import * as actions from '../../redux/actions'
 import AnimatedLogo from '../../components/AnimatedLogo/AnimatedLogo'
 import ShareButton from '../../components/ShareButton/ShareButton';
-
-
-//import MusicControl from 'react-native-music-control';
+import MusicControl from 'react-native-music-control';
 
 
 //let strmAchLequilcop = "http://noasrv.caster.fm:10182/live"
@@ -93,37 +91,39 @@ class WelcomeScreen extends Component {
     NetInfo.addEventListener('connectionChange', this._handleConnectionChange);
 
 
-      //   MusicControl.setNowPlaying({
-      //       state: MusicControl.STATE_BUFFERING,
-      //       title: 'Radio',
-      //       artwork: 'https://xhbak.files.wordpress.com/2014/10/screen-shot-2014-10-09-at-11-07-46-pm.png', // URL or RN's image require()
-      //       artist: "Ach' Lequilc'op",
-      //       album: 'Thriller',
-      //       genre: 'Post-disco, Rhythm and Blues, Funk, Dance-pop',
-      //       duration: 294, // (Seconds)
-      //       description: 'Una descripción', // Android Only
-      //       color: 0xeeeeee, // Notification Color - Android Only
-      //       rating: 84, // Android Only (Boolean or Number depending on the type)
-      //       notificationIcon: 'my_custom_icon', // Android Only (String), Android Drawable resource name for a custom notification icon
-      //       })
-      //
-      //   MusicControl.enableControl('play', true)
-      //   MusicControl.enableControl('pause', true)
-      //   MusicControl.enableControl('stop', true)
-      //   MusicControl.enableControl('volume', true) // Only affected when remoteVolume is enabled
-      //   MusicControl.enableControl('remoteVolume', false)
-      //
-      //   MusicControl.on('play', () => {
-      //     this._playStop()
-      // })
-      //
-      //     MusicControl.on('pause', () => {
-      //       this._playStop()
-      //   })
-      //
-      //   MusicControl.on('stop', () => {
-      //     this._stop()
-      // })
+    // MusicControl.setNowPlaying({
+    //   state: MusicControl.STATE_BUFFERING,
+    //   title: 'Radio',
+    //   artwork: 'https://xhbak.files.wordpress.com/2014/10/screen-shot-2014-10-09-at-11-07-46-pm.png', // URL or RN's image require()
+    //   artist: "Ach' Lequilc'op",
+    //   album: 'Thriller',
+    //   genre: 'Post-disco, Rhythm and Blues, Funk, Dance-pop',
+    //   duration: 294, // (Seconds)
+    //   description: 'Una descripción', // Android Only
+    //   color: 0xeeeeee, // Notification Color - Android Only
+    //   rating: 84, // Android Only (Boolean or Number depending on the type)
+    //   notificationIcon: 'my_custom_icon', // Android Only (String), Android Drawable resource name for a custom notification icon
+    // })
+    //
+    // MusicControl.enableBackgroundMode(true);
+    //
+    // MusicControl.enableControl('play', true)
+    // //MusicControl.enableControl('pause', true)
+    // MusicControl.enableControl('stop', true)
+    // //MusicControl.enableControl('volume', true) // Only affected when remoteVolume is enabled
+    // //MusicControl.enableControl('remoteVolume', false)
+    //
+    // MusicControl.on('play', () => {
+    //   this._playStop()
+    // })
+    //
+    // MusicControl.on('pause', () => {
+    //   this._playStop()
+    // })
+    //
+    // // MusicControl.on('stop', () => {
+    // //   this._playStop()
+    // // })
   }
 
   componentWillMount() {
@@ -156,26 +156,30 @@ class WelcomeScreen extends Component {
 
   _updateState(err) {
 
-    // const playState = (this.player && this.player.isPlaying) ? MusicControl.STATE_PLAYING : MusicControl.STATE_PAUSED
-    // MusicControl.updatePlayback({
-    //   title: 'RadioPICADA',
-    //   state: playState, // (STATE_ERROR, STATE_STOPPED, STATE_PLAYING, STATE_PAUSED, STATE_BUFFERING)
-    //   speed: 1, // Playback Rate
-    //   volume: 10, // Android Only (Number from 0 to maxVolume) - Only used when remoteVolume is enabled
-    //   maxVolume: 10, // Android Only (Number) - Only used when remoteVolume is enabled
-    //   //rating: MusicControl.RATING_PERCENTAGE // Android Only (RATING_HEART, RATING_THUMBS_UP_DOWN, RATING_3_STARS, RATING_4_STARS, RATING_5_STARS, RATING_PERCENTAGE)
-    // })
+    let playState = null //(this.player && this.player.isPlaying) ? MusicControl.STATE_PLAYING : MusicControl.STATE_PAUSED
 
     if (this.player && this.player.isPlaying) {
       this.props.onStopPlay()
+      playState = MusicControl.STATE_PLAYING
     } else {
       this.props.onStartPlay()
+      playState = MusicControl.STATE_PAUSED
     }
     if (!this.player || !this.player.canPlay) {
+      playState = MusicControl.STATE_BUFFERING
       this.props.onDisablePlay()
     } else {
       this.props.onEnablePlay()
     }
+    MusicControl.updatePlayback({
+      // TODO: ¿¿UPDATE TITLE??
+      title: 'RadioPICADA',
+      state: playState, // (STATE_ERROR, STATE_STOPPED, STATE_PLAYING, STATE_PAUSED, STATE_BUFFERING)
+      speed: 1, // Playback Rate
+      volume: 10, // Android Only (Number from 0 to maxVolume) - Only used when remoteVolume is enabled
+      maxVolume: 10, // Android Only (Number) - Only used when remoteVolume is enabled
+      //rating: MusicControl.RATING_PERCENTAGE // Android Only (RATING_HEART, RATING_THUMBS_UP_DOWN, RATING_3_STARS, RATING_4_STARS, RATING_5_STARS, RATING_PERCENTAGE)
+    })
   }
 
   _playStop() {
@@ -195,7 +199,7 @@ class WelcomeScreen extends Component {
       });
       // TODO: verify if this reload generates problems
       this._reloadPlayer()
-      //MusicControl.stopControl()
+      MusicControl.stopControl()
     }
   }
 
@@ -220,6 +224,44 @@ class WelcomeScreen extends Component {
 
           this._updateState();
         });
+
+
+        MusicControl.setNowPlaying({
+          state: MusicControl.STATE_BUFFERING,
+          title: 'Radio',
+          artwork: 'https://xhbak.files.wordpress.com/2014/10/screen-shot-2014-10-09-at-11-07-46-pm.png', // URL or RN's image require()
+          artist: "Ach' Lequilc'op",
+          //album: 'Thriller',
+          //genre: 'Post-disco, Rhythm and Blues, Funk, Dance-pop',
+          //duration: 294, // (Seconds)
+          description: "Radio cu'untic", // Android Only
+          color: 0xeeeeee, // Notification Color - Android Only
+          //rating: 84, // Android Only (Boolean or Number depending on the type)
+          //notificationIcon: require('../../assets/icons/LogoSinLetraMenu.png'), // Android Only (String), Android Drawable resource name for a custom notification icon
+        })
+
+        MusicControl.enableBackgroundMode(true);
+
+        MusicControl.enableControl('play', true)
+        MusicControl.enableControl('pause', true)
+
+        // TODO: Close APP on Swipe or WITH stop button???
+        MusicControl.enableControl('closeNotification', true, {when: 'paused'})
+        // TODO: Handle notifications
+        MusicControl.on('closeNotification', ()=> {
+          // do something like this.props.dispatch(onAudioEnd());
+        })
+
+
+        MusicControl.on('play', () => {
+          this._playStop()
+        })
+
+        MusicControl.on('pause', () => {
+          this._playStop()
+        })
+
+
         // TODO: eliminate?
         this.player.on('ended', () => {
           this._updateState();
