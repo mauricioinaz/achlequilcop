@@ -6,7 +6,8 @@ import {
   Text,
   Button,
   AsyncStorage,
-  Image
+  Image,
+  BackHandler
 } from 'react-native';
 import {
     Player
@@ -86,55 +87,18 @@ class WelcomeScreen extends Component {
     }
   }
 
-    // TODO: Move to constructor??
   componentDidMount() {
     NetInfo.addEventListener('connectionChange', this._handleConnectionChange);
-
-
-    // MusicControl.setNowPlaying({
-    //   state: MusicControl.STATE_BUFFERING,
-    //   title: 'Radio',
-    //   artwork: 'https://xhbak.files.wordpress.com/2014/10/screen-shot-2014-10-09-at-11-07-46-pm.png', // URL or RN's image require()
-    //   artist: "Ach' Lequilc'op",
-    //   album: 'Thriller',
-    //   genre: 'Post-disco, Rhythm and Blues, Funk, Dance-pop',
-    //   duration: 294, // (Seconds)
-    //   description: 'Una descripción', // Android Only
-    //   color: 0xeeeeee, // Notification Color - Android Only
-    //   rating: 84, // Android Only (Boolean or Number depending on the type)
-    //   notificationIcon: 'my_custom_icon', // Android Only (String), Android Drawable resource name for a custom notification icon
-    // })
-    //
-    // MusicControl.enableBackgroundMode(true);
-    //
-    // MusicControl.enableControl('play', true)
-    // //MusicControl.enableControl('pause', true)
-    // MusicControl.enableControl('stop', true)
-    // //MusicControl.enableControl('volume', true) // Only affected when remoteVolume is enabled
-    // //MusicControl.enableControl('remoteVolume', false)
-    //
-    // MusicControl.on('play', () => {
-    //   this._playStop()
-    // })
-    //
-    // MusicControl.on('pause', () => {
-    //   this._playStop()
-    // })
-    //
-    // // MusicControl.on('stop', () => {
-    // //   this._playStop()
-    // // })
   }
 
   componentWillMount() {
     this.player = null;
-
     this._reloadPlayer();
   }
 
   componentWillUnmount () {
     NetInfo.removeEventListener('connectionChange', this._handleConnectionChange);
-    // TODO: Stop player???
+    // TODO: Stop player and/or music control???
   }
 
   componentDidUpdate(prevProps) {
@@ -237,18 +201,21 @@ class WelcomeScreen extends Component {
           description: "Radio cu'untic", // Android Only
           color: 0xeeeeee, // Notification Color - Android Only
           //rating: 84, // Android Only (Boolean or Number depending on the type)
-          //notificationIcon: require('../../assets/icons/LogoSinLetraMenu.png'), // Android Only (String), Android Drawable resource name for a custom notification icon
+          notificationIcon: "AlC" //require('../../assets/icons/LogoSinLetraMenu.png'), // Android Only (String), Android Drawable resource name for a custom notification icon
         })
 
         MusicControl.enableBackgroundMode(true);
+        MusicControl.handleAudioInterruptions(true);
 
         MusicControl.enableControl('play', true)
         MusicControl.enableControl('pause', true)
+        MusicControl.enableControl('stop', true)
 
         // TODO: Close APP on Swipe or WITH stop button???
-        MusicControl.enableControl('closeNotification', true, {when: 'paused'})
+        MusicControl.enableControl('closeNotification', true, {when: 'always'})
         // TODO: Handle notifications
         MusicControl.on('closeNotification', ()=> {
+          Alert.alert('Audio ended')
           // do something like this.props.dispatch(onAudioEnd());
         })
 
@@ -259,6 +226,15 @@ class WelcomeScreen extends Component {
 
         MusicControl.on('pause', () => {
           this._playStop()
+        })
+
+        // TODO: use X symbol instead of STOP
+        MusicControl.on('stop', () => {
+          if (this.player) {
+            this.player.destroy();
+          }
+          MusicControl.stopControl()
+          BackHandler.exitApp()
         })
 
 
