@@ -5,7 +5,8 @@ import {
   KeyboardAvoidingView,
   Text,
   TextInput,
-  Alert
+  Alert,
+  Keyboard
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { sayTseltal } from '../../utility/sayTseltal/sayTseltal'
@@ -30,6 +31,7 @@ class NumbersScreen extends Component {
   }
 
   updateNavigationState(){
+    Keyboard.dismiss()
     Navigation.mergeOptions("sideMenu", {
       sideMenu: {
         left: {
