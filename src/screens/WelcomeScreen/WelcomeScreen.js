@@ -7,14 +7,15 @@ import {
   Button,
   AsyncStorage,
   Image,
-  BackHandler
+  BackHandler,
+  NetInfo
 } from 'react-native';
 import {
     Player
 } from 'react-native-audio-toolkit';
 import {connect} from 'react-redux';
 import { Navigation } from 'react-native-navigation';
-import NetInfo from "@react-native-community/netinfo";
+//import NetInfo from "@react-native-community/netinfo";
 import * as actions from '../../redux/actions'
 import AnimatedLogo from '../../components/AnimatedLogo/AnimatedLogo'
 import ShareButton from '../../components/ShareButton/ShareButton';
@@ -34,7 +35,7 @@ class WelcomeScreen extends Component {
       connection: null
      };
     Navigation.events().bindComponent(this);
-
+    NetInfo.addEventListener('connectionChange', this._handleConnectionChange);
 
   }
 
@@ -111,7 +112,7 @@ class WelcomeScreen extends Component {
   }
 
   componentDidMount() {
-    NetInfo.addEventListener('connectionChange', this._handleConnectionChange);
+
 
     this._getLanguage()
   }
@@ -201,7 +202,7 @@ class WelcomeScreen extends Component {
 
     NetInfo.getConnectionInfo().then(data => {
       console.log("Connection type", data.type);
-      console.log("Connection effective type", data.effectiveType);
+
       if(data.type === 'wifi' || !this.props.connectOnlyWifi){
         this.player = new Player(strmAchLequilcop, {
           autoDestroy: false,
