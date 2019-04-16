@@ -9,7 +9,7 @@ import {
 
 
 const initialState = {
-  language: null,
+  language: 'castilla',
   languageData: "Castilla",
   wifiOnly: true
 };
@@ -19,10 +19,10 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case SELECTED_SPANISH:
       AsyncStorage.setItem("ach:language","castilla");
-      return {...state, language: "Castilla", languageData: "Castilla"};
+      return {...state, language: "castilla", languageData: "Castellano"};
     case SELECTED_TSELTAL:
       AsyncStorage.setItem("ach:language","tseltal");
-      return {...state, language: "Bats'il C'op",  languageData: "Bats'il C'op"};
+      return {...state, language: "tseltal",  languageData: "Bats'il C'op"};
     case SELECTED_WIFI_ONLY:
       AsyncStorage.setItem("ach:connection","wifiOnly");
       return {...state, wifiOnly: true};

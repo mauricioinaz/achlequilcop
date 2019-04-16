@@ -68,7 +68,7 @@ class LanguageScreen extends Component {
     const notSel = (<Text>  </Text>)
     let selectedTseltal = sel
     let selectedSpanish = notSel
-    if (this.props.currentLanguage === "Castilla") {
+    if (this.props.currentLanguage === "castilla") {
       selectedSpanish = sel
       selectedTseltal = notSel
     }
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    currentLanguage: state.lang.languageData,
+    currentLanguage: state.lang.language,
     connectOnlyWifi: state.lang.wifiOnly,
   };
 }

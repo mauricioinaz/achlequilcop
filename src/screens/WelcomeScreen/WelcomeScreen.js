@@ -29,12 +29,12 @@ class WelcomeScreen extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { playError: null };
+    this.state = {
+      playError: null,
+      connection: null
+     };
     Navigation.events().bindComponent(this);
 
-    // get async language
-    // TODO: move to componentDidMount???
-    this._getLanguage()
 
   }
 
@@ -61,26 +61,49 @@ class WelcomeScreen extends Component {
 
   _getLanguage = async () => {
     try {
-      const value = await AsyncStorage.getItem('ach:language');
-      if (value !== null) {
-      // We have data!!
-      console.log("Language async loaded is:" + value);
+      const valueLanguage = await AsyncStorage.getItem('ach:language');
+      const valueConnection = await AsyncStorage.getItem('ach:connection');
+      if (valueLanguage !== null) {
+        if(valueLanguage === 'tseltal') { this.props.onTseltalSelected() }
+      //Alert.alert('tenemos datos! ' + valueLanguage)
+      console.log("Language async loaded is:" + valueLanguage);
       } else {
-        Navigation.push(this.props.componentId, {
-              component: {
-                name: LANGUAGE_SCREEN,
-                passProps: {
-                    text: 'Elige un idioma'
-                },
-                options: {
-                  topBar: {
-                    title: {
-                      text: 'IDIOMA'
-                    }
-                  }
-                }
-              }
-        });
+        // Navigation.push(this.props.componentId, {
+        //       component: {
+        //         name: LANGUAGE_SCREEN,
+        //         passProps: {
+        //             text: 'Elige un idioma'
+        //         },
+        //         options: {
+        //           topBar: {
+        //             title: {
+        //               text: 'IDIOMA'
+        //             }
+        //           }
+        //         }
+        //       }
+        // });
+      }
+      if (valueConnection !== null) {
+        if(valueConnection === 'alwaysConnected') { this.props.onAlwaysSelected() }
+      //Alert.alert('tenemos datos! ' + valueConnection)
+      console.log("Connection loaded is:" + valueConnection);
+      } else {
+        // Navigation.push(this.props.componentId, {
+        //       component: {
+        //         name: LANGUAGE_SCREEN,
+        //         passProps: {
+        //             text: 'Elige un idioma'
+        //         },
+        //         options: {
+        //           topBar: {
+        //             title: {
+        //               text: 'IDIOMA'
+        //             }
+        //           }
+        //         }
+        //       }
+        // });
       }
     } catch (error) {
     // Error retrieving data
@@ -89,6 +112,8 @@ class WelcomeScreen extends Component {
 
   componentDidMount() {
     NetInfo.addEventListener('connectionChange', this._handleConnectionChange);
+
+    this._getLanguage()
   }
 
   componentWillMount() {
@@ -112,6 +137,7 @@ class WelcomeScreen extends Component {
 
   _handleConnectionChange = (data) => {
     console.log("type is: " + data.type);
+    this.setState({ connection: data.type})
     if (data.type !== 'wifi' && this.props.connectOnlyWifi) {
       this._reloadPlayer()
     }
@@ -189,7 +215,6 @@ class WelcomeScreen extends Component {
           this._updateState();
         });
 
-
         MusicControl.setNowPlaying({
           state: MusicControl.STATE_BUFFERING,
           title: 'Radio',
@@ -255,11 +280,17 @@ class WelcomeScreen extends Component {
   }
 
   render() {
+    const conn = (this.props.connectOnlyWifi) ? "Only Wify" : "Always Connected"
     return (
       <View style={styles.mainContainer}>
-      <AnimatedLogo amimating={this.props.playStopButton === 'DETENER'}/>
+      <AnimatedLogo amimating={
+        // TODO: check if screen is isVisible
+        // ...   const isVisible = await this.props.navigator.screenIsCurrentlyVisible()
+        this.props.playStopButton === 'DETENER'
+      }/>
         <Text>{/*this.props.langSelected*/}</Text>
-        <Text>{/*this.props.langData*/}</Text>
+        <Text>{/*conn*/}</Text>
+        <Text>{this.state.connection}</Text>
         <View>
 
           <View>
@@ -319,6 +350,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    //onSpanishSelected: () => dispatch(actions.fetchSpanish()),
+    onTseltalSelected: () => dispatch(actions.fetchTseltal()),
+    //onWifiSelected: () => dispatch(actions.selectWifiOnly()),
+    onAlwaysSelected: () => dispatch(actions.selectedAlwaysConnected()),
     onStartPlay: () => dispatch(actions.startPlay()),
     onStopPlay: () => dispatch(actions.stopPlay()),
     onEnablePlay: () => dispatch(actions.enablePlay()),
