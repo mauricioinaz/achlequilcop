@@ -230,15 +230,16 @@ class WelcomeScreen extends Component {
           notificationIcon: "AlC" //require('../../assets/icons/LogoSinLetraMenu.png'), // Android Only (String), Android Drawable resource name for a custom notification icon
         })
 
-        MusicControl.enableBackgroundMode(true);
-        MusicControl.handleAudioInterruptions(true);
+        // TODO: Check if functional in android
+        //MusicControl.enableBackgroundMode(true);
+        //MusicControl.handleAudioInterruptions(true);
 
         MusicControl.enableControl('play', true)
         MusicControl.enableControl('pause', true)
         MusicControl.enableControl('stop', true)
 
         // TODO: Close APP on Swipe or WITH stop button???
-        MusicControl.enableControl('closeNotification', true, {when: 'never'})
+        MusicControl.enableControl('closeNotification', true, {when: 'paused'})
         // TODO: Handle notifications
         MusicControl.on('closeNotification', ()=> {
           Alert.alert('Audio ended')
@@ -261,7 +262,8 @@ class WelcomeScreen extends Component {
             //   this._updateState();
             // });
             this.player.destroy();
-            this.props.onStopPlay()
+            // TODO: Create a this.props.onInitialPlayingState()
+            //this.props.onStartPlay()
           }
           MusicControl.stopControl()
           // TODO: App not exiting if in Background
