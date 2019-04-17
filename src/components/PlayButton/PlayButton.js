@@ -16,7 +16,7 @@ class PlayButton extends Component {
     if (this.props.playButtonDisabled) {
       insideButton = (<Image style={[styles.playImage, styles.playImageDisabled]} source={require('../../assets/icons/Play.png')}/>)
     } else if(this.props.playStopButton === "DETENER") {
-      insideButton = (<Image style={styles.playImage} source={require('../../assets/icons/Pause.png')}/>)
+      insideButton = (<Image style={styles.pauseImage} source={require('../../assets/icons/Pause.png')}/>)
     }
 
     return (
@@ -25,7 +25,7 @@ class PlayButton extends Component {
           disabled={this.props.playButtonDisabled}
           onPress={this.props.onTogglePlay}
           style={styles.playButton}>
-            {insideButton}
+            <View style={styles.containerIcon}>{insideButton}</View>
         </TouchableOpacity>
       </View>
     );
@@ -37,12 +37,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    width: 40
+  },
+  containerIcon: {
+    width: '100%',
+    height: '100%',
+    paddingRight: 40,
+    paddingTop: 13,
   },
   playButton: {
     // TODO: ADJUST FOR IOS
-    paddingRight: 5,
-    paddingTop: 5,
     margin: 0,
     width: '100%',
     height: '100%',
@@ -50,8 +55,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   playImage: {
-    //width: '50%',
-    //height: '50%',
+    width: 35,
+    height: 35,
+  },
+  pauseImage: {
+    width: 30,
+    height: 38,
   },
   playImageDisabled: {
     tintColor: "rgba(255,255,255,0.34)"

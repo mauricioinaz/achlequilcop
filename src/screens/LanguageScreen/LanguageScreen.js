@@ -88,7 +88,7 @@ class LanguageScreen extends Component {
           </View>
           <View style={styles.sectionConfigContainer}>
             <View style={styles.iconContainer}>
-              <Icon name='comments' size={80} color="#707070"/></View>
+              <Icon name='comments' size={75} color="#707070"/></View>
             <View style={styles.buttonsContainer}>
               <View style={styles.selectedButton}>
                 <ButtonAch onPress={() => this.handleSelectLang("CASTELLANO")}>Castellano</ButtonAch>
@@ -108,7 +108,7 @@ class LanguageScreen extends Component {
           </View>
           <View style={styles.sectionConfigContainer}>
             <View style={styles.iconContainer}>
-              <Icon name='wifi' size={75} color="#707070"/></View>
+              <Icon name='wifi' size={70} color="#707070"/></View>
             <View style={styles.buttonsContainer}>
               <View style={styles.selectedButton}>
                 <ButtonAch onPress={() => this.handleSelectConnection("WifiOnly")}>Sólo WiFi</ButtonAch>
@@ -130,7 +130,7 @@ class LanguageScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 2,
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     height: "30%",
-    justifyContent: "center",
+    justifyContent: "flex-end",
     alignItems: "center"
   },
   title: {
@@ -169,6 +169,7 @@ const styles = StyleSheet.create({
     width: "70%",
     padding: 20,
     paddingRight: 60,
+    paddingLeft: 60,
     justifyContent: "center",
     alignItems: "center",
   },

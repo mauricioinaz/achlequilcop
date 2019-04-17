@@ -171,9 +171,9 @@ class Sidedrawer extends Component {
         <TouchableOpacity onPress={this.onRadioSelected}>
           <View style={styles.menuElement}>
             <Image
-              style={styles.menuIcon}
+              style={styles.menuIconRadio}
               source={require('../../assets/icons/LogoSinLetraMenu.png')}/>
-            <Text style={styles.menuText}>Radio</Text>
+            <Text style={[styles.menuText, {fontSize: 24}]}>Radio</Text>
           </View>
         </TouchableOpacity>
 
@@ -232,11 +232,19 @@ const styles = StyleSheet.create({
 },
   menuIcon: {
     width: 48,
-    height: 48,
+    height: 52,
+    marginRight: 15,
+    paddingLeft: 0
+  },
+  menuIconRadio: {
+    marginTop: 10,
+    width: 54,
+    height: 64,
     marginRight: 15,
   },
   menuText: {
-    fontFamily: 'UbuntuCondensed-Regular'
+    fontFamily: 'UbuntuCondensed-Regular',
+    fontSize: 20
   },
   spacer: {
     paddingBottom: 60
