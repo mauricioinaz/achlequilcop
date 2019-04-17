@@ -257,9 +257,14 @@ class WelcomeScreen extends Component {
         // TODO: use X symbol instead of STOP
         MusicControl.on('stop', () => {
           if (this.player) {
+            // this.player.stop(() => {
+            //   this._updateState();
+            // });
             this.player.destroy();
+            this.props.onStopPlay()
           }
           MusicControl.stopControl()
+          // TODO: App not exiting if in Background
           BackHandler.exitApp()
         })
 
