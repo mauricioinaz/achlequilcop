@@ -238,7 +238,7 @@ class WelcomeScreen extends Component {
         MusicControl.enableControl('stop', true)
 
         // TODO: Close APP on Swipe or WITH stop button???
-        MusicControl.enableControl('closeNotification', true, {when: 'always'})
+        MusicControl.enableControl('closeNotification', true, {when: 'never'})
         // TODO: Handle notifications
         MusicControl.on('closeNotification', ()=> {
           Alert.alert('Audio ended')
