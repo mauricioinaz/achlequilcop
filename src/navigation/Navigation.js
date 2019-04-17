@@ -77,7 +77,8 @@ export function pushInitialScreen() {
                           id: 'nav_btn',
                           icon: require('../assets/icons/burgerMenu.png'),
                           //color: 'white',
-                          //fontSize: 8
+                          //fontSize: 20
+                          
                         }
                       ],
                       rightButtons: [
