@@ -15,6 +15,7 @@ import {
 } from 'react-native-audio-toolkit';
 import {connect} from 'react-redux';
 import { Navigation } from 'react-native-navigation';
+import RNExitApp from 'react-native-exit-app';
 //import NetInfo from "@react-native-community/netinfo";
 import * as actions from '../../redux/actions'
 import AnimatedLogo from '../../components/AnimatedLogo/AnimatedLogo'
@@ -112,8 +113,6 @@ class WelcomeScreen extends Component {
   }
 
   componentDidMount() {
-
-
     this._getLanguage()
   }
 
@@ -124,7 +123,6 @@ class WelcomeScreen extends Component {
 
   componentWillUnmount () {
     NetInfo.removeEventListener('connectionChange', this._handleConnectionChange);
-    // TODO: Stop player and/or music control???
   }
 
   componentDidUpdate(prevProps) {
@@ -142,12 +140,11 @@ class WelcomeScreen extends Component {
     if (data.type !== 'wifi' && this.props.connectOnlyWifi) {
       this._reloadPlayer()
     }
-
   };
 
   _updateState(err) {
 
-    let playState = null //(this.player && this.player.isPlaying) ? MusicControl.STATE_PLAYING : MusicControl.STATE_PAUSED
+    let playState = null
 
     if (this.player && this.player.isPlaying) {
       this.props.onStopPlay()
@@ -169,7 +166,6 @@ class WelcomeScreen extends Component {
       speed: 1, // Playback Rate
       volume: 10, // Android Only (Number from 0 to maxVolume) - Only used when remoteVolume is enabled
       maxVolume: 10, // Android Only (Number) - Only used when remoteVolume is enabled
-      //rating: MusicControl.RATING_PERCENTAGE // Android Only (RATING_HEART, RATING_THUMBS_UP_DOWN, RATING_3_STARS, RATING_4_STARS, RATING_5_STARS, RATING_PERCENTAGE)
     })
   }
 
@@ -216,6 +212,7 @@ class WelcomeScreen extends Component {
           this._updateState();
         });
 
+        // TODO: Move to separate method
         MusicControl.setNowPlaying({
           state: MusicControl.STATE_BUFFERING,
           title: 'Radio',
@@ -239,13 +236,26 @@ class WelcomeScreen extends Component {
         MusicControl.enableControl('stop', true)
 
         // TODO: Close APP on Swipe or WITH stop button???
-        MusicControl.enableControl('closeNotification', true, {when: 'paused'})
+        MusicControl.enableControl('closeNotification', true, {when: 'paused
+        '})
         // TODO: Handle notifications
         MusicControl.on('closeNotification', ()=> {
-          Alert.alert('Audio ended')
+          if (this.player) {
+            // this.player.stop(() => {
+            //   this._updateState();
+            // });
+            this.player.destroy();
+            // TODO: Create a this.props.onInitialPlayingState()
+            //this.props.onStartPlay()
+          }
+          MusicControl.stopControl()
+          // TODO: App not exiting if in Background
+          RNExitApp.exitApp();
+          //BackHandler.exitApp()
+          // change to when: 'pause' and
+          // TODO: ¿Close app if in background for 24 and lower android?
           // do something like this.props.dispatch(onAudioEnd());
         })
-
 
         MusicControl.on('play', () => {
           this._playStop()
@@ -263,11 +273,13 @@ class WelcomeScreen extends Component {
             // });
             this.player.destroy();
             // TODO: Create a this.props.onInitialPlayingState()
-            //this.props.onStartPlay()
+            // this.props.onStartPlay()
+            // reload player?
           }
           MusicControl.stopControl()
           // TODO: App not exiting if in Background
-          BackHandler.exitApp()
+          //BackHandler.exitApp()
+          RNExitApp.exitApp();
         })
 
 
@@ -279,12 +291,6 @@ class WelcomeScreen extends Component {
     });
 
     this._updateState();
-
-
-    // TODO: eliminate?
-    // this.player.on('pause', () => {
-    //   this._updateState();
-    // });
   }
 
   render() {
