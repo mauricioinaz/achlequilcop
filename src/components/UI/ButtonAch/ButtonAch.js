@@ -1,6 +1,7 @@
 import React from 'react'
 import {Platform, TouchableOpacity, TouchableNativeFeedback, Text, View, StyleSheet} from 'react-native'
 
+
 const buttonAch = props => {
   const insideButton = (
     <View style={styles.button}>
@@ -21,6 +22,7 @@ const buttonAch = props => {
   )
 }
 
+
 const styles = StyleSheet.create({
   button: {
     padding: 6,
@@ -28,7 +30,9 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
     borderColor: '#494D4B',
-    backgroundColor: "#00678F"
+    backgroundColor: "#00678F",
+    width: '100%',
+    alignItems: 'center'
   },
   buttonText: {
     color: 'white',
@@ -36,5 +40,6 @@ const styles = StyleSheet.create({
     fontSize: 26,
   }
 });
+
 
 export default buttonAch

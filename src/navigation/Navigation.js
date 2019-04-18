@@ -1,5 +1,4 @@
 import { Navigation } from 'react-native-navigation';
-
 import {
   WELCOME_SCREEN,
   SINGLE_APP_SCREEN,
@@ -9,15 +8,16 @@ import {
 import registerScreens from './registerScreens';
 import Icon from 'react-native-vector-icons/FontAwesome'
 
+
 // Register all screens on launch
 registerScreens();
+
 
 export function pushInitialScreen() {
   Navigation.setDefaultOptions({
     topBar: {
       visible: true,
       animate: false,
-      // TODO: check!
       drawBehind: false,
       buttonColor: '#0B0F0D',
       background: {
@@ -30,12 +30,6 @@ export function pushInitialScreen() {
         fontSize: 34,
         fontFamily: 'UbuntuCondensed-Regular'
       },
-      //height: 60
-      //Not needed?
-      //borderHeight: 1.3,
-      //borderColor: '00678F',
-      //elevation: 1.5
-
     },
     statusBar: {
       visible: true,
@@ -46,14 +40,6 @@ export function pushInitialScreen() {
     layout: {
       orientation: ['portrait']
     },
-    // leftButtons: [
-    //   {
-    //     id: 'nav_btn',
-    //     text: "NAV",
-    //     //icon: "NAV",
-    //     color: 'white'
-    //   }
-    // ],
     animations: {
       push: {
           enabled: 'false'
@@ -69,18 +55,12 @@ export function pushInitialScreen() {
       sideMenu: {
         id: "sideMenu",
         left: {
-          //enabled: true,
-          //width: 100, // Not working?
           component: {
             name: SIDE_DRAWER,
             id: 'settingsDrawer',
-            // passProps: {
-            //   text: 'Menú Lateral'
-            // }
           }
         },
         center: {
-            // TODO: eliminate stack?
           stack: {
             id: "CenterStack",
               children: [{
@@ -96,8 +76,9 @@ export function pushInitialScreen() {
                         {
                           id: 'nav_btn',
                           icon: require('../assets/icons/burgerMenu.png'),
-                          color: 'white',
-                          fontSize: 8
+                          //color: 'white',
+                          //fontSize: 20
+                          
                         }
                       ],
                       rightButtons: [
@@ -106,9 +87,6 @@ export function pushInitialScreen() {
                           component: {
                               name: PLAY_BUTTON
                           },
-                          //icon: require('../assets/icons/Play.png'),
-                          //text: "PLAY",
-                          //color: 'white',
                           fontSize: 12
                         }
                     ],

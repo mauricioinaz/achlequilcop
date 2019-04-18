@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import {
     View,
-    Button,
     Image,
-    Text,
     TouchableOpacity,
     StyleSheet
  } from 'react-native';
-
  import {connect} from 'react-redux';
  import * as actions from '../../redux/actions'
 
-// TODO: SHould it be class????
+
 class PlayButton extends Component {
 
   render() {
@@ -19,36 +16,57 @@ class PlayButton extends Component {
     if (this.props.playButtonDisabled) {
       insideButton = (<Image style={[styles.playImage, styles.playImageDisabled]} source={require('../../assets/icons/Play.png')}/>)
     } else if(this.props.playStopButton === "DETENER") {
-      insideButton = (<Image style={styles.playImage} source={require('../../assets/icons/Pause.png')}/>)
+      insideButton = (<Image style={styles.pauseImage} source={require('../../assets/icons/Pause.png')}/>)
     }
-    return (
 
-      <TouchableOpacity
-        disabled={this.props.playButtonDisabled}
-        onPress={this.props.onTogglePlay}
-        style={styles.playButton}
-        >
-          {insideButton}
-      </TouchableOpacity>
+    return (
+      <View style={styles.container}>
+        <TouchableOpacity
+          disabled={this.props.playButtonDisabled}
+          onPress={this.props.onTogglePlay}
+          style={styles.playButton}>
+            <View style={styles.containerIcon}>{insideButton}</View>
+        </TouchableOpacity>
+      </View>
     );
   }
 }
 
+
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 40
+  },
+  containerIcon: {
+    width: '100%',
+    height: '100%',
+    paddingRight: 40,
+    paddingTop: 13,
+  },
   playButton: {
-    // TODO: ADJUST TO NOT CROP IMAGE
-    padding: 0,
-    margin: 0
+    // TODO: ADJUST FOR IOS
+    margin: 0,
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   playImage: {
     width: 35,
     height: 35,
-    //flex: 1
+  },
+  pauseImage: {
+    width: 30,
+    height: 38,
   },
   playImageDisabled: {
     tintColor: "rgba(255,255,255,0.34)"
   }
 });
+
 
 const mapStateToProps = state => {
   return {
@@ -57,11 +75,13 @@ const mapStateToProps = state => {
   };
 }
 
+
 const mapDispatchToProps = dispatch => {
   return {
     onTogglePlay: () => dispatch(actions.playToggle()),
     onTseltalSelected: () => dispatch(actions.fetchTseltal())
   }
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlayButton)

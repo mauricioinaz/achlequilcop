@@ -86,7 +86,6 @@ export const sayTseltal = (n) => {
     tmpNumber -= baseTwenty[baseTwenty.length - 1]
     tmpNumber /= 20
   }
-  //console.log(baseTwenty);
 
   let result = ""
   let pos = 0

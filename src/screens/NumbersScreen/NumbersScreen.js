@@ -5,54 +5,12 @@ import {
   KeyboardAvoidingView,
   Text,
   TextInput,
-  Alert
+  Alert,
+  Keyboard
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { sayTseltal } from '../../utility/sayTseltal/sayTseltal'
 
-
-const styles = StyleSheet.create({
-  flex: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-  },
-  titleContainer: {
-    height: 80,
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  inputContainer: {
-    height: 80,
-    width: 150,
-    justifyContent: "flex-start",
-    alignItems: "center"
-  },
-  resultContainer: {
-    //height: "40%",
-    justifyContent: "flex-start",
-    alignItems: "center",
-    paddingBottom: 80
-  },
-  title: {
-    fontFamily: 'UbuntuCondensed-Regular',
-    fontSize: 28,
-    color: "#494D4B",
-    textAlign: 'center',
-  },
-  input: {
-    fontFamily: 'UbuntuCondensed-Regular',
-    fontSize: 38,
-    color: "#494D4B",
-    textAlign: 'center',
-  },
-  result: {
-    fontFamily: 'UbuntuCondensed-Regular',
-    fontSize: 38,
-    color: "#000",
-    textAlign: 'center',
-  }
-});
 
 class NumbersScreen extends Component {
 
@@ -73,6 +31,7 @@ class NumbersScreen extends Component {
   }
 
   updateNavigationState(){
+    Keyboard.dismiss()
     Navigation.mergeOptions("sideMenu", {
       sideMenu: {
         left: {
@@ -120,7 +79,7 @@ class NumbersScreen extends Component {
             value={this.state.nmb}
             placeholder="123..."
             keyboardType="numeric"
-            returnKeyLabel="go" //go, done, search
+            returnKeyLabel="go"
             maxLength={8}
             autoFocus
             underlineColorAndroid23
@@ -135,5 +94,51 @@ class NumbersScreen extends Component {
     );
   }
 }
+
+
+
+const styles = StyleSheet.create({
+  flex: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+  },
+  titleContainer: {
+    height: 80,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  inputContainer: {
+    height: 80,
+    width: 150,
+    justifyContent: "flex-start",
+    alignItems: "center"
+  },
+  resultContainer: {
+    //height: "40%",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    paddingBottom: 80
+  },
+  title: {
+    fontFamily: 'UbuntuCondensed-Regular',
+    fontSize: 28,
+    color: "#494D4B",
+    textAlign: 'center',
+  },
+  input: {
+    fontFamily: 'UbuntuCondensed-Regular',
+    fontSize: 38,
+    color: "#494D4B",
+    textAlign: 'center',
+  },
+  result: {
+    fontFamily: 'UbuntuCondensed-Regular',
+    fontSize: 38,
+    color: "#000",
+    textAlign: 'center',
+  }
+});
+
 
 export default NumbersScreen;

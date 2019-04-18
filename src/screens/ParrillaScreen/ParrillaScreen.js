@@ -8,19 +8,6 @@ import {
 import { Navigation } from 'react-native-navigation';
 
 
-const styles = StyleSheet.create({
-  flex: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  image: {
-    width: '80%',
-    height: '80%',
-    resizeMode: 'contain'
-  },
-});
-
 class ParrillaScreen extends Component {
 
   constructor(props) {
@@ -48,7 +35,6 @@ class ParrillaScreen extends Component {
   }
 
 
-
   render() {
     return (
       <View style={styles.flex}>
@@ -60,5 +46,20 @@ class ParrillaScreen extends Component {
     );
   }
 }
+
+
+const styles = StyleSheet.create({
+  flex: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  image: {
+    width: '80%',
+    height: '80%',
+    resizeMode: 'contain'
+  },
+});
+
 
 export default ParrillaScreen;

@@ -8,28 +8,6 @@ import {
 import { Navigation } from 'react-native-navigation';
 
 
-const styles = StyleSheet.create({
-  flex: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontFamily: 'UbuntuCondensed-Regular',
-    fontSize: 28,
-    color: 'black'
-  },
-  paragraph: {
-    fontFamily: 'UbuntuCondensed-Regular',
-    fontSize: 18,
-    textAlign: 'justify',
-    color: 'black'
-  },
-  paragraphContainer: {
-    padding: 30
-  }
-});
-
 class AboutScreen extends Component {
 
   constructor(props) {
@@ -57,13 +35,10 @@ class AboutScreen extends Component {
   }
 
 
-
   render() {
     return (
       <View style={styles.flex}>
         <Text style={styles.title}>Sobre nuestra radio:</Text>
-
-
         <View style={styles.paragraphContainer}>
           <Text style={styles.paragraph} numberOfLines={10}>Radio Ach’ Lequil C’op es una Radio comunitaria conformada por jóvenes Tseltales, Ch’oles y Mestizos. Además del equipo de base, somos más de 40 voluntarios elegidos por nuestras comunidades para brindar un servicio a nuestro pueblo..
 
@@ -75,5 +50,30 @@ class AboutScreen extends Component {
     );
   }
 }
+
+
+
+const styles = StyleSheet.create({
+  flex: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title: {
+    fontFamily: 'UbuntuCondensed-Regular',
+    fontSize: 28,
+    color: 'black'
+  },
+  paragraph: {
+    fontFamily: 'UbuntuCondensed-Regular',
+    fontSize: 18,
+    textAlign: 'justify',
+    color: 'black'
+  },
+  paragraphContainer: {
+    padding: 30
+  }
+});
+
 
 export default AboutScreen;

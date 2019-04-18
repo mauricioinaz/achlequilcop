@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   Image
 } from 'react-native';
-
 import { Navigation } from 'react-native-navigation';
 import {
   WELCOME_SCREEN,
@@ -18,31 +17,6 @@ import {
   PLAY_BUTTON
 } from '../../navigation';
 
-const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-    backgroundColor: 'white'
-},
-  menuElement: {
-    flexDirection: 'row',
-    margin: 10,
-    marginLeft: 30,
-    alignItems: 'center'
-},
-  menuIcon: {
-    width: 48,
-    height: 48,
-    marginRight: 15,
-  },
-  menuText: {
-    fontFamily: 'UbuntuCondensed-Regular'
-  },
-  spacer: {
-    paddingBottom: 60
-  }
-});
 
 class Sidedrawer extends Component {
 
@@ -56,8 +30,7 @@ class Sidedrawer extends Component {
   }
 
   onLanguageSelected = () => {
-
-  Navigation.push("CenterStack", {
+    Navigation.push("CenterStack", {
         component: {
           name: LANGUAGE_SCREEN,
           passProps: {
@@ -81,9 +54,6 @@ class Sidedrawer extends Component {
                     component: {
                         name: PLAY_BUTTON
                     },
-                    //icon: require('../assets/icons/Play.png'),
-                    //text: "PLAY",
-                    //color: 'white'
                   }
               ],
             }
@@ -92,11 +62,9 @@ class Sidedrawer extends Component {
       });
 
     Navigation.mergeOptions("settingsDrawer", { sideMenu: { left: { visible: false, }}});
-
   }
 
   onParrillaSelected = () => {
-
     Navigation.push("CenterStack", {
           component: {
             name: PARRILLA_SCREEN,
@@ -118,9 +86,6 @@ class Sidedrawer extends Component {
                       component: {
                           name: PLAY_BUTTON
                       },
-                      //icon: require('../assets/icons/Play.png'),
-                      //text: "PLAY",
-                      //color: 'white'
                   }],
               }
             }
@@ -128,11 +93,9 @@ class Sidedrawer extends Component {
         });
 
     Navigation.mergeOptions("settingsDrawer", { sideMenu: { left: { visible: false, }}});
-
   }
 
   onAboutSelected = () => {
-
     Navigation.push("CenterStack", {
           component: {
             name: ABOUT_SCREEN,
@@ -157,9 +120,6 @@ class Sidedrawer extends Component {
                       component: {
                           name: PLAY_BUTTON
                       },
-                      //icon: require('../assets/icons/Play.png'),
-                      //text: "PLAY",
-                      //color: 'white'
                     }
                 ],
               }
@@ -168,11 +128,9 @@ class Sidedrawer extends Component {
         });
 
     Navigation.mergeOptions("settingsDrawer", { sideMenu: { left: { visible: false, }}});
-
   }
 
   onNumbersSelected = () => {
-
     Navigation.push("CenterStack", {
           component: {
             name: NUMBERS_SCREEN,
@@ -197,9 +155,6 @@ class Sidedrawer extends Component {
                       component: {
                           name: PLAY_BUTTON
                       },
-                      //icon: require('../assets/icons/Play.png'),
-                      //text: "PLAY",
-                      //color: 'white'
                     }
                 ],
               }
@@ -208,7 +163,6 @@ class Sidedrawer extends Component {
         });
 
     Navigation.mergeOptions("settingsDrawer", { sideMenu: { left: { visible: false, }}});
-
   }
 
   render() {
@@ -217,9 +171,9 @@ class Sidedrawer extends Component {
         <TouchableOpacity onPress={this.onRadioSelected}>
           <View style={styles.menuElement}>
             <Image
-              style={styles.menuIcon}
+              style={styles.menuIconRadio}
               source={require('../../assets/icons/LogoSinLetraMenu.png')}/>
-            <Text style={styles.menuText}>Radio</Text>
+            <Text style={[styles.menuText, {fontSize: 24}]}>Radio</Text>
           </View>
         </TouchableOpacity>
 
@@ -263,10 +217,39 @@ class Sidedrawer extends Component {
 }
 
 
-// const mapStateToProps = state => {
-//   return {
-//
-//   };
-// }
+const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    backgroundColor: 'white'
+},
+  menuElement: {
+    flexDirection: 'row',
+    margin: 10,
+    marginLeft: 30,
+    alignItems: 'center'
+},
+  menuIcon: {
+    width: 48,
+    height: 52,
+    marginRight: 15,
+    paddingLeft: 0
+  },
+  menuIconRadio: {
+    marginTop: 10,
+    width: 54,
+    height: 64,
+    marginRight: 15,
+  },
+  menuText: {
+    fontFamily: 'UbuntuCondensed-Regular',
+    fontSize: 20
+  },
+  spacer: {
+    paddingBottom: 60
+  }
+});
+
 
 export default Sidedrawer;

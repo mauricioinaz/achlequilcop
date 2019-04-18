@@ -1,8 +1,5 @@
-// @flow
-
 import React from 'react';
 import { Navigation } from 'react-native-navigation';
-
 import {
   WelcomeScreen,
   LanguageScreen,
@@ -13,7 +10,6 @@ import {
 } from '../screens';
 import PlayButton from '../components/PlayButton/PlayButton'
 import { Provider } from 'react-redux';
-
 import {
   WELCOME_SCREEN,
   LANGUAGE_SCREEN,
@@ -25,7 +21,9 @@ import {
 } from './Screens';
 import configureStore from '../redux/configureStore';
 
+
 const store = configureStore();
+
 
 export default function () {
   Navigation.registerComponentWithRedux(WELCOME_SCREEN, () => WelcomeScreen, Provider, store)
