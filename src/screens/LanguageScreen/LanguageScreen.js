@@ -2,15 +2,11 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   View,
-  Image,
   Text,
-  Button,
-  Switch
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import ButtonAch from '../../components/UI/ButtonAch/ButtonAch'
 import Icon from 'react-native-vector-icons/FontAwesome'
-
 import {connect} from 'react-redux';
 import * as actions from '../../redux/actions'
 import {

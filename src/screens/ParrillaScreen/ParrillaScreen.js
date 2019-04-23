@@ -3,7 +3,6 @@ import {
   StyleSheet,
   View,
   Image,
-  Text,
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { SIDE_MENU_ID, MENU_BTN_ID } from '../../navigation/Screens';

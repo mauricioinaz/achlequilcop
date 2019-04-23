@@ -6,8 +6,6 @@ import {
   Text,
   Button,
   AsyncStorage,
-  Image,
-  BackHandler,
   NetInfo
 } from 'react-native';
 import {
@@ -23,7 +21,7 @@ import ShareButton from '../../components/ShareButton/ShareButton';
 import MusicControl from 'react-native-music-control';
 import {
   STOPPING,
-  ONLY_WIFI,
+  //ONLY_WIFI,
   ALWAYS_CONNECTED,
   TSELTAL,
   LANGUAGE_ASYNC,
