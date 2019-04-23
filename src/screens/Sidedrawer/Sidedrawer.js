@@ -13,8 +13,12 @@ import {
   PARRILLA_SCREEN,
   ABOUT_SCREEN,
   NUMBERS_SCREEN,
-  PLAY_BUTTON
-} from '../../navigation';
+  PLAY_BUTTON,
+  MENU_BTN_ID,
+  PLAY_BTN_ID,
+  CENTER_STACK_ID,
+  SIDE_DRAWER_ID
+} from '../../navigation/Screens';
 
 
 class Sidedrawer extends Component {
@@ -24,8 +28,8 @@ class Sidedrawer extends Component {
   }
 
   onRadioSelected () {
-    Navigation.popToRoot("CenterStack")
-    Navigation.mergeOptions("settingsDrawer", { sideMenu: { left: { visible: false, }}});
+    Navigation.popToRoot(CENTER_STACK_ID)
+    Navigation.mergeOptions(SIDE_DRAWER_ID, { sideMenu: { left: { visible: false, }}});
   }
 
   onScreenSelected (scr) {
@@ -34,7 +38,7 @@ class Sidedrawer extends Component {
                   (scr === ABOUT_SCREEN) ? 'Acerca de' :
                   (scr === NUMBERS_SCREEN) ? 'Aprende a Contar' : ''
 
-    Navigation.push("CenterStack", {
+    Navigation.push(CENTER_STACK_ID, {
           component: {
             name: scr,
             options: {
@@ -44,14 +48,14 @@ class Sidedrawer extends Component {
                   },
                   leftButtons: [
                     {
-                      id: 'nav_btn',
+                      id: MENU_BTN_ID,
                       icon: require('../../assets/icons/burgerMenu.png'),
                       color: 'white',
                     }
                   ],
                   rightButtons: [
                     {
-                      id: 'nav_play_btn',
+                      id: PLAY_BTN_ID,
                       component: {
                           name: PLAY_BUTTON
                       },
@@ -62,7 +66,7 @@ class Sidedrawer extends Component {
           }
         });
 
-    Navigation.mergeOptions("settingsDrawer", { sideMenu: { left: { visible: false, }}});
+    Navigation.mergeOptions(SIDE_DRAWER_ID, { sideMenu: { left: { visible: false, }}});
   }
 
 

@@ -21,6 +21,15 @@ import * as actions from '../../redux/actions'
 import AnimatedLogo from '../../components/AnimatedLogo/AnimatedLogo'
 import ShareButton from '../../components/ShareButton/ShareButton';
 import MusicControl from 'react-native-music-control';
+import {
+  STOPPING,
+  ONLY_WIFI,
+  ALWAYS_CONNECTED,
+  TSELTAL,
+  LANGUAGE_ASYNC,
+  CONNECTION_ASYNC
+} from '../../redux/constants'
+import { SIDE_MENU_ID, MENU_BTN_ID } from '../../navigation/Screens';
 
 
 //let strmAchLequilcop = "http://noasrv.caster.fm:10182/live"
@@ -42,7 +51,7 @@ class WelcomeScreen extends Component {
 
   navigationButtonPressed({buttonId}) {
     switch (buttonId) {
-      case 'nav_btn': {
+      case MENU_BTN_ID: {
         this.updateNavigationState();
         break;
       }
@@ -52,7 +61,7 @@ class WelcomeScreen extends Component {
   }
 
   updateNavigationState(){
-    Navigation.mergeOptions("sideMenu", {
+    Navigation.mergeOptions(SIDE_MENU_ID, {
       sideMenu: {
         left: {
           visible: true
@@ -85,16 +94,16 @@ class WelcomeScreen extends Component {
 
   _getLanguage = async () => {
     try {
-      const valueLanguage = await AsyncStorage.getItem('ach:language');
-      const valueConnection = await AsyncStorage.getItem('ach:connection');
+      const valueLanguage = await AsyncStorage.getItem(LANGUAGE_ASYNC);
+      const valueConnection = await AsyncStorage.getItem(CONNECTION_ASYNC);
       if (valueLanguage !== null) {
-        if(valueLanguage === 'tseltal') { this.props.onTseltalSelected() }
+        if(valueLanguage === TSELTAL) { this.props.onTseltalSelected() }
       console.log("Language async loaded is:" + valueLanguage);
       } else {
         // TODO: handle First Time Loading
       }
       if (valueConnection !== null) {
-        if(valueConnection === 'alwaysConnected') { this.props.onAlwaysSelected() }
+        if(valueConnection === ALWAYS_CONNECTED) { this.props.onAlwaysSelected() }
       console.log("Connection loaded is:" + valueConnection);
       } else {
         // TODO: Handle No Connection
@@ -265,13 +274,13 @@ class WelcomeScreen extends Component {
   }
 
   render() {
-    const conn = (this.props.connectOnlyWifi) ? "Only Wify" : "Always Connected"
+    //const conn = (this.props.connectOnlyWifi) ? ONLY_WIFI : ALWAYS_CONNECTED
     return (
       <View style={styles.mainContainer}>
       <AnimatedLogo amimating={
         // TODO: check if screen is isVisible
         // ...   const isVisible = await this.props.navigator.screenIsCurrentlyVisible()
-        this.props.playStopButton === 'DETENER'
+        this.props.playStopButton === STOPPING
       }/>
         <Text>{/*this.props.langSelected*/}</Text>
         <Text>{/*conn*/}</Text>

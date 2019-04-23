@@ -6,10 +6,18 @@ import {
   SELECTED_WIFI_ONLY,
   SELECTED_ALWAYS_CONNECTED
 } from "../actions/actionTypes";
+import {
+  ONLY_WIFI,
+  ALWAYS_CONNECTED,
+  TSELTAL,
+  CASTILLA,
+  LANGUAGE_ASYNC,
+  CONNECTION_ASYNC
+} from '../constants'
 
 
 const initialState = {
-  language: 'castilla',
+  language: CASTILLA,
   languageData: "Castilla",
   wifiOnly: true
 };
@@ -18,16 +26,16 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case SELECTED_SPANISH:
-      AsyncStorage.setItem("ach:language","castilla");
-      return {...state, language: "castilla", languageData: "Castellano"};
+      AsyncStorage.setItem(LANGUAGE_ASYNC, CASTILLA);
+      return {...state, language: CASTILLA, languageData: "Castellano"};
     case SELECTED_TSELTAL:
-      AsyncStorage.setItem("ach:language","tseltal");
-      return {...state, language: "tseltal",  languageData: "Bats'il C'op"};
+      AsyncStorage.setItem(LANGUAGE_ASYNC, TSELTAL);
+      return {...state, language: TSELTAL,  languageData: "Bats'il C'op"};
     case SELECTED_WIFI_ONLY:
-      AsyncStorage.setItem("ach:connection","wifiOnly");
+      AsyncStorage.setItem(CONNECTION_ASYNC, ONLY_WIFI);
       return {...state, wifiOnly: true};
     case SELECTED_ALWAYS_CONNECTED:
-      AsyncStorage.setItem("ach:connection","alwaysConnected");
+      AsyncStorage.setItem(CONNECTION_ASYNC, ALWAYS_CONNECTED);
       return {...state,  wifiOnly: false};
     default: return state;
   }

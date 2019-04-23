@@ -5,6 +5,10 @@ import {
   DISABLE_PLAY,
   PLAY_TOGGLE
 } from "../actions/actionTypes";
+import {
+  PLAYING,
+  STOPPING
+} from '../constants'
 
 
 const initialState = {
@@ -18,9 +22,9 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case START_PLAY:
-        return {...state, playStopButton: "REPRODUCIR"};
+        return {...state, playStopButton: PLAYING};
     case STOP_PLAY:
-        return {...state, playStopButton: "DETENER"};
+        return {...state, playStopButton: STOPPING};
     case ENABLE_PLAY:
         return {...state, playButtonDisabled: false};
     case DISABLE_PLAY:
