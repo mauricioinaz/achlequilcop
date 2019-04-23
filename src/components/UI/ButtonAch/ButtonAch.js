@@ -1,5 +1,12 @@
 import React from 'react'
-import {Platform, TouchableOpacity, TouchableNativeFeedback, Text, View, StyleSheet} from 'react-native'
+import {
+  Platform,
+  TouchableOpacity,
+  TouchableNativeFeedback,
+  Text,
+  View,
+  StyleSheet
+} from 'react-native'
 
 
 const buttonAch = props => {

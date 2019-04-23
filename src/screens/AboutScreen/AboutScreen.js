@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   View,
-  Image,
   Text,
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
+import { SIDE_MENU_ID, MENU_BTN_ID } from '../../navigation/Screens';
 
 
 class AboutScreen extends Component {
@@ -17,15 +17,13 @@ class AboutScreen extends Component {
   }
 
   navigationButtonPressed({buttonId}) {
-      console.log('NAVIGATING... pressed');
-      console.log(buttonId);
-    if( buttonId == 'nav_btn' ){
+    if( buttonId == MENU_BTN_ID ){
       this.updateNavigationState();
     }
   }
 
   updateNavigationState(){
-    Navigation.mergeOptions("sideMenu", {
+    Navigation.mergeOptions(SIDE_MENU_ID, {
       sideMenu: {
         left: {
           visible: true

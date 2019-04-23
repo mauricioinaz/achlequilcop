@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { sayTseltal } from '../../utility/sayTseltal/sayTseltal'
-
+import { SIDE_MENU_ID, MENU_BTN_ID } from '../../navigation/Screens';
 
 class NumbersScreen extends Component {
 
@@ -23,16 +23,14 @@ class NumbersScreen extends Component {
   }
 
   navigationButtonPressed({buttonId}) {
-      console.log('NAVIGATING... pressed');
-      console.log(buttonId);
-    if( buttonId == 'nav_btn' ){
+    if( buttonId == MENU_BTN_ID ){
       this.updateNavigationState();
     }
   }
 
   updateNavigationState(){
     Keyboard.dismiss()
-    Navigation.mergeOptions("sideMenu", {
+    Navigation.mergeOptions(SIDE_MENU_ID, {
       sideMenu: {
         left: {
           visible: true
@@ -101,24 +99,22 @@ const styles = StyleSheet.create({
   flex: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-evenly',
+    //justifyContent: 'space-evenly',
   },
   titleContainer: {
-    height: 80,
+    flex: 1,
     justifyContent: "center",
     alignItems: "center"
   },
   inputContainer: {
-    height: 80,
-    width: 150,
+    flex: 1,
     justifyContent: "flex-start",
     alignItems: "center"
   },
   resultContainer: {
-    //height: "40%",
+    flex: 1.5,
     justifyContent: "flex-start",
     alignItems: "center",
-    paddingBottom: 80
   },
   title: {
     fontFamily: 'UbuntuCondensed-Regular',

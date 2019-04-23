@@ -3,7 +3,13 @@ import {
   WELCOME_SCREEN,
   SINGLE_APP_SCREEN,
   SIDE_DRAWER,
-  PLAY_BUTTON
+  PLAY_BUTTON,
+  SIDE_MENU_ID,
+  MENU_BTN_ID,
+  PLAY_BTN_ID,
+  CENTER_STACK_ID,
+  SIDE_DRAWER_ID,
+  WELCOME_SCREEN_ID
 } from './Screens';
 import registerScreens from './registerScreens';
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -53,20 +59,20 @@ export function pushInitialScreen() {
   Navigation.setRoot({
     root: {
       sideMenu: {
-        id: "sideMenu",
+        id: SIDE_MENU_ID,
         left: {
           component: {
             name: SIDE_DRAWER,
-            id: 'settingsDrawer',
+            id: SIDE_DRAWER_ID,
           }
         },
         center: {
           stack: {
-            id: "CenterStack",
+            id: CENTER_STACK_ID,
               children: [{
                 component: {
                   name: WELCOME_SCREEN,
-                  id: "WelcomeScreen",
+                  id: WELCOME_SCREEN_ID,
                   options: {
                     topBar: {
                       title: {
@@ -74,16 +80,16 @@ export function pushInitialScreen() {
                       },
                       leftButtons: [
                         {
-                          id: 'nav_btn',
+                          id: MENU_BTN_ID,
                           icon: require('../assets/icons/burgerMenu.png'),
                           //color: 'white',
                           //fontSize: 20
-                          
+
                         }
                       ],
                       rightButtons: [
                         {
-                          id: 'nav_play_btn',
+                          id: PLAY_BTN_ID,
                           component: {
                               name: PLAY_BUTTON
                           },

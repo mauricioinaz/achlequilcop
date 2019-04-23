@@ -6,8 +6,6 @@ import {
   Text,
   Button,
   AsyncStorage,
-  Image,
-  BackHandler,
   NetInfo
 } from 'react-native';
 import {
@@ -21,6 +19,15 @@ import * as actions from '../../redux/actions'
 import AnimatedLogo from '../../components/AnimatedLogo/AnimatedLogo'
 import ShareButton from '../../components/ShareButton/ShareButton';
 import MusicControl from 'react-native-music-control';
+import {
+  STOPPING,
+  //ONLY_WIFI,
+  ALWAYS_CONNECTED,
+  TSELTAL,
+  LANGUAGE_ASYNC,
+  CONNECTION_ASYNC
+} from '../../redux/constants'
+import { SIDE_MENU_ID, MENU_BTN_ID } from '../../navigation/Screens';
 
 
 //let strmAchLequilcop = "http://noasrv.caster.fm:10182/live"
@@ -35,14 +42,14 @@ class WelcomeScreen extends Component {
       playError: null,
       connection: null
      };
+
     Navigation.events().bindComponent(this);
     NetInfo.addEventListener('connectionChange', this._handleConnectionChange);
-
   }
 
   navigationButtonPressed({buttonId}) {
     switch (buttonId) {
-      case 'nav_btn': {
+      case MENU_BTN_ID: {
         this.updateNavigationState();
         break;
       }
@@ -52,64 +59,13 @@ class WelcomeScreen extends Component {
   }
 
   updateNavigationState(){
-    Navigation.mergeOptions("sideMenu", {
+    Navigation.mergeOptions(SIDE_MENU_ID, {
       sideMenu: {
         left: {
           visible: true
         }
       }
     });
-  }
-
-  _getLanguage = async () => {
-    try {
-      const valueLanguage = await AsyncStorage.getItem('ach:language');
-      const valueConnection = await AsyncStorage.getItem('ach:connection');
-      if (valueLanguage !== null) {
-        if(valueLanguage === 'tseltal') { this.props.onTseltalSelected() }
-      //Alert.alert('tenemos datos! ' + valueLanguage)
-      console.log("Language async loaded is:" + valueLanguage);
-      } else {
-        // Navigation.push(this.props.componentId, {
-        //       component: {
-        //         name: LANGUAGE_SCREEN,
-        //         passProps: {
-        //             text: 'Elige un idioma'
-        //         },
-        //         options: {
-        //           topBar: {
-        //             title: {
-        //               text: 'IDIOMA'
-        //             }
-        //           }
-        //         }
-        //       }
-        // });
-      }
-      if (valueConnection !== null) {
-        if(valueConnection === 'alwaysConnected') { this.props.onAlwaysSelected() }
-      //Alert.alert('tenemos datos! ' + valueConnection)
-      console.log("Connection loaded is:" + valueConnection);
-      } else {
-        // Navigation.push(this.props.componentId, {
-        //       component: {
-        //         name: LANGUAGE_SCREEN,
-        //         passProps: {
-        //             text: 'Elige un idioma'
-        //         },
-        //         options: {
-        //           topBar: {
-        //             title: {
-        //               text: 'IDIOMA'
-        //             }
-        //           }
-        //         }
-        //       }
-        // });
-      }
-    } catch (error) {
-    // Error retrieving data
-    }
   }
 
   componentDidMount() {
@@ -131,6 +87,27 @@ class WelcomeScreen extends Component {
     }
     if (prevProps.connectOnlyWifi !== this.props.connectOnlyWifi) {
       this._reloadPlayer()
+    }
+  }
+
+  _getLanguage = async () => {
+    try {
+      const valueLanguage = await AsyncStorage.getItem(LANGUAGE_ASYNC);
+      const valueConnection = await AsyncStorage.getItem(CONNECTION_ASYNC);
+      if (valueLanguage !== null) {
+        if(valueLanguage === TSELTAL) { this.props.onTseltalSelected() }
+      console.log("Language async loaded is:" + valueLanguage);
+      } else {
+        // TODO: handle First Time Loading
+      }
+      if (valueConnection !== null) {
+        if(valueConnection === ALWAYS_CONNECTED) { this.props.onAlwaysSelected() }
+      console.log("Connection loaded is:" + valueConnection);
+      } else {
+        // TODO: Handle No Connection
+      }
+    } catch (error) {
+    // Error retrieving data
     }
   }
 
@@ -161,7 +138,7 @@ class WelcomeScreen extends Component {
     }
     MusicControl.updatePlayback({
       // TODO: ¿¿UPDATE TITLE??
-      title: 'RadioPICADA',
+      title: 'Radio',
       state: playState, // (STATE_ERROR, STATE_STOPPED, STATE_PLAYING, STATE_PAUSED, STATE_BUFFERING)
       speed: 1, // Playback Rate
       volume: 10, // Android Only (Number from 0 to maxVolume) - Only used when remoteVolume is enabled
@@ -212,75 +189,7 @@ class WelcomeScreen extends Component {
           this._updateState();
         });
 
-        // TODO: Move to separate method
-        MusicControl.setNowPlaying({
-          state: MusicControl.STATE_BUFFERING,
-          title: 'Radio',
-          artwork: 'https://xhbak.files.wordpress.com/2014/10/screen-shot-2014-10-09-at-11-07-46-pm.png', // URL or RN's image require()
-          artist: "Ach' Lequilc'op",
-          //album: 'Thriller',
-          //genre: 'Post-disco, Rhythm and Blues, Funk, Dance-pop',
-          //duration: 294, // (Seconds)
-          description: "Radio cu'untic", // Android Only
-          color: 0xeeeeee, // Notification Color - Android Only
-          //rating: 84, // Android Only (Boolean or Number depending on the type)
-          notificationIcon: "AlC" //require('../../assets/icons/LogoSinLetraMenu.png'), // Android Only (String), Android Drawable resource name for a custom notification icon
-        })
-
-        // TODO: Check if functional in android
-        //MusicControl.enableBackgroundMode(true);
-        //MusicControl.handleAudioInterruptions(true);
-
-        MusicControl.enableControl('play', true)
-        MusicControl.enableControl('pause', true)
-        MusicControl.enableControl('stop', true)
-
-        // TODO: Close APP on Swipe or WITH stop button???
-        MusicControl.enableControl('closeNotification', true, {when: 'paused'})
-        // TODO: Handle notifications
-        MusicControl.on('closeNotification', ()=> {
-          if (this.player) {
-            // this.player.stop(() => {
-            //   this._updateState();
-            // });
-            this.player.destroy();
-            // TODO: Create a this.props.onInitialPlayingState()
-            //this.props.onStartPlay()
-          }
-          MusicControl.stopControl()
-          // TODO: App not exiting if in Background
-          RNExitApp.exitApp();
-          //BackHandler.exitApp()
-          // change to when: 'pause' and
-          // TODO: ¿Close app if in background for 24 and lower android?
-          // do something like this.props.dispatch(onAudioEnd());
-        })
-
-        MusicControl.on('play', () => {
-          this._playStop()
-        })
-
-        MusicControl.on('pause', () => {
-          this._playStop()
-        })
-
-        // TODO: use X symbol instead of STOP
-        MusicControl.on('stop', () => {
-          if (this.player) {
-            // this.player.stop(() => {
-            //   this._updateState();
-            // });
-            this.player.destroy();
-            // TODO: Create a this.props.onInitialPlayingState()
-            // this.props.onStartPlay()
-            // reload player?
-          }
-          MusicControl.stopControl()
-          // TODO: App not exiting if in Background
-          //BackHandler.exitApp()
-          RNExitApp.exitApp();
-        })
-
+        this._setupMusicControl();
 
         // TODO: eliminate?
         this.player.on('ended', () => {
@@ -292,14 +201,84 @@ class WelcomeScreen extends Component {
     this._updateState();
   }
 
+  _setupMusicControl() {
+    MusicControl.setNowPlaying({
+      state: MusicControl.STATE_BUFFERING,
+      title: 'Radio',
+      artwork: 'https://xhbak.files.wordpress.com/2014/10/screen-shot-2014-10-09-at-11-07-46-pm.png', // URL or RN's image require()
+      artist: "Ach' Lequilc'op",
+      //album: 'Thriller',
+      //genre: 'Post-disco, Rhythm and Blues, Funk, Dance-pop',
+      //duration: 294, // (Seconds)
+      description: "Radio cu'untic", // Android Only
+      color: 0xeeeeee, // Notification Color - Android Only
+      //rating: 84, // Android Only (Boolean or Number depending on the type)
+      notificationIcon: "AlC" //require('../../assets/icons/LogoSinLetraMenu.png'), // Android Only (String), Android Drawable resource name for a custom notification icon
+    })
+
+    // TODO: Check if functional in android
+    //MusicControl.enableBackgroundMode(true);
+    //MusicControl.handleAudioInterruptions(true);
+
+    MusicControl.enableControl('play', true)
+    MusicControl.enableControl('pause', true)
+    MusicControl.enableControl('stop', true)
+
+    // TODO: Close APP on Swipe or WITH stop button???
+    MusicControl.enableControl('closeNotification', true, {when: 'paused'})
+    // TODO: Handle notifications
+    MusicControl.on('closeNotification', ()=> {
+      if (this.player) {
+        // this.player.stop(() => {
+        //   this._updateState();
+        // });
+        this.player.destroy();
+        // TODO: Create a this.props.onInitialPlayingState()
+        //this.props.onStartPlay()
+      }
+      MusicControl.stopControl()
+      // TODO: App not exiting if in Background
+      RNExitApp.exitApp();
+      //BackHandler.exitApp()
+      // change to when: 'pause' and
+      // TODO: ¿Close app if in background for 24 and lower android?
+      // do something like this.props.dispatch(onAudioEnd());
+    })
+
+    MusicControl.on('play', () => {
+      this._playStop()
+    })
+
+    MusicControl.on('pause', () => {
+      this._playStop()
+    })
+
+    // TODO: use X symbol instead of STOP
+    MusicControl.on('stop', () => {
+      if (this.player) {
+        // this.player.stop(() => {
+        //   this._updateState();
+        // });
+        this.player.destroy();
+        // TODO: Create a this.props.onInitialPlayingState()
+        // this.props.onStartPlay()
+        // reload player?
+      }
+      MusicControl.stopControl()
+      // TODO: App not exiting if in Background
+      //BackHandler.exitApp()
+      RNExitApp.exitApp();
+    })
+  }
+
   render() {
-    const conn = (this.props.connectOnlyWifi) ? "Only Wify" : "Always Connected"
+    //const conn = (this.props.connectOnlyWifi) ? ONLY_WIFI : ALWAYS_CONNECTED
     return (
       <View style={styles.mainContainer}>
       <AnimatedLogo amimating={
         // TODO: check if screen is isVisible
         // ...   const isVisible = await this.props.navigator.screenIsCurrentlyVisible()
-        this.props.playStopButton === 'DETENER'
+        this.props.playStopButton === STOPPING
       }/>
         <Text>{/*this.props.langSelected*/}</Text>
         <Text>{/*conn*/}</Text>

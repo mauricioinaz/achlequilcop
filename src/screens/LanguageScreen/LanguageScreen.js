@@ -2,17 +2,20 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   View,
-  Image,
   Text,
-  Button,
-  Switch
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import ButtonAch from '../../components/UI/ButtonAch/ButtonAch'
 import Icon from 'react-native-vector-icons/FontAwesome'
-
 import {connect} from 'react-redux';
 import * as actions from '../../redux/actions'
+import {
+  ONLY_WIFI,
+  ALWAYS_CONNECTED,
+  TSELTAL,
+  CASTILLA
+} from '../../redux/constants'
+import { SIDE_MENU_ID, MENU_BTN_ID } from '../../navigation/Screens';
 
 
 class LanguageScreen extends Component {
@@ -23,14 +26,13 @@ class LanguageScreen extends Component {
   }
 
   navigationButtonPressed({buttonId}) {
-      console.log(buttonId);
-    if( buttonId == 'nav_btn' ){
+    if( buttonId == MENU_BTN_ID ){
       this.updateNavigationState();
     }
   }
 
   updateNavigationState(){
-     Navigation.mergeOptions("sideMenu", {
+     Navigation.mergeOptions(SIDE_MENU_ID, {
        sideMenu: {
          left: {
            visible: true
@@ -41,11 +43,11 @@ class LanguageScreen extends Component {
 
   handleSelectLang = (language) => {
 
-    if (language === "CASTELLANO") {
+    if (language === CASTILLA) {
         this.props.onSpanishSelected()
         //selectedTseltal = (<Text>  </Text>)
         //selectedSpanish = (<Icon name='caret-left' size={30} color="#707070"/>)
-    } else if (language === "TSELTAL") {
+    } else if (language === TSELTAL) {
         this.props.onTseltalSelected()
     }
 
@@ -54,11 +56,11 @@ class LanguageScreen extends Component {
   };
 
   handleSelectConnection = (connectionType) => {
-    if (connectionType === "WifiOnly") {
+    if (connectionType === ONLY_WIFI) {
         this.props.onWifiSelected()
         //selectedTseltal = (<Text>  </Text>)
         //selectedSpanish = (<Icon name='caret-left' size={30} color="#707070"/>)
-    } else if (connectionType === "Always") {
+    } else if (connectionType === ALWAYS_CONNECTED) {
         this.props.onAlwaysSelected()
     }
   }
@@ -68,7 +70,7 @@ class LanguageScreen extends Component {
     const notSel = (<Text>  </Text>)
     let selectedTseltal = sel
     let selectedSpanish = notSel
-    if (this.props.currentLanguage === "castilla") {
+    if (this.props.currentLanguage === CASTILLA) {
       selectedSpanish = sel
       selectedTseltal = notSel
     }
@@ -91,11 +93,11 @@ class LanguageScreen extends Component {
               <Icon name='comments' size={75} color="#707070"/></View>
             <View style={styles.buttonsContainer}>
               <View style={styles.selectedButton}>
-                <ButtonAch onPress={() => this.handleSelectLang("CASTELLANO")}>Castellano</ButtonAch>
+                <ButtonAch onPress={() => this.handleSelectLang(CASTILLA)}>Castellano</ButtonAch>
                 {selectedSpanish}
               </View>
               <View style={styles.selectedButton}>
-                <ButtonAch onPress={() => this.handleSelectLang("TSELTAL")}>Bats'il C'op</ButtonAch>
+                <ButtonAch onPress={() => this.handleSelectLang(TSELTAL)}>Bats'il C'op</ButtonAch>
                 {selectedTseltal}
               </View>
             </View>
@@ -111,11 +113,11 @@ class LanguageScreen extends Component {
               <Icon name='wifi' size={70} color="#707070"/></View>
             <View style={styles.buttonsContainer}>
               <View style={styles.selectedButton}>
-                <ButtonAch onPress={() => this.handleSelectConnection("WifiOnly")}>Sólo WiFi</ButtonAch>
+                <ButtonAch onPress={() => this.handleSelectConnection(ONLY_WIFI)}>Sólo WiFi</ButtonAch>
                 {selectedWifi}
               </View>
               <View style={styles.selectedButton}>
-                <ButtonAch onPress={() => this.handleSelectConnection("Always")}>Datos</ButtonAch>
+                <ButtonAch onPress={() => this.handleSelectConnection(ALWAYS_CONNECTED)}>Datos</ButtonAch>
                 {selectedData}
               </View>
             </View>

@@ -7,6 +7,7 @@ import {
  } from 'react-native';
  import {connect} from 'react-redux';
  import * as actions from '../../redux/actions'
+ import { STOPPING } from '../../redux/constants'
 
 
 class PlayButton extends Component {
@@ -15,7 +16,7 @@ class PlayButton extends Component {
     let insideButton = (<Image style={styles.playImage} source={require('../../assets/icons/Play.png')}/>)
     if (this.props.playButtonDisabled) {
       insideButton = (<Image style={[styles.playImage, styles.playImageDisabled]} source={require('../../assets/icons/Play.png')}/>)
-    } else if(this.props.playStopButton === "DETENER") {
+    } else if(this.props.playStopButton === STOPPING) {
       insideButton = (<Image style={styles.pauseImage} source={require('../../assets/icons/Pause.png')}/>)
     }
 

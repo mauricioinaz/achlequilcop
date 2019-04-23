@@ -8,14 +8,17 @@ import {
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import {
-  WELCOME_SCREEN,
   LANGUAGE_SCREEN,
   SIDE_DRAWER,
   PARRILLA_SCREEN,
   ABOUT_SCREEN,
   NUMBERS_SCREEN,
-  PLAY_BUTTON
-} from '../../navigation';
+  PLAY_BUTTON,
+  MENU_BTN_ID,
+  PLAY_BTN_ID,
+  CENTER_STACK_ID,
+  SIDE_DRAWER_ID
+} from '../../navigation/Screens';
 
 
 class Sidedrawer extends Component {
@@ -24,99 +27,35 @@ class Sidedrawer extends Component {
     super( props )
   }
 
-  onRadioSelected = () => {
-    Navigation.popToRoot("CenterStack")
-    Navigation.mergeOptions("settingsDrawer", { sideMenu: { left: { visible: false, }}});
+  onRadioSelected () {
+    Navigation.popToRoot(CENTER_STACK_ID)
+    Navigation.mergeOptions(SIDE_DRAWER_ID, { sideMenu: { left: { visible: false, }}});
   }
 
-  onLanguageSelected = () => {
-    Navigation.push("CenterStack", {
-        component: {
-          name: LANGUAGE_SCREEN,
-          passProps: {
-              text: 'Elige un idioma'
-          },
-          options: {
-            topBar: {
-              title: {
-                text: 'Configurar'
-                },
-                leftButtons: [
-                  {
-                    id: 'nav_btn',
-                    icon: require('../../assets/icons/burgerMenu.png'),
-                    color: 'white',
-                  }
-                ],
-                rightButtons: [
-                  {
-                    id: 'nav_play_btn',
-                    component: {
-                        name: PLAY_BUTTON
-                    },
-                  }
-              ],
-            }
-          }
-        }
-      });
+  onScreenSelected (scr) {
+    const title = (scr === LANGUAGE_SCREEN) ? 'Elige un idioma' :
+                  (scr === PARRILLA_SCREEN) ? 'Horario' :
+                  (scr === ABOUT_SCREEN) ? 'Acerca de' :
+                  (scr === NUMBERS_SCREEN) ? 'Aprende a Contar' : ''
 
-    Navigation.mergeOptions("settingsDrawer", { sideMenu: { left: { visible: false, }}});
-  }
-
-  onParrillaSelected = () => {
-    Navigation.push("CenterStack", {
+    Navigation.push(CENTER_STACK_ID, {
           component: {
-            name: PARRILLA_SCREEN,
-            passProps: {
-              text: '...'
-            },
+            name: scr,
             options: {
               topBar: {
                 title: {
-                  text: 'Horario'
-                  },
-                  leftButtons: [{
-                      id: 'nav_btn',
-                      icon: require('../../assets/icons/burgerMenu.png'),
-                      color: 'white',
-                  }],
-                  rightButtons: [{
-                      id: 'nav_play_btn',
-                      component: {
-                          name: PLAY_BUTTON
-                      },
-                  }],
-              }
-            }
-          }
-        });
-
-    Navigation.mergeOptions("settingsDrawer", { sideMenu: { left: { visible: false, }}});
-  }
-
-  onAboutSelected = () => {
-    Navigation.push("CenterStack", {
-          component: {
-            name: ABOUT_SCREEN,
-            passProps: {
-                text: '...'
-            },
-            options: {
-              topBar: {
-                title: {
-                  text: 'Acerca de'
+                  text: title
                   },
                   leftButtons: [
                     {
-                      id: 'nav_btn',
+                      id: MENU_BTN_ID,
                       icon: require('../../assets/icons/burgerMenu.png'),
                       color: 'white',
                     }
                   ],
                   rightButtons: [
                     {
-                      id: 'nav_play_btn',
+                      id: PLAY_BTN_ID,
                       component: {
                           name: PLAY_BUTTON
                       },
@@ -127,43 +66,9 @@ class Sidedrawer extends Component {
           }
         });
 
-    Navigation.mergeOptions("settingsDrawer", { sideMenu: { left: { visible: false, }}});
+    Navigation.mergeOptions(SIDE_DRAWER_ID, { sideMenu: { left: { visible: false, }}});
   }
 
-  onNumbersSelected = () => {
-    Navigation.push("CenterStack", {
-          component: {
-            name: NUMBERS_SCREEN,
-            passProps: {
-                text: '...'
-            },
-            options: {
-              topBar: {
-                title: {
-                  text: 'Aprende a Contar'
-                  },
-                  leftButtons: [
-                    {
-                      id: 'nav_btn',
-                      icon: require('../../assets/icons/burgerMenu.png'),
-                      color: 'white',
-                    }
-                  ],
-                  rightButtons: [
-                    {
-                      id: 'nav_play_btn',
-                      component: {
-                          name: PLAY_BUTTON
-                      },
-                    }
-                ],
-              }
-            }
-          }
-        });
-
-    Navigation.mergeOptions("settingsDrawer", { sideMenu: { left: { visible: false, }}});
-  }
 
   render() {
     return (
@@ -179,7 +84,7 @@ class Sidedrawer extends Component {
 
         <View style={styles.spacer}><Text> </Text></View>
 
-        <TouchableOpacity onPress={this.onParrillaSelected}>
+        <TouchableOpacity onPress={() => this.onScreenSelected(PARRILLA_SCREEN)}>
           <View style={styles.menuElement}>
             <Image
               style={styles.menuIcon}
@@ -187,7 +92,7 @@ class Sidedrawer extends Component {
               <Text style={styles.menuText}>Horario</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={this.onNumbersSelected}>
+        <TouchableOpacity onPress={() => this.onScreenSelected(NUMBERS_SCREEN)}>
           <View style={styles.menuElement}>
             <Image
               style={styles.menuIcon}
@@ -195,7 +100,7 @@ class Sidedrawer extends Component {
             <Text style={styles.menuText}>Aprender</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={this.onAboutSelected}>
+        <TouchableOpacity onPress={() => this.onScreenSelected(ABOUT_SCREEN)}>
           <View style={styles.menuElement}>
             <Image
               style={styles.menuIcon}
@@ -203,7 +108,7 @@ class Sidedrawer extends Component {
             <Text style={styles.menuText}>Sobre la Radio</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={this.onLanguageSelected}>
+        <TouchableOpacity onPress={() => this.onScreenSelected(LANGUAGE_SCREEN)}>
           <View style={styles.menuElement}>
             <Image
               style={styles.menuIcon}
