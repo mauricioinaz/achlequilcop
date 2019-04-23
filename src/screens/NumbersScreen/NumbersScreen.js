@@ -101,24 +101,22 @@ const styles = StyleSheet.create({
   flex: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-evenly',
+    //justifyContent: 'space-evenly',
   },
   titleContainer: {
-    height: 80,
+    flex: 1,
     justifyContent: "center",
     alignItems: "center"
   },
   inputContainer: {
-    height: 80,
-    width: 150,
+    flex: 1,
     justifyContent: "flex-start",
     alignItems: "center"
   },
   resultContainer: {
-    //height: "40%",
+    flex: 1.5,
     justifyContent: "flex-start",
     alignItems: "center",
-    paddingBottom: 80
   },
   title: {
     fontFamily: 'UbuntuCondensed-Regular',

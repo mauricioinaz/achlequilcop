@@ -195,7 +195,6 @@ class WelcomeScreen extends Component {
   }
 
   _setupMusicControl() {
-    // TODO: Move to separate method
     MusicControl.setNowPlaying({
       state: MusicControl.STATE_BUFFERING,
       title: 'Radio',
