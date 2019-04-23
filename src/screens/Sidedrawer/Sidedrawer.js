@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import {
-  WELCOME_SCREEN,
   LANGUAGE_SCREEN,
   SIDE_DRAWER,
   PARRILLA_SCREEN,
@@ -24,13 +23,12 @@ class Sidedrawer extends Component {
     super( props )
   }
 
-  onRadioSelected = () => {
+  onRadioSelected () {
     Navigation.popToRoot("CenterStack")
     Navigation.mergeOptions("settingsDrawer", { sideMenu: { left: { visible: false, }}});
   }
 
   onScreenSelected (scr) {
-
     const title = (scr === LANGUAGE_SCREEN) ? 'Elige un idioma' :
                   (scr === PARRILLA_SCREEN) ? 'Horario' :
                   (scr === ABOUT_SCREEN) ? 'Acerca de' :
