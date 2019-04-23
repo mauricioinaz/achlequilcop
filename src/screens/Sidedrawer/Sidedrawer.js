@@ -29,83 +29,20 @@ class Sidedrawer extends Component {
     Navigation.mergeOptions("settingsDrawer", { sideMenu: { left: { visible: false, }}});
   }
 
-  onLanguageSelected = () => {
-    Navigation.push("CenterStack", {
-        component: {
-          name: LANGUAGE_SCREEN,
-          passProps: {
-              text: 'Elige un idioma'
-          },
-          options: {
-            topBar: {
-              title: {
-                text: 'Configurar'
-                },
-                leftButtons: [
-                  {
-                    id: 'nav_btn',
-                    icon: require('../../assets/icons/burgerMenu.png'),
-                    color: 'white',
-                  }
-                ],
-                rightButtons: [
-                  {
-                    id: 'nav_play_btn',
-                    component: {
-                        name: PLAY_BUTTON
-                    },
-                  }
-              ],
-            }
-          }
-        }
-      });
+  onScreenSelected (scr) {
 
-    Navigation.mergeOptions("settingsDrawer", { sideMenu: { left: { visible: false, }}});
-  }
+    const title = (scr === LANGUAGE_SCREEN) ? 'Elige un idioma' :
+                  (scr === PARRILLA_SCREEN) ? 'Horario' :
+                  (scr === ABOUT_SCREEN) ? 'Acerca de' :
+                  (scr === NUMBERS_SCREEN) ? 'Aprende a Contar' : ''
 
-  onParrillaSelected = () => {
     Navigation.push("CenterStack", {
           component: {
-            name: PARRILLA_SCREEN,
-            passProps: {
-              text: '...'
-            },
+            name: scr,
             options: {
               topBar: {
                 title: {
-                  text: 'Horario'
-                  },
-                  leftButtons: [{
-                      id: 'nav_btn',
-                      icon: require('../../assets/icons/burgerMenu.png'),
-                      color: 'white',
-                  }],
-                  rightButtons: [{
-                      id: 'nav_play_btn',
-                      component: {
-                          name: PLAY_BUTTON
-                      },
-                  }],
-              }
-            }
-          }
-        });
-
-    Navigation.mergeOptions("settingsDrawer", { sideMenu: { left: { visible: false, }}});
-  }
-
-  onAboutSelected = () => {
-    Navigation.push("CenterStack", {
-          component: {
-            name: ABOUT_SCREEN,
-            passProps: {
-                text: '...'
-            },
-            options: {
-              topBar: {
-                title: {
-                  text: 'Acerca de'
+                  text: title
                   },
                   leftButtons: [
                     {
@@ -130,40 +67,6 @@ class Sidedrawer extends Component {
     Navigation.mergeOptions("settingsDrawer", { sideMenu: { left: { visible: false, }}});
   }
 
-  onNumbersSelected = () => {
-    Navigation.push("CenterStack", {
-          component: {
-            name: NUMBERS_SCREEN,
-            passProps: {
-                text: '...'
-            },
-            options: {
-              topBar: {
-                title: {
-                  text: 'Aprende a Contar'
-                  },
-                  leftButtons: [
-                    {
-                      id: 'nav_btn',
-                      icon: require('../../assets/icons/burgerMenu.png'),
-                      color: 'white',
-                    }
-                  ],
-                  rightButtons: [
-                    {
-                      id: 'nav_play_btn',
-                      component: {
-                          name: PLAY_BUTTON
-                      },
-                    }
-                ],
-              }
-            }
-          }
-        });
-
-    Navigation.mergeOptions("settingsDrawer", { sideMenu: { left: { visible: false, }}});
-  }
 
   render() {
     return (
@@ -179,7 +82,7 @@ class Sidedrawer extends Component {
 
         <View style={styles.spacer}><Text> </Text></View>
 
-        <TouchableOpacity onPress={this.onParrillaSelected}>
+        <TouchableOpacity onPress={() => this.onScreenSelected(PARRILLA_SCREEN)}>
           <View style={styles.menuElement}>
             <Image
               style={styles.menuIcon}
@@ -187,7 +90,7 @@ class Sidedrawer extends Component {
               <Text style={styles.menuText}>Horario</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={this.onNumbersSelected}>
+        <TouchableOpacity onPress={() => this.onScreenSelected(NUMBERS_SCREEN)}>
           <View style={styles.menuElement}>
             <Image
               style={styles.menuIcon}
@@ -195,7 +98,7 @@ class Sidedrawer extends Component {
             <Text style={styles.menuText}>Aprender</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={this.onAboutSelected}>
+        <TouchableOpacity onPress={() => this.onScreenSelected(ABOUT_SCREEN)}>
           <View style={styles.menuElement}>
             <Image
               style={styles.menuIcon}
@@ -203,7 +106,7 @@ class Sidedrawer extends Component {
             <Text style={styles.menuText}>Sobre la Radio</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={this.onLanguageSelected}>
+        <TouchableOpacity onPress={() => this.onScreenSelected(LANGUAGE_SCREEN)}>
           <View style={styles.menuElement}>
             <Image
               style={styles.menuIcon}
