@@ -3,6 +3,7 @@ import {
   StyleSheet,
   View,
   Image,
+  Text
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { SIDE_MENU_ID, MENU_BTN_ID } from '../../navigation/Screens';
@@ -11,9 +12,14 @@ import { SIDE_MENU_ID, MENU_BTN_ID } from '../../navigation/Screens';
 class ParrillaScreen extends Component {
 
   constructor(props) {
-      super(props);
-      Navigation.events().bindComponent(this);
-      // TODO: read PARRILLA image from external source
+    super(props);
+
+    this.state = {
+      parrillaLink: null,
+      errorText: null
+     };
+
+    Navigation.events().bindComponent(this);
   }
 
   navigationButtonPressed({buttonId}) {
@@ -32,13 +38,37 @@ class ParrillaScreen extends Component {
     });
   }
 
+  componentDidMount() {
+    this._getParrillaLink()
+  }
+
+  _getParrillaLink ()  {
+    fetch("https://achlequilcop-atel.firebaseio.com/parrilla.json")
+      .catch(err => {
+        console.log("ERROR LOADING HORARIO: " + err);
+        this.setState({parrillaLink: "error"})
+      })
+      .then(res => {
+        return res.json()})
+      .then( resJ => {
+        this.setState({parrillaLink: resJ})
+      })
+  }
+
+  ImageLoading_Error() {
+    if (this.state.parrillaLink) {
+      this.setState({errorText: 'No se pudo cargar el horario.'})
+    }
+  }
 
   render() {
     return (
       <View style={styles.flex}>
+      <Text style={styles.errorText}>{this.state.errorText}</Text>
         <Image
-          source={require('../../assets/images/Parrilla.png')}
+          source={{uri: this.state.parrillaLink}}
           style={styles.image}
+          onError={this.ImageLoading_Error.bind(this)}
         />
       </View>
     );
@@ -57,6 +87,11 @@ const styles = StyleSheet.create({
     height: '80%',
     resizeMode: 'contain'
   },
+  errorText: {
+    fontSize: 24,
+    paddingRight: 20,
+    paddingLeft: 20
+  }
 });
 
 

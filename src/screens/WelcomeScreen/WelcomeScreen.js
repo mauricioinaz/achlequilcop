@@ -30,9 +30,6 @@ import {
 import { SIDE_MENU_ID, MENU_BTN_ID } from '../../navigation/Screens';
 
 
-//let strmAchLequilcop = "http://noasrv.caster.fm:10182/live"
-let strmAchLequilcop = "http://162.210.196.142:36923"
-
 class WelcomeScreen extends Component {
 
   constructor(props) {
@@ -40,7 +37,8 @@ class WelcomeScreen extends Component {
 
     this.state = {
       playError: null,
-      connection: null
+      connection: null,
+      stream: "http://162.210.196.142:36923" // ibero "http://noasrv.caster.fm:10182/live"
      };
 
     Navigation.events().bindComponent(this);
@@ -70,6 +68,7 @@ class WelcomeScreen extends Component {
 
   componentDidMount() {
     this._getLanguage()
+    this._getStreamLink()
   }
 
   componentWillMount() {
@@ -81,11 +80,15 @@ class WelcomeScreen extends Component {
     NetInfo.removeEventListener('connectionChange', this._handleConnectionChange);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     if(prevProps.playToggle !== this.props.playToggle) {
       this._playStop()
     }
     if (prevProps.connectOnlyWifi !== this.props.connectOnlyWifi) {
+      this._reloadPlayer()
+    }
+    if (prevState.stream !== this.state.stream) {
+      console.log("Updating Stream");
       this._reloadPlayer()
     }
   }
@@ -109,6 +112,18 @@ class WelcomeScreen extends Component {
     } catch (error) {
     // Error retrieving data
     }
+  }
+
+  _getStreamLink ()  {
+    fetch("https://achlequilcop-atel.firebaseio.com/stream.json")
+      .catch(err => {
+        console.log("ERROR DE SERV: " + err);
+      })
+      .then(res => {
+        return res.json()})
+      .then( resJ => {
+        this.setState({stream: resJ})
+      })
   }
 
   _handleConnectionChange = (data) => {
@@ -137,12 +152,9 @@ class WelcomeScreen extends Component {
       this.props.onEnablePlay()
     }
     MusicControl.updatePlayback({
-      // TODO: ¿¿UPDATE TITLE??
       title: 'Radio',
       state: playState, // (STATE_ERROR, STATE_STOPPED, STATE_PLAYING, STATE_PAUSED, STATE_BUFFERING)
       speed: 1, // Playback Rate
-      volume: 10, // Android Only (Number from 0 to maxVolume) - Only used when remoteVolume is enabled
-      maxVolume: 10, // Android Only (Number) - Only used when remoteVolume is enabled
     })
   }
 
@@ -177,7 +189,7 @@ class WelcomeScreen extends Component {
       console.log("Connection type", data.type);
 
       if(data.type === 'wifi' || !this.props.connectOnlyWifi){
-        this.player = new Player(strmAchLequilcop, {
+        this.player = new Player(this.state.stream, {
           autoDestroy: false,
           continuesToPlayInBackground: true
         }).prepare((err) => {
@@ -209,10 +221,8 @@ class WelcomeScreen extends Component {
       artist: "Ach' Lequilc'op",
       //album: 'Thriller',
       //genre: 'Post-disco, Rhythm and Blues, Funk, Dance-pop',
-      //duration: 294, // (Seconds)
       description: "Radio cu'untic", // Android Only
       color: 0xeeeeee, // Notification Color - Android Only
-      //rating: 84, // Android Only (Boolean or Number depending on the type)
       notificationIcon: "AlC" //require('../../assets/icons/LogoSinLetraMenu.png'), // Android Only (String), Android Drawable resource name for a custom notification icon
     })
 
