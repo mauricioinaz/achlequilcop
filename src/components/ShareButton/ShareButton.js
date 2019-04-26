@@ -31,13 +31,13 @@ class ShareButton extends Component {
   render () {
     return(
       <ActionButton buttonColor="rgba(61,206,88,0.79)">
-        <ActionButton.Item buttonColor='#4AC25A' title="Whatsapp a Cabina" onPress={() => this.onPressSaludos(linkWhatsapp, nameWA)}>
+        <ActionButton.Item buttonColor='#4AC25A' title="Whatsapp Cabina" onPress={() => this.onPressSaludos(linkWhatsapp, nameWA)}>
           <Icon name='whatsapp' size={30} color="white"/>
         </ActionButton.Item>
         <ActionButton.Item buttonColor='#4469B0' title="Página Facebook" onPress={() => this.onPressSaludos(linkFacebook, nameFB)}>
           <Icon name='facebook-square' size={30} color="white"/>
         </ActionButton.Item>
-        <ActionButton.Item buttonColor='#9b59b6' title="SMS a Cabina" onPress={() => this.onPressSaludos(linkSMS, "SMS")}>
+        <ActionButton.Item buttonColor='#9b59b6' title="SMS Cabina" onPress={() => this.onPressSaludos(linkSMS, "SMS")}>
           <Icon name='envelope' size={30} color="white"/>
         </ActionButton.Item>
       </ActionButton>

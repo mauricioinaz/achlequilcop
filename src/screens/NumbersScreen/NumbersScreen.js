@@ -9,6 +9,7 @@ import {
   Keyboard
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
+import {connect} from 'react-redux';
 import { sayTseltal } from '../../utility/sayTseltal/sayTseltal'
 import { SIDE_MENU_ID, MENU_BTN_ID } from '../../navigation/Screens';
 
@@ -66,7 +67,7 @@ class NumbersScreen extends Component {
       >
         <View style={styles.titleContainer}>
           <Text style={styles.title}>
-          Escribe un número:
+          {this.props.numbTitle}
           </Text>
         </View>
         <View style={styles.inputContainer}>
@@ -136,5 +137,10 @@ const styles = StyleSheet.create({
   }
 });
 
+const mapStateToProps = state => {
+  return {
+    numbTitle: state.lang.languageData.numbers.numbersTitle,
+  };
+}
 
-export default NumbersScreen;
+export default connect(mapStateToProps)(NumbersScreen);

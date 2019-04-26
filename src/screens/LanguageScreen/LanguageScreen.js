@@ -15,7 +15,11 @@ import {
   TSELTAL,
   CASTILLA
 } from '../../redux/constants'
-import { SIDE_MENU_ID, MENU_BTN_ID } from '../../navigation/Screens';
+import {
+  SIDE_MENU_ID,
+  MENU_BTN_ID,
+  CENTER_STACK_ID
+} from '../../navigation/Screens';
 
 
 class LanguageScreen extends Component {
@@ -40,6 +44,18 @@ class LanguageScreen extends Component {
        }
      });
    }
+
+  componentDidUpdate(prevProps) {
+   if(prevProps.confHeader !== this.props.confHeader) {
+      Navigation.mergeOptions(this.props.componentId, {
+          topBar: {
+            title: {
+              text: this.props.confHeader
+            },
+          },
+        })
+    }
+  }
 
   handleSelectLang = (language) => {
 
@@ -70,6 +86,7 @@ class LanguageScreen extends Component {
     const notSel = (<Text>  </Text>)
     let selectedTseltal = sel
     let selectedSpanish = notSel
+    // TODO: could be better!?
     if (this.props.currentLanguage === CASTILLA) {
       selectedSpanish = sel
       selectedTseltal = notSel
@@ -86,18 +103,18 @@ class LanguageScreen extends Component {
       <View style={styles.container}>
         <View style={styles.sectionContainer}>
           <View style={styles.titleContainer}>
-            <Text style={styles.title}>Elige tu idioma</Text>
+            <Text style={styles.title}>{this.props.lTitle}</Text>
           </View>
           <View style={styles.sectionConfigContainer}>
             <View style={styles.iconContainer}>
               <Icon name='comments' size={75} color="#707070"/></View>
             <View style={styles.buttonsContainer}>
               <View style={styles.selectedButton}>
-                <ButtonAch onPress={() => this.handleSelectLang(CASTILLA)}>Castellano</ButtonAch>
+                <ButtonAch onPress={() => this.handleSelectLang(CASTILLA)}>{this.props.bSpanish}</ButtonAch>
                 {selectedSpanish}
               </View>
               <View style={styles.selectedButton}>
-                <ButtonAch onPress={() => this.handleSelectLang(TSELTAL)}>Bats'il C'op</ButtonAch>
+                <ButtonAch onPress={() => this.handleSelectLang(TSELTAL)}>{this.props.bTseltal}</ButtonAch>
                 {selectedTseltal}
               </View>
             </View>
@@ -106,18 +123,18 @@ class LanguageScreen extends Component {
         <View style={{ borderBottomColor: 'black', borderBottomWidth: 1, width: "100%",}}/>
         <View style={styles.sectionContainer}>
           <View style={styles.titleContainer}>
-            <Text style={styles.title}>{`Escucha la radio con\ntus datos o sólo en Wifi`}</Text>
+            <Text style={styles.title}>{this.props.dTitle}</Text>
           </View>
           <View style={styles.sectionConfigContainer}>
             <View style={styles.iconContainer}>
               <Icon name='wifi' size={70} color="#707070"/></View>
             <View style={styles.buttonsContainer}>
               <View style={styles.selectedButton}>
-                <ButtonAch onPress={() => this.handleSelectConnection(ONLY_WIFI)}>Sólo WiFi</ButtonAch>
+                <ButtonAch onPress={() => this.handleSelectConnection(ONLY_WIFI)}>{this.props.bWifi}</ButtonAch>
                 {selectedWifi}
               </View>
               <View style={styles.selectedButton}>
-                <ButtonAch onPress={() => this.handleSelectConnection(ALWAYS_CONNECTED)}>Datos</ButtonAch>
+                <ButtonAch onPress={() => this.handleSelectConnection(ALWAYS_CONNECTED)}>{this.props.bData}</ButtonAch>
                 {selectedData}
               </View>
             </View>
@@ -186,6 +203,13 @@ const mapStateToProps = state => {
   return {
     currentLanguage: state.lang.language,
     connectOnlyWifi: state.lang.wifiOnly,
+    lTitle: state.lang.languageData.config.langTitle,
+    bSpanish: state.lang.languageData.config.buttonSpanish,
+    bTseltal: state.lang.languageData.config.buttonTseltal,
+    dTitle: state.lang.languageData.config.dataTitle,
+    bWifi: state.lang.languageData.config.buttonWifi,
+    bData: state.lang.languageData.config.buttonData,
+    confHeader: state.lang.languageData.drawer.configureHeader,
   };
 }
 
