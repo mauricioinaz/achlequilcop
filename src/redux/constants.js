@@ -23,7 +23,7 @@ export const SPANISH_DATA = {
   config: {
     langTitle: 'Elige tu idioma',
     buttonSpanish: 'Castellano',
-    buttonTseltal: "Bats'il C'op",
+    buttonTseltal: "Tseltal",
     dataTitle: "Escucha la radio con\ntus datos o sólo en Wifi", //`Escucha la radio con\ntus datos o sólo en Wifi`,
     buttonWifi: "Sólo WiFi",
     buttonData: "Datos"
@@ -41,28 +41,28 @@ export const SPANISH_DATA = {
 }
 export const TSELTAL_DATA = {
   drawer: {
-    scheduleTitle: 'Bin ora',
-    learningTitle: 'Nohptesel',
-    aboutTitle: "Yu'un Radio",
-    configureTitle: 'Chahpanel',
-    scheduleHeader: 'Bin ora',
-    learningHeader: 'Nohptesel ta yahtayel',
-    aboutHeader: "Yu'un te radio",
-    configureHeader: "Bin c'ohponel"
+    scheduleTitle: "Sc'ahc'alel a'tel",
+    learningTitle: "Snopel",
+    aboutTitle: "Ta sc'oblal te C'opojibal",
+    configureTitle: "Schahpanel",
+    scheduleHeader: "Sc'ahc'alel a'tel",
+    learningHeader: "Snopel ahtal",
+    aboutHeader: "Ta sc'oblal ha'i a'tel ini",
+    configureHeader: "Schahpanel"
   },
   numbers: {
-    numbersTitle: "Ts'ibaya:"
+    numbersTitle: "Ts'ihbaya ochel te caxlan ahtal"
   },
   config: {
-    langTitle: "Bin c'op",
-    buttonSpanish: 'Castilla',
-    buttonTseltal: "Bats'il C'op",
-    dataTitle: "Yahtayel soc saldo\nma'uc teme Inalambrico", //`Escucha la radio con\ntus datos o sólo en Wifi`,
-    buttonWifi: "Hanax Wifi",
-    buttonData: "Soc Saldo"
+    langTitle: "Tsaha te ac'opojel",
+    buttonSpanish: "Caxlan c'op",
+    buttonTseltal: "Tseltal",
+    dataTitle: "Ts'ehchiquintaya te c'opojibal ta jayeb taqu'in awotsesbeyoj te ac'opojib ma'uc ta WiFi ", //`Escucha la radio con\ntus datos o sólo en Wifi`,
+    buttonWifi: "Ha' nax ta WiFi",
+    buttonData: "Staqu'inul jc'opojib"
   },
   about: {
-    aboutTitle: "Te Radio Cu'untic",
+    aboutTitle: "Sc'oblal te Ach' Lequilc'op C'opojibal cu'untic",
     aboutInfo: "Te radio cu'untic hahch ta a'tel ta 2012. C'ax sc'oblal Te a'tel cu'untic ta sc'aj soc te radio ya xatejotic ta behel ta banti ay jun pajal o'tanil\
     Te radio cu'untic hahch ta a'tel ta 2012. C'ax sc'oblal Te a'tel cu'untic ta sc'aj soc te radio ya xatejotic ta behel ta banti ay jun pajal o'tanil\
     Te radio cu'untic hahch ta a'tel ta 2012. C'ax sc'oblal Te a'tel cu'untic ta sc'aj soc te radio ya xatejotic ta behel ta banti ay jun pajal o'tanil\

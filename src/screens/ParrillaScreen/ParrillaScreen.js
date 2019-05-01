@@ -57,7 +57,7 @@ class ParrillaScreen extends Component {
 
   ImageLoading_Error() {
     if (this.state.parrillaLink) {
-      this.setState({errorText: 'No se pudo cargar el horario / Wohcol ta yilel'})
+      this.setState({errorText: "No se pudo cargar el horario / Ma' hu' ta chahpanel te sc'ahc'alel a'tel"})
     }
   }
 

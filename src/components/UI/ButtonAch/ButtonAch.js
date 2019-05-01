@@ -39,12 +39,12 @@ const styles = StyleSheet.create({
     borderColor: '#494D4B',
     backgroundColor: "#00678F",
     width: '100%',
-    alignItems: 'center'
   },
   buttonText: {
     color: 'white',
     fontFamily: 'UbuntuCondensed-Regular',
     fontSize: 26,
+    textAlign: 'center'
   }
 });
 

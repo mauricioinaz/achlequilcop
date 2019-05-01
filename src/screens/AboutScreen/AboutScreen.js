@@ -57,13 +57,17 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: 'UbuntuCondensed-Regular',
     fontSize: 28,
-    color: 'black'
+    color: 'black',
+    paddingLeft: 30,
+    paddingRight: 30,
+    textAlign: 'center'
   },
   paragraph: {
     fontFamily: 'UbuntuCondensed-Regular',
     fontSize: 18,
     textAlign: 'justify',
-    color: 'black'
+    color: 'black',
+    textAlign: 'justify'
   },
   paragraphContainer: {
     padding: 30

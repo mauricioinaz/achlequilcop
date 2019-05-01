@@ -291,7 +291,7 @@ class WelcomeScreen extends Component {
       }/>
         <Text>{/*this.props.langSelected*/}</Text>
         <Text>{/*conn*/}</Text>
-        <Text>{this.state.connection}</Text>
+        <Text>{/*this.state.connection*/}</Text>
         <View>
 
           <View>

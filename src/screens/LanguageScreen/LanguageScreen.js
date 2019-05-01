@@ -86,10 +86,12 @@ class LanguageScreen extends Component {
     const notSel = (<Text>  </Text>)
     let selectedTseltal = sel
     let selectedSpanish = notSel
+    let longTitleStyles = [styles.title, styles.titleLong]
     // TODO: could be better!?
     if (this.props.currentLanguage === CASTILLA) {
       selectedSpanish = sel
       selectedTseltal = notSel
+      longTitleStyles.pop()
     }
     let selectedWifi = sel
     let selectedData = notSel
@@ -123,7 +125,7 @@ class LanguageScreen extends Component {
         <View style={{ borderBottomColor: 'black', borderBottomWidth: 1, width: "100%",}}/>
         <View style={styles.sectionContainer}>
           <View style={styles.titleContainer}>
-            <Text style={styles.title}>{this.props.dTitle}</Text>
+            <Text style={longTitleStyles}>{this.props.dTitle}</Text>
           </View>
           <View style={styles.sectionConfigContainer}>
             <View style={styles.iconContainer}>
@@ -168,6 +170,11 @@ const styles = StyleSheet.create({
     fontSize: 32,
     color: "#494D4B",
     textAlign: 'center',
+  },
+  titleLong: {
+    fontSize: 26,
+    paddingLeft: 15,
+    paddingRight: 15
   },
   sectionConfigContainer: {
     height: "70%",
