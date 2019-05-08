@@ -114,14 +114,15 @@ class WelcomeScreen extends Component {
   }
 
   _getStreamLink ()  {
-    fetch("https://achlequilcop-atel.firebaseio.com/stream.json")
+    fetch("https://achlequilcop-atel.firebaseio.com/masterSheet.json")
       .catch(err => {
         console.log("ERROR DE SERV: " + err);
       })
       .then(res => {
         return res.json()})
       .then( resJ => {
-        this.setState({stream: resJ})
+        // TODO: if (resJ[0][0] === "STREAMING")
+        this.setState({stream: resJ[0][1]})
       })
   }
 

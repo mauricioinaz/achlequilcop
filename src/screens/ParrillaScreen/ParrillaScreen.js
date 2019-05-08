@@ -43,15 +43,17 @@ class ParrillaScreen extends Component {
   }
 
   _getParrillaLink ()  {
-    fetch("https://achlequilcop-atel.firebaseio.com/parrilla.json")
+
+    fetch("https://achlequilcop-atel.firebaseio.com/masterSheet.json")
       .catch(err => {
-        console.log("ERROR LOADING HORARIO: " + err);
+        console.log("ERROR DE SERV: " + err);
         this.setState({parrillaLink: "error"})
       })
       .then(res => {
         return res.json()})
       .then( resJ => {
-        this.setState({parrillaLink: resJ})
+        // TODO: if (resJ[0][0] === "PARRILLA")
+        this.setState({parrillaLink: resJ[1][1]})
       })
   }
 
