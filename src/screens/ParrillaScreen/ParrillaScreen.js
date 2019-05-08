@@ -3,7 +3,8 @@ import {
   StyleSheet,
   View,
   Image,
-  Text
+  Text,
+  ScrollView
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { SIDE_MENU_ID, MENU_BTN_ID } from '../../navigation/Screens';
@@ -16,6 +17,7 @@ class ParrillaScreen extends Component {
 
     this.state = {
       parrillaLink: null,
+      parrillaData: [],
       errorText: null
      };
 
@@ -53,7 +55,9 @@ class ParrillaScreen extends Component {
         return res.json()})
       .then( resJ => {
         // TODO: if (resJ[0][0] === "PARRILLA")
-        this.setState({parrillaLink: resJ[1][1]})
+        this.setState({parrillaLink: resJ[1][1], parrillaData: resJ})
+        console.log(this.state.parrillaData);
+        this._scrollView.flashScrollIndicators();
       })
   }
 
@@ -64,25 +68,47 @@ class ParrillaScreen extends Component {
   }
 
   render() {
+
+    let showData = this.state.parrillaData.map((show, i) => {
+      if (i < 3) return
+      return (
+        <View style={styles.showCard} key={i}>
+          <Text style={styles.cartTitle}>{show[0]}</Text>
+          <Text style={styles.cardData}>{show[1]}</Text>
+        </View>
+      )
+    })
+
     return (
       <View style={styles.flex}>
-      <Text style={styles.errorText}>{this.state.errorText}</Text>
-        <Image
-          source={{uri: this.state.parrillaLink}}
-          style={styles.image}
-          onError={this.ImageLoading_Error.bind(this)}
-        />
+        <View style={styles.containerImage}>
+          <Text style={styles.errorText}>{this.state.errorText}</Text>
+          <Image
+            source={{uri: this.state.parrillaLink}}
+            style={styles.image}
+            onError={this.ImageLoading_Error.bind(this)}
+          />
+        </View>
+        <View style={styles.containerData}>
+          <ScrollView
+            ref={this._setScrollView}
+            horizontal
+            bounces
+            alwaysBounceHorizontal>
+            {showData}
+          </ScrollView>
+        </View>
       </View>
     );
   }
 }
 
 
+
+
 const styles = StyleSheet.create({
   flex: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   image: {
     width: '80%',
@@ -93,6 +119,35 @@ const styles = StyleSheet.create({
     fontSize: 24,
     paddingRight: 20,
     paddingLeft: 20
+  },
+  containerImage: {
+    flex: .75,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  containerData: {
+    flex: .25,
+  },
+  showCard: {
+    width: 150,
+    borderColor: 'black',
+    borderWidth: 1,
+    margin: 8,
+    padding: 5
+  },
+  cartTitle: {
+    fontFamily: 'UbuntuCondensed-Regular',
+    fontSize: 16,
+    color: "black",
+    textAlign: 'center',
+    marginTop: 5
+  },
+  cardData: {
+    fontFamily: 'UbuntuCondensed-Regular',
+    fontSize: 12,
+    color: "#494D4B",
+    textAlign: 'center',
+    marginTop: 10
   }
 });
 
