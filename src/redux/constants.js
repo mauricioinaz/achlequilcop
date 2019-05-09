@@ -6,6 +6,16 @@ export const PLAYING = 'REPRODUCIR';
 export const STOPPING = 'DETENER'
 export const LANGUAGE_ASYNC = "ach:language"
 export const CONNECTION_ASYNC = "ach:connection"
+export const COLORS = {
+  blue: "#00678F",
+  yellow: "#FAB431",
+  red: "#DE202E",
+  purple: "#9C174E",
+  lightGray: "#707070",
+  darkGray: "#494D4B",
+  black: "#0B0F0D",
+  brightGreen: "#3DCE58"
+}
 export const SPANISH_DATA = {
   drawer: {
     scheduleTitle: 'Horario',

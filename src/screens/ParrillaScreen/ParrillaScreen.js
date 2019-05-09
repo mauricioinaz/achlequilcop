@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { SIDE_MENU_ID, MENU_BTN_ID } from '../../navigation/Screens';
-
+import { COLORS } from '../../redux/constants'
 
 class ParrillaScreen extends Component {
 
@@ -72,7 +72,7 @@ class ParrillaScreen extends Component {
     let showData = this.state.parrillaData.map((show, i) => {
       if (i < 3) return
       return (
-        <View style={styles.showCard} key={i}>
+        <View style={[styles.showCard, {backgroundColor: COLORS[show[3]]}]} key={i}>
           <Text style={styles.cartTitle}>{show[0]}</Text>
           <Text style={styles.cardData}>{show[1]}</Text>
         </View>
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   image: {
-    width: '80%',
+    width: '96%',
     height: '80%',
     resizeMode: 'contain'
   },
@@ -121,33 +121,38 @@ const styles = StyleSheet.create({
     paddingLeft: 20
   },
   containerImage: {
-    flex: .75,
+    flex: .7,
     alignItems: 'center',
     justifyContent: 'center',
   },
   containerData: {
-    flex: .25,
+    flex: .3,
   },
   showCard: {
     width: 150,
+    height: "85%",
     borderColor: 'black',
     borderWidth: 1,
     margin: 8,
-    padding: 5
+    padding: 5,
+    borderRadius: 5,
+    backgroundColor: COLORS.blue
   },
   cartTitle: {
     fontFamily: 'UbuntuCondensed-Regular',
-    fontSize: 16,
+    fontSize: 18,
     color: "black",
     textAlign: 'center',
-    marginTop: 5
+    marginTop: 5,
+    color: "white"
   },
   cardData: {
     fontFamily: 'UbuntuCondensed-Regular',
-    fontSize: 12,
+    fontSize: 14,
     color: "#494D4B",
     textAlign: 'center',
-    marginTop: 10
+    marginTop: 10,
+    color: "white"
   }
 });
 
