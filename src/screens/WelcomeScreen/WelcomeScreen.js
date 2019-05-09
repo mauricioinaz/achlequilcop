@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   View,
+  ScrollView,
+  RefreshControl,
+  Alert,
   Text,
   Button,
   AsyncStorage,
@@ -37,6 +40,7 @@ class WelcomeScreen extends Component {
     this.state = {
       playError: null,
       connection: null,
+      refreshing: false,
       stream: "http://162.210.196.142:36923" // ibero "http://noasrv.caster.fm:10182/live"
      };
 
@@ -134,6 +138,16 @@ class WelcomeScreen extends Component {
     }
   };
 
+  _onRefresh = () => {
+    this.setState({ refreshing: true});
+    this._reloadPlayer();
+    setTimeout(() => {
+      if (this.player && this.player.state === 1) {
+        Alert.alert("Error: El Servidor de Streaming no responde. :( Intenta más tarde")
+      }
+    },5000)
+  }
+
   _updateState(err) {
 
     let playState = null
@@ -196,6 +210,11 @@ class WelcomeScreen extends Component {
           if (err) {
             console.log('error at _reloadPlayer():');
             console.log(err);
+            if (this.state.refreshing) {
+              // TODO: Adjust to language
+              Alert.alert("Error "+this.player.state +
+              ": Falla de Streaming." + err)
+            }
           }
 
           this._updateState();
@@ -207,7 +226,17 @@ class WelcomeScreen extends Component {
         this.player.on('ended', () => {
           this._updateState();
         });
+      } else {
+        if (this.state.refreshing) {
+          // TODO: Adjust to language
+          if (data.type === 'cellular' && this.props.connectOnlyWifi) {
+            Alert.alert('Error de Conexión: Activa el Wifi, o el "uso de datos" en Configuración')
+          } else {
+            Alert.alert("Error de Conexión: Verifica que tengas acceso a Internet")
+          }
+        }
       }
+      this.setState({refreshing: false});
     });
 
     this._updateState();
@@ -284,15 +313,20 @@ class WelcomeScreen extends Component {
   render() {
     //const conn = (this.props.connectOnlyWifi) ? ONLY_WIFI : ALWAYS_CONNECTED
     return (
-      <View style={styles.mainContainer}>
-      <AnimatedLogo amimating={
-        // TODO: check if screen is isVisible
-        // ...   const isVisible = await this.props.navigator.screenIsCurrentlyVisible()
-        this.props.playStopButton === STOPPING
-      }/>
-        <Text>{/*this.props.langSelected*/}</Text>
-        <Text>{/*conn*/}</Text>
-        <Text>{/*this.state.connection*/}</Text>
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this._onRefresh}
+          />
+        }
+        contentContainerStyle={styles.mainContainer}
+        overScrollMode='always'>
+        <AnimatedLogo amimating={
+          // TODO: check if screen is isVisible
+          // ...   const isVisible = await this.props.navigator.screenIsCurrentlyVisible()
+          this.props.playStopButton === STOPPING
+        }/>
         <View>
 
           <View>
@@ -300,7 +334,7 @@ class WelcomeScreen extends Component {
           </View>
         </View>
         <ShareButton />
-      </View>
+      </ScrollView>
     );
     }
 }
