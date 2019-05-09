@@ -3,6 +3,7 @@ import {
   StyleSheet,
   View,
   Text,
+  Alert
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import ButtonAch from '../../components/UI/ButtonAch/ButtonAch'
@@ -78,6 +79,8 @@ class LanguageScreen extends Component {
         //selectedSpanish = (<Icon name='caret-left' size={30} color="#707070"/>)
     } else if (connectionType === ALWAYS_CONNECTED) {
         this.props.onAlwaysSelected()
+        // TODO: Include Language options
+        Alert.alert("El streaming sin Wifi podría consumir datos de tu saldo.")
     }
   }
 
