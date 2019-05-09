@@ -16,6 +16,12 @@ export const COLORS = {
   black: "#0B0F0D",
   brightGreen: "#3DCE58"
 }
+export const FIREB = {
+  name: 0,
+  spanish: 1,
+  tseltal: 2,
+  color: 3
+}
 export const SPANISH_DATA = {
   drawer: {
     scheduleTitle: 'Horario',

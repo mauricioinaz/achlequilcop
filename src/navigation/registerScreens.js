@@ -30,7 +30,7 @@ export default function () {
   Navigation.registerComponentWithRedux(LANGUAGE_SCREEN, () => LanguageScreen, Provider, store),
   Navigation.registerComponentWithRedux(PLAY_BUTTON, () => PlayButton, Provider, store),
   Navigation.registerComponentWithRedux(SIDE_DRAWER, () => Sidedrawer, Provider, store),
-  Navigation.registerComponent(PARRILLA_SCREEN, () => ParrillaScreen),
+  Navigation.registerComponentWithRedux(PARRILLA_SCREEN, () => ParrillaScreen, Provider, store),
   Navigation.registerComponentWithRedux(ABOUT_SCREEN, () => AboutScreen, Provider, store),
   Navigation.registerComponentWithRedux(NUMBERS_SCREEN, () => NumbersScreen, Provider, store),
 

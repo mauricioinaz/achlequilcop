@@ -7,8 +7,9 @@ import {
   ScrollView
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
+import { connect } from 'react-redux';
 import { SIDE_MENU_ID, MENU_BTN_ID } from '../../navigation/Screens';
-import { COLORS } from '../../redux/constants'
+import { COLORS, TSELTAL, FIREB } from '../../redux/constants'
 
 class ParrillaScreen extends Component {
 
@@ -69,12 +70,13 @@ class ParrillaScreen extends Component {
 
   render() {
 
+    const langNumb = (this.props.langSelected === TSELTAL) ? FIREB.tseltal : FIREB.spanish
     let showData = this.state.parrillaData.map((show, i) => {
       if (i < 3) return
       return (
-        <View style={[styles.showCard, {backgroundColor: COLORS[show[3]]}]} key={i}>
-          <Text style={styles.cartTitle}>{show[0]}</Text>
-          <Text style={styles.cardData}>{show[1]}</Text>
+        <View style={[styles.showCard, {backgroundColor: COLORS[show[FIREB.color]]}]} key={i}>
+          <Text style={styles.cartTitle}>{show[FIREB.name]}</Text>
+          <Text style={styles.cardData}>{show[langNumb]}</Text>
         </View>
       )
     })
@@ -157,4 +159,10 @@ const styles = StyleSheet.create({
 });
 
 
-export default ParrillaScreen;
+const mapStateToProps = state => {
+  return {
+    langSelected: state.lang.language,
+  };
+}
+
+export default connect(mapStateToProps)(ParrillaScreen);
