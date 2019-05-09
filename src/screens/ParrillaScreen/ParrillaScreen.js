@@ -68,6 +68,10 @@ class ParrillaScreen extends Component {
     }
   }
 
+  _setScrollView = scrollView => {
+    this._scrollView = scrollView;
+  };
+
   render() {
 
     const langNumb = (this.props.langSelected === TSELTAL) ? FIREB.tseltal : FIREB.spanish
