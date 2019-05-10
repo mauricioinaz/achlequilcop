@@ -52,8 +52,11 @@ export const SPANISH_DATA = {
     y maestros han aportado para tener un proyecto que brinde un servicio de gran calidad para mejorar las opciones comunicativas de la región.\
     Para la solicitud del permiso, la radio reunió más de 8000 firmas de las comunidades con las que colaboramos.\
     La radio, a través de los voluntarios, es del pueblo indígena de la región y está para fortalecer sus procesos sociales, culturales, educativos y organizativos\
-    -Las comunidades han sido acompañadas desde  1958 por la Misión de Bachajón, quien ha sido vínculo escencial para formar este proyecto."
-  }
+    -Las comunidades han sido acompañadas desde  1958 por la Misión de Bachajón, quien ha sido vínculo escencial para formar este proyecto.",
+    aboutAck: "Coordinadora: Amalia Hernández\nDesasarrollo: Mauricio González\n\
+Traducción: Francisco Guzmán\nDiseño Logo: Ana y Mariana",
+    
+  },
 }
 export const TSELTAL_DATA = {
   drawer: {
@@ -83,6 +86,9 @@ export const TSELTAL_DATA = {
     Te radio cu'untic hahch ta a'tel ta 2012. C'ax sc'oblal Te a'tel cu'untic ta sc'aj soc te radio ya xatejotic ta behel ta banti ay jun pajal o'tanil\
     Te radio cu'untic hahch ta a'tel ta 2012. C'ax sc'oblal Te a'tel cu'untic ta sc'aj soc te radio ya xatejotic ta behel ta banti ay jun pajal o'tanil\
     Te radio cu'untic hahch ta a'tel ta 2012. C'ax sc'oblal Te a'tel cu'untic ta sc'aj soc te radio ya xatejotic ta behel ta banti ay jun pajal o'tanil\
-    Te radio cu'untic hahch ta a'tel ta 2012. C'ax sc'oblal Te a'tel cu'untic ta sc'aj soc te radio ya xatejotic ta behel ta banti ay jun pajal o'tanil"
-  }
+    Te radio cu'untic hahch ta a'tel ta 2012. C'ax sc'oblal Te a'tel cu'untic ta sc'aj soc te radio ya xatejotic ta behel ta banti ay jun pajal o'tanil",
+    aboutAck: "Coordinadora: Amalia Hernández\nDesasarrollo: Mauricio González\n\
+Traducción: Francisco Guzmán\nDiseño Logo: Ana y Mariana"
+  },
+
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   StyleSheet,
+  ScrollView,
   View,
   Text,
 } from 'react-native';
@@ -36,23 +37,26 @@ class AboutScreen extends Component {
 
   render() {
     return (
-      <View style={styles.flex}>
+      <ScrollView
+        contentContainerStyle={styles.mainContainer}>
         <Text style={styles.title}>{this.props.abTitle}</Text>
         <View style={styles.paragraphContainer}>
-          <Text style={styles.paragraph} numberOfLines={10}>{this.props.abInfo}</Text>
+          <Text style={styles.paragraph}>{this.props.abInfo}</Text>
+          <Text>---------------</Text>
+          <Text style={styles.paragraph}>{this.props.abAck}</Text>
+          <Text>---------------</Text>
+          <Text style={styles.paragraph}>{this.props.abInfo}</Text>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
 
-
-
 const styles = StyleSheet.create({
-  flex: {
-    flex: 1,
+  mainContainer: {
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 48
   },
   title: {
     fontFamily: 'UbuntuCondensed-Regular',
@@ -79,6 +83,7 @@ const mapStateToProps = state => {
   return {
     abTitle: state.lang.languageData.about.aboutTitle,
     abInfo: state.lang.languageData.about.aboutInfo,
+    abAck: state.lang.languageData.about.aboutAck
   };
 }
 
