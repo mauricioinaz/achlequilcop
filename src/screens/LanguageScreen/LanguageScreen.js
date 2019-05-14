@@ -8,6 +8,9 @@ import {
 import { Navigation } from 'react-native-navigation';
 import ButtonAch from '../../components/UI/ButtonAch/ButtonAch'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import {
+  widthPercentageToDP as wp
+} from 'react-native-responsive-screen';
 import {connect} from 'react-redux';
 import * as actions from '../../redux/actions'
 import {
@@ -127,7 +130,7 @@ class LanguageScreen extends Component {
         </View>
         <View style={{ borderBottomColor: 'black', borderBottomWidth: 1, width: "100%",}}/>
         <View style={styles.sectionContainer}>
-          <View style={styles.titleContainer}>
+          <View allowFontScaling style={styles.titleContainer}>
             <Text style={longTitleStyles}>{this.props.dTitle}</Text>
           </View>
           <View style={styles.sectionConfigContainer}>
@@ -170,12 +173,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: 'UbuntuCondensed-Regular',
-    fontSize: 32,
+    fontSize: wp('8%'),
     color: "#494D4B",
     textAlign: 'center',
   },
   titleLong: {
-    fontSize: 26,
+    // TODO: Use specific fontSize for specific cases?
+    fontSize: wp('6%'),
     paddingLeft: 15,
     paddingRight: 15
   },
@@ -185,7 +189,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   iconContainer: {
-    width: "30%",
+    width: "35%",
     alignItems: "center",
     justifyContent: "center",
     paddingLeft: 30
@@ -195,10 +199,10 @@ const styles = StyleSheet.create({
     height: 120,
   },
   buttonsContainer: {
-    width: "70%",
+    width: "65%",
     padding: 20,
-    paddingRight: 60,
-    paddingLeft: 60,
+    paddingRight: 30,
+    paddingLeft: 30,
     justifyContent: "center",
     alignItems: "center",
   },

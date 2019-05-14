@@ -20,6 +20,10 @@ import {
   CENTER_STACK_ID,
   SIDE_DRAWER_ID
 } from '../../navigation/Screens';
+import { TSELTAL } from '../../redux/constants'
+import {
+  widthPercentageToDP as wp
+} from 'react-native-responsive-screen';
 
 
 class Sidedrawer extends Component {
@@ -39,28 +43,31 @@ class Sidedrawer extends Component {
                   (scr === ABOUT_SCREEN) ? this.props.abHeader :
                   (scr === NUMBERS_SCREEN) ? this.props.learnHeader : ''
 
+    const titleLongFontSize = (scr === ABOUT_SCREEN) && (this.props.language === TSELTAL) ? wp('7%') : null
+
     Navigation.push(CENTER_STACK_ID, {
           component: {
             name: scr,
             options: {
               topBar: {
                 title: {
-                  text: title
-                  },
-                  leftButtons: [
-                    {
-                      id: MENU_BTN_ID,
-                      icon: require('../../assets/icons/burgerMenu.png'),
-                      color: 'white',
-                    }
-                  ],
-                  rightButtons: [
-                    {
-                      id: PLAY_BTN_ID,
-                      component: {
-                          name: PLAY_BUTTON
-                      },
-                    }
+                  text: title,
+                  fontSize: titleLongFontSize,
+                },
+                leftButtons: [
+                  {
+                    id: MENU_BTN_ID,
+                    icon: require('../../assets/icons/burgerMenu.png'),
+                    color: 'white',
+                  }
+                ],
+                rightButtons: [
+                  {
+                    id: PLAY_BTN_ID,
+                    component: {
+                        name: PLAY_BUTTON
+                    },
+                  }
                 ],
               }
             }
@@ -79,7 +86,7 @@ class Sidedrawer extends Component {
             <Image
               style={styles.menuIconRadio}
               source={require('../../assets/icons/LogoSinLetraMenu.png')}/>
-            <Text style={[styles.menuText, {fontSize: 24}]}>Radio</Text>
+            <Text style={[styles.menuText, {fontSize: wp('6%')}]}>Radio</Text>
           </View>
         </TouchableOpacity>
 
@@ -150,7 +157,7 @@ const styles = StyleSheet.create({
   },
   menuText: {
     fontFamily: 'UbuntuCondensed-Regular',
-    fontSize: 20
+    fontSize: wp('5%')
   },
   spacer: {
     paddingBottom: 60
@@ -172,6 +179,7 @@ const mapStateToProps = state => {
     learnHeader: state.lang.languageData.drawer.learningHeader,
     abHeader: state.lang.languageData.drawer.aboutHeader,
     confHeader: state.lang.languageData.drawer.configureHeader,
+    language: state.lang.language
   };
 }
 
