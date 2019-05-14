@@ -205,7 +205,8 @@ class WelcomeScreen extends Component {
       if(data.type === 'wifi' || !this.props.connectOnlyWifi){
         this.player = new Player(this.state.stream, {
           autoDestroy: false,
-          continuesToPlayInBackground: true
+          continuesToPlayInBackground: true,
+          wakeLock: true
         }).prepare((err) => {
           if (err) {
             console.log('error at _reloadPlayer():');
