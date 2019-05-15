@@ -331,7 +331,7 @@ class WelcomeScreen extends Component {
         <View>
 
           <View>
-            <Text style={styles.errorMessage}>{this.state.playError}</Text>
+            <Text style={styles.errorMessage}>{/*this.state.playError*/}</Text>
           </View>
         </View>
         <ShareButton />
