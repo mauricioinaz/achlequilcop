@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
 import {
   StyleSheet,
+  ScrollView,
   View,
   Text,
+  TouchableNativeFeedback,
+  Linking
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
+import {connect} from 'react-redux';
 import { SIDE_MENU_ID, MENU_BTN_ID } from '../../navigation/Screens';
+import { COLORS } from '../../redux/constants'
 
+
+const licenceURL = "https://github.com/mauricioinaz/achlequilcop/blob/devel/licences.json"
+const radioURL = "https://www.achlequilcop.org"
+const codeURL = "https://github.com/mauricioinaz/achlequilcop"
 
 class AboutScreen extends Component {
 
@@ -32,46 +41,92 @@ class AboutScreen extends Component {
     });
   }
 
+  clickLink(urlLink) {
+    Linking.canOpenURL(urlLink).then(supported => {
+      if (supported) {
+        Linking.openURL(urlLink);
+      } else {
+        console.log("Don't know how to open URI: " + urlLink);
+      }
+    });
+  }
 
   render() {
+
+    //https://github.com/mauricioinaz/achlequilcop/blob/devel/licences.json
+
     return (
-      <View style={styles.flex}>
-        <Text style={styles.title}>Sobre nuestra radio:</Text>
+      <ScrollView
+        contentContainerStyle={styles.mainContainer}>
+        <Text style={styles.title}>{this.props.abTitle}</Text>
         <View style={styles.paragraphContainer}>
-          <Text style={styles.paragraph} numberOfLines={10}>Radio Ach’ Lequil C’op es una Radio comunitaria conformada por jóvenes Tseltales, Ch’oles y Mestizos. Además del equipo de base, somos más de 40 voluntarios elegidos por nuestras comunidades para brindar un servicio a nuestro pueblo..
-
-          El proyecto ha sido hecho en colaboración con muchas organizaciones como la Ibero y el Iteso, estudiantes y maestros han aportado para tener un proyecto que brinde un servicio de gran calidad para mejorar las opciones comunicativas de la región.
-
-          Para la solicitud del permiso, la radio reunió más de 8000 firmas de las comunidades con las que colaboramos. La radio, a través de los voluntarios, es del pueblo indígena de la región y está para fortalecer sus procesos sociales, culturales, educativos y organizativos-Las comunidades han sido acompañadas desde  1958 por la Misión de Bachajón, quien ha sido vínculo escencial para formar este proyecto.</Text>
+          <Text style={styles.paragraph}>{this.props.abInfo}</Text>
+          <TouchableNativeFeedback
+            onPress={() => this.clickLink(radioURL)}>
+            <Text style={[styles.paragraph, {color: COLORS.blue}]}>achlequilcop.org</Text>
+          </TouchableNativeFeedback>
+          <Text> </Text>
+          <Text style={styles.paragraph}>{this.props.abApp}</Text>
+          <Text> </Text>
+          <TouchableNativeFeedback
+            onPress={() => this.clickLink(codeURL)}>
+            <Text style={[styles.paragraph, {color: COLORS.blue}]}>{this.props.abVersion}</Text>
+          </TouchableNativeFeedback>
+          <Text> </Text>
+          <Text style={styles.paragraph}>{this.props.abAck}</Text>
+          <Text> </Text>
+          <TouchableNativeFeedback
+            onPress={() => this.clickLink(licenceURL)}>
+            <Text style={[styles.paragraph, {color: COLORS.blue}]}>Licencias y Dependencias</Text>
+          </TouchableNativeFeedback>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
 
-
-
 const styles = StyleSheet.create({
-  flex: {
-    flex: 1,
+  mainContainer: {
     alignItems: 'center',
     justifyContent: 'center',
+    paddingTop: 48,
   },
   title: {
     fontFamily: 'UbuntuCondensed-Regular',
     fontSize: 28,
-    color: 'black'
+    color: 'black',
+    paddingLeft: 30,
+    paddingRight: 30,
+    textAlign: 'center'
   },
   paragraph: {
     fontFamily: 'UbuntuCondensed-Regular',
     fontSize: 18,
-    textAlign: 'justify',
-    color: 'black'
+    textAlign: 'left',
+    color: 'black',
+    paddingBottom: 10
   },
   paragraphContainer: {
     padding: 30
+  },
+  closeButton: {
+    textAlign: 'center',
+    fontFamily: 'UbuntuCondensed-Regular',
+    fontSize: 28,
+    padding: 10,
+    color: COLORS.blue
   }
 });
 
 
-export default AboutScreen;
+const mapStateToProps = state => {
+  return {
+    abTitle: state.lang.languageData.about.aboutTitle,
+    abInfo: state.lang.languageData.about.aboutInfo,
+    abApp: state.lang.languageData.about.aboutApp,
+    abVersion: state.lang.languageData.about.appVersion,
+    abAck: state.lang.languageData.about.aboutAck
+  };
+}
+
+export default connect(mapStateToProps)(AboutScreen);

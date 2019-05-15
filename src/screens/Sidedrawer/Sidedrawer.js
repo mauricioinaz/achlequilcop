@@ -7,6 +7,7 @@ import {
   Image
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
+import {connect} from 'react-redux';
 import {
   LANGUAGE_SCREEN,
   SIDE_DRAWER,
@@ -19,6 +20,10 @@ import {
   CENTER_STACK_ID,
   SIDE_DRAWER_ID
 } from '../../navigation/Screens';
+import { TSELTAL } from '../../redux/constants'
+import {
+  widthPercentageToDP as wp
+} from 'react-native-responsive-screen';
 
 
 class Sidedrawer extends Component {
@@ -33,10 +38,12 @@ class Sidedrawer extends Component {
   }
 
   onScreenSelected (scr) {
-    const title = (scr === LANGUAGE_SCREEN) ? 'Elige un idioma' :
-                  (scr === PARRILLA_SCREEN) ? 'Horario' :
-                  (scr === ABOUT_SCREEN) ? 'Acerca de' :
-                  (scr === NUMBERS_SCREEN) ? 'Aprende a Contar' : ''
+    const title = (scr === LANGUAGE_SCREEN) ? this.props.confHeader :
+                  (scr === PARRILLA_SCREEN) ? this.props.schedHeader :
+                  (scr === ABOUT_SCREEN) ? this.props.abHeader :
+                  (scr === NUMBERS_SCREEN) ? this.props.learnHeader : ''
+
+    const titleLongFontSize = (scr === ABOUT_SCREEN) && (this.props.language === TSELTAL) ? wp('7%') : null
 
     Navigation.push(CENTER_STACK_ID, {
           component: {
@@ -44,22 +51,23 @@ class Sidedrawer extends Component {
             options: {
               topBar: {
                 title: {
-                  text: title
-                  },
-                  leftButtons: [
-                    {
-                      id: MENU_BTN_ID,
-                      icon: require('../../assets/icons/burgerMenu.png'),
-                      color: 'white',
-                    }
-                  ],
-                  rightButtons: [
-                    {
-                      id: PLAY_BTN_ID,
-                      component: {
-                          name: PLAY_BUTTON
-                      },
-                    }
+                  text: title,
+                  fontSize: titleLongFontSize,
+                },
+                leftButtons: [
+                  {
+                    id: MENU_BTN_ID,
+                    icon: require('../../assets/icons/burgerMenu.png'),
+                    color: 'white',
+                  }
+                ],
+                rightButtons: [
+                  {
+                    id: PLAY_BTN_ID,
+                    component: {
+                        name: PLAY_BUTTON
+                    },
+                  }
                 ],
               }
             }
@@ -78,7 +86,7 @@ class Sidedrawer extends Component {
             <Image
               style={styles.menuIconRadio}
               source={require('../../assets/icons/LogoSinLetraMenu.png')}/>
-            <Text style={[styles.menuText, {fontSize: 24}]}>Radio</Text>
+            <Text style={[styles.menuText, {fontSize: wp('6%')}]}>Radio</Text>
           </View>
         </TouchableOpacity>
 
@@ -89,7 +97,7 @@ class Sidedrawer extends Component {
             <Image
               style={styles.menuIcon}
               source={require('../../assets/icons/IconoMaiz.png')}/>
-              <Text style={styles.menuText}>Horario</Text>
+              <Text style={styles.menuText}>{this.props.schedTitle}</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => this.onScreenSelected(NUMBERS_SCREEN)}>
@@ -97,7 +105,7 @@ class Sidedrawer extends Component {
             <Image
               style={styles.menuIcon}
               source={require('../../assets/icons/IconoMano.png')}/>
-            <Text style={styles.menuText}>Aprender</Text>
+            <Text style={styles.menuText}>{this.props.learnTitle}</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => this.onScreenSelected(ABOUT_SCREEN)}>
@@ -105,7 +113,7 @@ class Sidedrawer extends Component {
             <Image
               style={styles.menuIcon}
               source={require('../../assets/icons/IconoPersonas.png')}/>
-            <Text style={styles.menuText}>Sobre la Radio</Text>
+            <Text style={styles.menuText}>{this.props.abTitle}</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => this.onScreenSelected(LANGUAGE_SCREEN)}>
@@ -113,7 +121,7 @@ class Sidedrawer extends Component {
             <Image
               style={styles.menuIcon}
               source={require('../../assets/icons/IconoIdioma.png')}/>
-            <Text style={styles.menuText}>Configurar</Text>
+            <Text style={styles.menuText}>{this.props.confTitle}</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -149,12 +157,31 @@ const styles = StyleSheet.create({
   },
   menuText: {
     fontFamily: 'UbuntuCondensed-Regular',
-    fontSize: 20
+    fontSize: wp('5%')
   },
   spacer: {
     paddingBottom: 60
   }
 });
 
+// scheduleHeader: 'Horario',
+// learningHeader: 'Aprende a Contar',
+// aboutHeader: 'Acerca de',
+// configureHeader: 'Elige un idioma'
 
-export default Sidedrawer;
+const mapStateToProps = state => {
+  return {
+    schedTitle: state.lang.languageData.drawer.scheduleTitle,
+    learnTitle: state.lang.languageData.drawer.learningTitle,
+    abTitle: state.lang.languageData.drawer.aboutTitle,
+    confTitle: state.lang.languageData.drawer.configureTitle,
+    schedHeader: state.lang.languageData.drawer.scheduleHeader,
+    learnHeader: state.lang.languageData.drawer.learningHeader,
+    abHeader: state.lang.languageData.drawer.aboutHeader,
+    confHeader: state.lang.languageData.drawer.configureHeader,
+    language: state.lang.language
+  };
+}
+
+
+export default connect(mapStateToProps)(Sidedrawer);

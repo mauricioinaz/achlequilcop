@@ -12,6 +12,9 @@ import {
   WELCOME_SCREEN_ID
 } from './Screens';
 import registerScreens from './registerScreens';
+import {
+  widthPercentageToDP as wp
+} from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 
@@ -33,7 +36,7 @@ export function pushInitialScreen() {
       title: {
         alignment: 'center',
         color: 'white',
-        fontSize: 34,
+        fontSize: wp('9%'),
         fontFamily: 'UbuntuCondensed-Regular'
       },
     },

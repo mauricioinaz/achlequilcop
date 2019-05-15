@@ -29,10 +29,10 @@ export default function () {
   Navigation.registerComponentWithRedux(WELCOME_SCREEN, () => WelcomeScreen, Provider, store)
   Navigation.registerComponentWithRedux(LANGUAGE_SCREEN, () => LanguageScreen, Provider, store),
   Navigation.registerComponentWithRedux(PLAY_BUTTON, () => PlayButton, Provider, store),
-  Navigation.registerComponent(SIDE_DRAWER, () => Sidedrawer),
-  Navigation.registerComponent(PARRILLA_SCREEN, () => ParrillaScreen),
-  Navigation.registerComponent(ABOUT_SCREEN, () => AboutScreen),
-  Navigation.registerComponent(NUMBERS_SCREEN, () => NumbersScreen),
+  Navigation.registerComponentWithRedux(SIDE_DRAWER, () => Sidedrawer, Provider, store),
+  Navigation.registerComponentWithRedux(PARRILLA_SCREEN, () => ParrillaScreen, Provider, store),
+  Navigation.registerComponentWithRedux(ABOUT_SCREEN, () => AboutScreen, Provider, store),
+  Navigation.registerComponentWithRedux(NUMBERS_SCREEN, () => NumbersScreen, Provider, store),
 
   console.info('All screens have been registered...');
 }

@@ -12,13 +12,15 @@ import {
   TSELTAL,
   CASTILLA,
   LANGUAGE_ASYNC,
-  CONNECTION_ASYNC
+  CONNECTION_ASYNC,
+  SPANISH_DATA,
+  TSELTAL_DATA
 } from '../constants'
 
 
 const initialState = {
   language: CASTILLA,
-  languageData: "Castilla",
+  languageData: SPANISH_DATA,
   wifiOnly: true
 };
 
@@ -27,10 +29,10 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case SELECTED_SPANISH:
       AsyncStorage.setItem(LANGUAGE_ASYNC, CASTILLA);
-      return {...state, language: CASTILLA, languageData: "Castellano"};
+      return {...state, language: CASTILLA, languageData: SPANISH_DATA};
     case SELECTED_TSELTAL:
       AsyncStorage.setItem(LANGUAGE_ASYNC, TSELTAL);
-      return {...state, language: TSELTAL,  languageData: "Bats'il C'op"};
+      return {...state, language: TSELTAL,  languageData: TSELTAL_DATA};
     case SELECTED_WIFI_ONLY:
       AsyncStorage.setItem(CONNECTION_ASYNC, ONLY_WIFI);
       return {...state, wifiOnly: true};

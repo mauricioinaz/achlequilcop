@@ -7,6 +7,9 @@ import {
   View,
   StyleSheet
 } from 'react-native'
+import {
+  widthPercentageToDP as wp
+} from 'react-native-responsive-screen';
 
 
 const buttonAch = props => {
@@ -39,12 +42,12 @@ const styles = StyleSheet.create({
     borderColor: '#494D4B',
     backgroundColor: "#00678F",
     width: '100%',
-    alignItems: 'center'
   },
   buttonText: {
     color: 'white',
     fontFamily: 'UbuntuCondensed-Regular',
-    fontSize: 26,
+    fontSize: wp('7%'),
+    textAlign: 'center'
   }
 });
 
