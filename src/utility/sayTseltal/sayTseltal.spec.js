@@ -152,5 +152,18 @@ describe('Tseltal Number', () => {
     test('3200001', () => {
       expect(sayTseltal(3200001)).toEqual("jun scha'mam");
     });
+
+    test('12800001', () => {
+      expect(sayTseltal(12800001)).toEqual("jun sho'mam");
+    });
+
+    test('60,800,000', () => {
+      expect(sayTseltal(60800000)).toEqual("balunlajunmam");
+    });
+
+    test('Catch error above 60,800,000', () => {
+        expect(() => sayTseltal(60800001))
+          .toThrow(new Error("Numero fuera de rango / Yahtabal c'ax muc'"));
+      });
   })
 });
