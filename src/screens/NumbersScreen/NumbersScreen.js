@@ -94,6 +94,7 @@ class NumbersScreen extends Component {
         </View>
         <View style={styles.resultContainer}>
           <Text
+            numberOfLines={4}
             style={styles.result}>
           {this.state.tseltalNumber}
           </Text>
@@ -112,17 +113,18 @@ const styles = StyleSheet.create({
     //justifyContent: 'space-evenly',
   },
   titleContainer: {
-    flex: 1,
+    flex: .2,
+    justifyContent: "flex-end",
+    alignItems: "center",
+    paddingTop: 5
+  },
+  inputContainer: {
+    flex: .3,
     justifyContent: "center",
     alignItems: "center"
   },
-  inputContainer: {
-    flex: 1,
-    justifyContent: "flex-start",
-    alignItems: "center"
-  },
   resultContainer: {
-    flex: 1.5,
+    flex: .5,
     justifyContent: "flex-start",
     alignItems: "center",
   },
