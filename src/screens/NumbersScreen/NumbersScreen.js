@@ -41,22 +41,31 @@ class NumbersScreen extends Component {
   }
 
   onTseltalNumbersHandler = (number) => {
-    let result = ''
 
-    try {
-      result = sayTseltal(this.state.nmb)
-    } catch(err) {
+    if (number){
+      let result = ''
+
+      try {
+        result = sayTseltal(number)
+      } catch(err) {
+        this.setState({
+          nmb: ""
+        });
+        Alert.alert(
+          err.toString()
+        );
+      }
+
       this.setState({
-        nmb: "2"
+        tseltalNumber: '' + result,
+        nmb: number
       });
-      Alert.alert(
-        err.toString()
-      );
+    } else {
+      this.setState({
+        tseltalNumber: '',
+        nmb: number
+      });
     }
-
-    this.setState({
-      tseltalNumber: '' + result
-    });
   }
 
   render() {
@@ -73,8 +82,7 @@ class NumbersScreen extends Component {
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
-            onSubmitEditing={this.onTseltalNumbersHandler}
-            onChangeText={number => this.setState({nmb: number})}
+            onChangeText={number => this.onTseltalNumbersHandler(number)}
             value={this.state.nmb}
             placeholder="123..."
             keyboardType="numeric"
@@ -85,7 +93,8 @@ class NumbersScreen extends Component {
           />
         </View>
         <View style={styles.resultContainer}>
-          <Text style={styles.result}>
+          <Text
+            style={styles.result}>
           {this.state.tseltalNumber}
           </Text>
         </View>
