@@ -4,7 +4,9 @@ import {
   SELECTED_SPANISH,
   SELECTED_TSELTAL,
   SELECTED_WIFI_ONLY,
-  SELECTED_ALWAYS_CONNECTED
+  SELECTED_ALWAYS_CONNECTED,
+  SHOW_MODAL_INTRO,
+  HIDE_MODAL_INTRO
 } from "../actions/actionTypes";
 import {
   ONLY_WIFI,
@@ -21,7 +23,8 @@ import {
 const initialState = {
   language: CASTILLA,
   languageData: SPANISH_DATA,
-  wifiOnly: true
+  wifiOnly: true,
+  modalIntro: false
 };
 
 
@@ -39,6 +42,11 @@ const reducer = (state = initialState, action) => {
     case SELECTED_ALWAYS_CONNECTED:
       AsyncStorage.setItem(CONNECTION_ASYNC, ALWAYS_CONNECTED);
       return {...state,  wifiOnly: false};
+    case SHOW_MODAL_INTRO:
+      return {...state,  modalIntro: true};
+    case HIDE_MODAL_INTRO:
+      console.log('HIDING MODAL 2');
+      return {...state,  modalIntro: false};
     default: return state;
   }
 };

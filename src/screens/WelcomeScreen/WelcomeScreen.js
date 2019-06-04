@@ -8,7 +8,8 @@ import {
   Text,
   Button,
   AsyncStorage,
-  NetInfo
+  NetInfo,
+  Modal
 } from 'react-native';
 import {
     Player
@@ -20,6 +21,7 @@ import RNExitApp from 'react-native-exit-app';
 import * as actions from '../../redux/actions'
 import AnimatedLogo from '../../components/AnimatedLogo/AnimatedLogo'
 import ShareButton from '../../components/ShareButton/ShareButton';
+import Intro from '../../components/Intro/Intro'
 import MusicControl from 'react-native-music-control';
 import {
   STOPPING,
@@ -70,7 +72,7 @@ class WelcomeScreen extends Component {
   }
 
   componentDidMount() {
-    this._getLanguage()
+    this._getAsyncStorage()
     this._getStreamLink()
   }
 
@@ -96,24 +98,25 @@ class WelcomeScreen extends Component {
     }
   }
 
-  _getLanguage = async () => {
+  _getAsyncStorage = async () => {
     try {
       const valueLanguage = await AsyncStorage.getItem(LANGUAGE_ASYNC);
       const valueConnection = await AsyncStorage.getItem(CONNECTION_ASYNC);
       if (valueLanguage !== null) {
+
         if(valueLanguage === TSELTAL) { this.props.onTseltalSelected() }
       console.log("Language async loaded is:" + valueLanguage);
       } else {
-        // TODO: handle First Time Loading
+        this.props.onShowModal()
       }
       if (valueConnection !== null) {
         if(valueConnection === ALWAYS_CONNECTED) { this.props.onAlwaysSelected() }
       console.log("Connection loaded is:" + valueConnection);
       } else {
-        // TODO: Handle No Connection
+
       }
     } catch (error) {
-    // Error retrieving data
+      console.log('--->ERROR RETRIEVING ASYNC');
     }
   }
 
@@ -323,6 +326,12 @@ class WelcomeScreen extends Component {
         }
         contentContainerStyle={styles.mainContainer}
         overScrollMode='always'>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={this.props.modalVisible}>
+            <Intro/>
+        </Modal>
         <AnimatedLogo amimating={
           // TODO: check if screen is isVisible
           // ...   const isVisible = await this.props.navigator.screenIsCurrentlyVisible()
@@ -380,7 +389,8 @@ const mapStateToProps = state => {
     connectOnlyWifi: state.lang.wifiOnly,
     playStopButton: state.play.playStopButton,
     playButtonDisabled: state.play.playButtonDisabled,
-    playToggle: state.play.playToggle
+    playToggle: state.play.playToggle,
+    modalVisible: state.lang.modalIntro
     // playError: state.play.playError,
   };
 }
@@ -395,6 +405,7 @@ const mapDispatchToProps = dispatch => {
     onStopPlay: () => dispatch(actions.stopPlay()),
     onEnablePlay: () => dispatch(actions.enablePlay()),
     onDisablePlay: () => dispatch(actions.disablePlay()),
+    onShowModal: () => dispatch(actions.showModalIntro())
   }
 }
 
