@@ -31,20 +31,20 @@ class Intro extends Component {
   }
 
   handleSelectLang = (language) => {
-    // if (language === CASTILLA) {
-    //     this.props.onSpanishSelected()
-    // } else if (language === TSELTAL) {
-    //     this.props.onTseltalSelected()
-    // }
+    if (language === CASTILLA) {
+        this.props.onSpanishSelected()
+    } else if (language === TSELTAL) {
+        this.props.onTseltalSelected()
+    }
     this.setState({introStep: INTRO_2_CONFIG_DATA})
   };
 
   handleSelectConnection = (connectionType) => {
-    // if (connectionType === ONLY_WIFI) {
-    //     this.props.onWifiSelected()
-    // } else if (connectionType === ALWAYS_CONNECTED) {
-    //     this.props.onAlwaysSelected()
-    // }
+    if (connectionType === ONLY_WIFI) {
+        this.props.onWifiSelected()
+    } else if (connectionType === ALWAYS_CONNECTED) {
+        this.props.onAlwaysSelected()
+    }
     this.setState({introStep: INTRO_3_WELCOME})
   }
 
