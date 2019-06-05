@@ -13,6 +13,7 @@
     "react-native-action-button": "^2.8.5",
     "react-native-audio-toolkit": "^1.0.6",
     "react-native-exit-app": "^1.0.0",
+    "react-native-image-pan-zoom": "^2.1.11",
     "react-native-music-control": "^0.9.9",
     "react-native-navigation": "^2.16.0",
     "react-native-responsive-screen": "^1.2.2",
