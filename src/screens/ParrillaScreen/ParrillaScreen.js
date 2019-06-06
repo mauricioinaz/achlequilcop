@@ -103,7 +103,9 @@ class ParrillaScreen extends Component {
             cropWidth={wp('95%')}
             cropHeight={hp('50%')}
             imageWidth={563}
-            imageHeight={462}>
+            imageHeight={462}
+            enableCenterFocus={false}
+            >
             <Image
               style={{width:563, height:462}}
               source={{uri: this.state.parrillaLink}}/>
