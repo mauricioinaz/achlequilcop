@@ -8,8 +8,13 @@ import {
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { connect } from 'react-redux';
+import ImageZoom from 'react-native-image-pan-zoom';
 import { SIDE_MENU_ID, MENU_BTN_ID } from '../../navigation/Screens';
 import { COLORS, TSELTAL, FIREB } from '../../redux/constants'
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from 'react-native-responsive-screen';
 
 class ParrillaScreen extends Component {
 
@@ -84,16 +89,27 @@ class ParrillaScreen extends Component {
         </View>
       )
     })
-
     return (
       <View style={styles.flex}>
         <View style={styles.containerImage}>
           <Text style={styles.errorText}>{this.state.errorText}</Text>
-          <Image
-            source={{uri: this.state.parrillaLink}}
-            style={styles.image}
-            onError={this.ImageLoading_Error.bind(this)}
-          />
+          <ImageZoom
+            centerOn={{
+                x: 0,
+                y: 0,
+                scale: .55,
+                duration: 300
+              }}
+            cropWidth={wp('95%')}
+            cropHeight={hp('50%')}
+            imageWidth={563}
+            imageHeight={462}
+            enableCenterFocus={false}
+            >
+            <Image
+              style={{width:563, height:462}}
+              source={{uri: this.state.parrillaLink}}/>
+          </ImageZoom>
         </View>
         <View style={styles.containerData}>
           <ScrollView
@@ -115,11 +131,6 @@ class ParrillaScreen extends Component {
 const styles = StyleSheet.create({
   flex: {
     flex: 1,
-  },
-  image: {
-    width: '96%',
-    height: '80%',
-    resizeMode: 'contain'
   },
   errorText: {
     fontSize: 24,

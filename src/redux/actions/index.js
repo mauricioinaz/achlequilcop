@@ -2,7 +2,9 @@ export {
   fetchSpanish,
   fetchTseltal,
   selectWifiOnly,
-  selectedAlwaysConnected 
+  selectedAlwaysConnected,
+  showModalIntro,
+  hideModalIntro
 } from "./lang";
 export {
   startPlay,

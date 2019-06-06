@@ -22,6 +22,9 @@ export const FIREB = {
   tseltal: 2,
   color: 3
 }
+export const INTRO_1_CONFIG_LANGUAGE = 'INTRO_1_CONFIG_LANGUAGE'
+export const INTRO_2_CONFIG_DATA = 'INTRO_2_CONFIG_DATA'
+export const INTRO_3_WELCOME = 'INTRO_3_WELCOME'
 export const SPANISH_DATA = {
   drawer: {
     scheduleTitle: 'Horario',
@@ -42,18 +45,19 @@ export const SPANISH_DATA = {
     buttonTseltal: "Tseltal",
     dataTitle: "Escucha la radio con\ntus datos o sólo en Wifi", //`Escucha la radio con\ntus datos o sólo en Wifi`,
     buttonWifi: "Sólo WiFi",
-    buttonData: "Datos"
+    buttonData: "Datos",
+    welcomeText: "¡Listo! Ahora explora los horarios, los números en Tseltal y ¡escucha Ach'Lequilc'op!"
   },
   about: {
     aboutTitle: "Sobre nuestra radio",
-    aboutInfo: "Radio Ach’ Lequilc’op es una radio comunitaria conformada por jóvenes tseltales, ch’oles y mestizos.\
-Además del equipo de base, somos más de 40 voluntarios elegidos por nuestras comunidades para brindar un servicio a nuestro pueblo.\
-En este 2019 cumplimos 4 años de trabajo con las comunidades. Agradecemos a las personas que nos pudieron oír,\
+    aboutInfo: "Radio Ach’ Lequilc’op es una radio comunitaria conformada por jóvenes tseltales, ch’oles y mestizos. \
+Además del equipo de base, somos más de 40 voluntarios elegidos por nuestras comunidades para brindar un servicio a nuestro pueblo. \
+En este 2019 cumplimos 4 años de trabajo con las comunidades. Agradecemos a las personas que nos pudieron oír, \
 también aquellas que enviaron su palabra, trabajo, consejos y palabras de ánimo para que nuestra radio vaya caminando bien.",
-    aboutApp: "Esta app fue desarrollada con la intención de que podamos escuchar la Ach' Lequilc'op en cualquier parte del mundo.\
-Está hecha para que la música, información y cultura que se transmite en Ach'Lequilc'op nos acompañen siempre y cuando tengamos Internet.\
+    aboutApp: "Esta app fue desarrollada con la intención de que podamos escuchar la Ach' Lequilc'op en cualquier parte del mundo. \
+Está hecha para que la música, información y cultura que se transmite en Ach'Lequilc'op nos acompañen siempre y cuando tengamos Internet. \
 Que llevemos una parte de nuestra cultura en nuestro bolsillo.",
-    appVersion: "Version 1.0",
+    appVersion: "Version 1.01",
     aboutAck: "Coordinadora: Amalia Hernández\nDesarrollo App: Mauricio González\n\
 Traducción: Francisco Guzmán\nDiseño Logo: Ana y Mariana\nEquipo Radio: Gilberto Miranda"
   },
@@ -78,7 +82,8 @@ export const TSELTAL_DATA = {
     buttonTseltal: "Tseltal",
     dataTitle: "Ts'ehchiquintaya te c'opojibal ta jayeb taqu'in awotsesbeyoj te ac'opojib ma'uc ta WiFi ", //`Escucha la radio con\ntus datos o sólo en Wifi`,
     buttonWifi: "Ha' nax ta WiFi",
-    buttonData: "Staqu'inul jc'opojib"
+    buttonData: "Staqu'inul jc'opojib",
+    welcomeText: "Lequix ay! Iya' te sc'ahc'alel a'tel, nopa' ahtal soc aiya' te Ach' Lequilc'op"
   },
   about: {
     aboutTitle: "Sc'oblal te Ach' Lequilc'op C'opojibal cu'untic",
@@ -90,7 +95,7 @@ export const TSELTAL_DATA = {
     aboutApp: "Esta app fue desarrollada con la intención de que podamos escuchar la Ach' Lequilc'op en cualquier parte del mundo.\
 Está hecha para que la música, información y cultura que se transmite en Ach'Lequilc'op nos acompañen siempre y cuando tengamos Internet.\
 Que llevemos una parte de nuestra cultura en nuestro bolsillo.",
-    appVersion: "Version 1.0",
+    appVersion: "Version 1.01",
     aboutAck: "Coordinadora: Amalia Hernández\nDesarrollo App: Mauricio González\n\
 Traducción: Francisco Guzmán\nDiseño Logo: Ana y Mariana\nEquipo Radio: Gilberto Miranda"
   },
