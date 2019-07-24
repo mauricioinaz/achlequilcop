@@ -56,6 +56,13 @@ export const SPANISH_DATA = {
     aboutAck: "Coordinadora:  Amalia Hernández\nDesarrollo:  Mauricio González\n\
 Traducción:  Francisco Guzmán\nDiseño Logo:  Aquila Diseño\nEquipo Radio:  Gilberto Miranda y Ángel López"
   },
+  errorMess: {
+    errorServer: "Error: El Servidor de Streaming no responde. :( Intenta más tarde",
+    errorStream: "Error: Falla de Streaming.",
+    errorConn1: 'Error de Conexión: Activa el Wifi, o el "uso de datos" en Configuración',
+    errorConn2: "Error de Conexión: Verifica que tengas acceso a Internet",
+    dataAlert: "El streaming sin Wifi podría consumir datos de tu saldo."
+  }
 }
 export const TSELTAL_DATA = {
   drawer: {
@@ -78,7 +85,7 @@ export const TSELTAL_DATA = {
     dataTitle: "Ts'ehchiquintaya te c'opojibal ta jayeb taqu'in awotsesbeyoj te ac'opojib ma'uc ta WiFi ", //`Escucha la radio con\ntus datos o sólo en Wifi`,
     buttonWifi: "Ha' nax ta WiFi",
     buttonData: "Staqu'inul jc'opojib",
-    welcomeText: "Lequix ay! Iya' te sc'ahc'alel a'tel, nopa' ahtal soc aiya' te Ach' Lequilc'op"
+    welcomeText: "¡Lequix ay! Xhu' ya cawilix binut'il chapal sbehlal ya'tel te jc'opojibtic, yu'un canop tseltal ahtal soc nix ehuc ¡a'iya te bin ya xlaj chicnaj ta a'iyel ta Ach' Lequilc'op C'opojibal cu'untic!"
   },
   about: {
     aboutTitle: "Sc'oblal te Ach' Lequilc'op C'opojibal cu'untic",
@@ -89,5 +96,11 @@ Ha' yac ta tuquinel binut'il jtojobteswanej, yaqu'el ta na'el smelelil c'op soc 
     aboutAck: "Jolal ta c'opojibal:  Amalia Hernández\nSchahpanej te a'tejibal:  Mauricio González\n\
 Sohltesej ta tseltal c'op:  Francisco Guzmán\nRadio:  Gilberto Miranda soc j'Angel López"
   },
-
+  errorMess: {
+    errorServer: "ila awil: Te banti ya xtal te sc'op c'opojibal ma' yac stsacbel. :( Pasa jts'ihnuc",
+    errorStream: "ila awil: Ma' laj stsac sbah te c'opojibal",
+    errorConn1: "Ma' lec ay: Jama Wifi ma'uc Staqu'inul C'opojib banti ya xchahpaj",
+    errorConn2: "Ma' stsac sbah: Ila awil ah teme jamal sbeh te banti ya xtal sc'op te c'opojibal",
+    dataAlert: "Te ma' stuquinel Wifi ya me slajimbat staqu'inul te ac'opojibe"
+  }
 }

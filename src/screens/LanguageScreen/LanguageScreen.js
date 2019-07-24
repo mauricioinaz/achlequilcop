@@ -83,7 +83,7 @@ class LanguageScreen extends Component {
     } else if (connectionType === ALWAYS_CONNECTED) {
         this.props.onAlwaysSelected()
         // TODO: Include Language options
-        Alert.alert("El streaming sin Wifi podría consumir datos de tu saldo.")
+        Alert.alert(this.props.datAlert)
     }
   }
 
@@ -224,6 +224,7 @@ const mapStateToProps = state => {
     bWifi: state.lang.languageData.config.buttonWifi,
     bData: state.lang.languageData.config.buttonData,
     confHeader: state.lang.languageData.drawer.configureHeader,
+    datAlert: state.lang.languageData.errorMess.dataAlert
   };
 }
 

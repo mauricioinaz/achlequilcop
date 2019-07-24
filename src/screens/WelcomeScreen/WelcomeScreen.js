@@ -146,7 +146,7 @@ class WelcomeScreen extends Component {
     this._reloadPlayer();
     setTimeout(() => {
       if (this.player && this.player.state === 1) {
-        Alert.alert("Error: El Servidor de Streaming no responde. :( Intenta más tarde")
+        Alert.alert(this.props.errServer)
       }
     },5000)
   }
@@ -216,8 +216,7 @@ class WelcomeScreen extends Component {
             console.log(err);
             if (this.state.refreshing) {
               // TODO: Adjust to language
-              Alert.alert("Error "+this.player.state +
-              ": Falla de Streaming." + err)
+              Alert.alert(this.player.state + this.props.errStream + err)
             }
           }
 
@@ -234,9 +233,9 @@ class WelcomeScreen extends Component {
         if (this.state.refreshing) {
           // TODO: Adjust to language
           if (data.type === 'cellular' && this.props.connectOnlyWifi) {
-            Alert.alert('Error de Conexión: Activa el Wifi, o el "uso de datos" en Configuración')
+            Alert.alert(this.props.errConn1)
           } else {
-            Alert.alert("Error de Conexión: Verifica que tengas acceso a Internet")
+            Alert.alert(this.props.errConn2)
           }
         }
       }
@@ -385,13 +384,15 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     langSelected: state.lang.language,
-    langData: state.lang.languageData,
     connectOnlyWifi: state.lang.wifiOnly,
     playStopButton: state.play.playStopButton,
     playButtonDisabled: state.play.playButtonDisabled,
     playToggle: state.play.playToggle,
-    modalVisible: state.lang.modalIntro
-    // playError: state.play.playError,
+    modalVisible: state.lang.modalIntro,
+    errServer: state.lang.languageData.errorMess.errorServer,
+    errStream: state.lang.languageData.errorMess.errorStream,
+    errConn1: state.lang.languageData.errorMess.errorConn1,
+    errConn2: state.lang.languageData.errorMess.errorConn2
   };
 }
 
