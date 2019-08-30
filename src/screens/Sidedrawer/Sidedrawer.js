@@ -4,7 +4,8 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Image
+  Image,
+  Platform
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import {connect} from 'react-redux';
@@ -38,12 +39,14 @@ class Sidedrawer extends Component {
   }
 
   onScreenSelected (scr) {
+    console.log('opt: hasta aquí bien');
     const title = (scr === LANGUAGE_SCREEN) ? this.props.confHeader :
                   (scr === PARRILLA_SCREEN) ? this.props.schedHeader :
                   (scr === ABOUT_SCREEN) ? this.props.abHeader :
                   (scr === NUMBERS_SCREEN) ? this.props.learnHeader : ''
 
-    const titleLongFontSize = (scr === ABOUT_SCREEN) && (this.props.language === TSELTAL) ? wp('7%') : null
+    const titleLongFontSize = (scr === ABOUT_SCREEN) && (this.props.language === TSELTAL) ? wp('7%') : wp('9%')
+    console.log(titleLongFontSize)
 
     Navigation.push(CENTER_STACK_ID, {
           component: {
