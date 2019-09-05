@@ -4,7 +4,7 @@ import {
   ScrollView,
   View,
   Text,
-  TouchableNativeFeedback,
+  TouchableOpacity,
   Linking
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
@@ -61,24 +61,24 @@ class AboutScreen extends Component {
         <Text style={styles.title}>{this.props.abTitle}</Text>
         <View style={styles.paragraphContainer}>
           <Text style={styles.paragraph}>{this.props.abInfo}</Text>
-          <TouchableNativeFeedback
+          <TouchableOpacity
             onPress={() => this.clickLink(radioURL)}>
             <Text style={[styles.paragraph, {color: COLORS.blue}]}>achlequilcop.org</Text>
-          </TouchableNativeFeedback>
+          </TouchableOpacity>
           <Text> </Text>
           <Text style={styles.paragraph}>{this.props.abApp}</Text>
           <Text> </Text>
-          <TouchableNativeFeedback
+          <TouchableOpacity
             onPress={() => this.clickLink(codeURL)}>
             <Text style={[styles.paragraph, {color: COLORS.blue}]}>{this.props.abVersion}</Text>
-          </TouchableNativeFeedback>
+          </TouchableOpacity>
           <Text> </Text>
           <Text style={styles.paragraph}>{this.props.abAck}</Text>
           <Text> </Text>
-          <TouchableNativeFeedback
+          <TouchableOpacity
             onPress={() => this.clickLink(licenceURL)}>
             <Text style={[styles.paragraph, {color: COLORS.blue}]}>Licencias y Dependencias</Text>
-          </TouchableNativeFeedback>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     );
