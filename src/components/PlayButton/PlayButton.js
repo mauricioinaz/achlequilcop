@@ -3,7 +3,8 @@ import {
     View,
     Image,
     TouchableOpacity,
-    StyleSheet
+    StyleSheet,
+    Platform
  } from 'react-native';
  import {connect} from 'react-redux';
  import * as actions from '../../redux/actions'
@@ -44,8 +45,8 @@ const styles = StyleSheet.create({
   containerIcon: {
     width: '100%',
     height: '100%',
-    paddingRight: 40,
-    paddingTop: 13,
+    paddingRight: Platform.OS == 'android' ? 40 : 0,
+    paddingTop: Platform.OS == 'android' ? 13 : 0,
   },
   playButton: {
     // TODO: ADJUST FOR IOS
