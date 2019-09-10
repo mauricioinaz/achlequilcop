@@ -3,7 +3,8 @@ import {
   StyleSheet,
   View,
   Text,
-  Alert
+  Alert,
+  Platform
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import ButtonAch from '../../components/UI/ButtonAch/ButtonAch'
@@ -88,7 +89,7 @@ class LanguageScreen extends Component {
   }
 
   render() {
-    const sel = (<Icon name='caret-left' size={30} color="#707070"/>)
+    const sel = (<Icon style={styles.selectedIcon} name='caret-left' size={30} color="#707070"/>)
     const notSel = (<Text>  </Text>)
     let selectedTseltal = sel
     let selectedSpanish = notSel
@@ -210,6 +211,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center'
   },
+  selectedIcon: {
+    paddingLeft: Platform.OS === 'ios' ? 15 : 0
+  }
 });
 
 
