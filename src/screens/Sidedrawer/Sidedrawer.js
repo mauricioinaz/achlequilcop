@@ -35,7 +35,7 @@ class Sidedrawer extends Component {
 
   onRadioSelected () {
     Navigation.popToRoot(CENTER_STACK_ID)
-    Navigation.mergeOptions(SIDE_DRAWER_ID, { sideMenu: { left: { visible: false, }}});
+    Navigation.mergeOptions(SIDE_DRAWER_ID, { sideMenu: { left: { visible: false, enabled: false }}});
   }
 
   onScreenSelected (scr) {
@@ -77,7 +77,7 @@ class Sidedrawer extends Component {
           }
         });
 
-    Navigation.mergeOptions(SIDE_DRAWER_ID, { sideMenu: { left: { visible: false, }}});
+    Navigation.mergeOptions(SIDE_DRAWER_ID, { sideMenu: { left: { visible: false, enabled: false }}});
   }
 
 

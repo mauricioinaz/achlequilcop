@@ -14,6 +14,7 @@
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* AchLequilcopTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* AchLequilcopTests.m */; };
 		070E54E52252B32600C39BDC /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 070E54E22252B30F00C39BDC /* libRNVectorIcons.a */; };
+		072BF69123294EB1000D348F /* libRNPhotoView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07ABF1D023294E0D009A641A /* libRNPhotoView.a */; };
 		0747FCE0224AA5AD004633BC /* libMusicControl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0747FCDD224AA599004633BC /* libMusicControl.a */; };
 		0747FCE1224AA5B7004633BC /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0747FCCE224AA572004633BC /* libReactNativeNavigation.a */; };
 		0747FCE2224AA5BD004633BC /* libReactNativeAudioToolkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0747FCD6224AA587004633BC /* libReactNativeAudioToolkit.a */; };
@@ -182,6 +183,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = B5027B1B2237B30F00F1AABA;
 			remoteInfo = "RNCNetInfo-tvOS";
+		};
+		07ABF1CF23294E0D009A641A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07ABF19F23294E0C009A641A /* RNPhotoView.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNPhotoView;
 		};
 		139105C01AF99BAD00B5F7CC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -403,6 +411,7 @@
 		0747FCD1224AA587004633BC /* ReactNativeAudioToolkit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeAudioToolkit.xcodeproj; path = "../node_modules/react-native-audio-toolkit/ios/ReactNativeAudioToolkit/ReactNativeAudioToolkit.xcodeproj"; sourceTree = "<group>"; };
 		0747FCD7224AA599004633BC /* MusicControl.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MusicControl.xcodeproj; path = "../node_modules/react-native-music-control/ios/MusicControl.xcodeproj"; sourceTree = "<group>"; };
 		074F52482261461400030C36 /* RNCNetInfo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCNetInfo.xcodeproj; path = "../node_modules/@react-native-community/netinfo/ios/RNCNetInfo.xcodeproj"; sourceTree = "<group>"; };
+		07ABF19F23294E0C009A641A /* RNPhotoView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNPhotoView.xcodeproj; path = "../node_modules/react-native-photo-view/ios/RNPhotoView.xcodeproj"; sourceTree = "<group>"; };
 		07B9381B225542610049271A /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
@@ -439,6 +448,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				072BF69123294EB1000D348F /* libRNPhotoView.a in Frameworks */,
 				074F527D2261465600030C36 /* libRNCNetInfo.a in Frameworks */,
 				070E54E52252B32600C39BDC /* libRNVectorIcons.a in Frameworks */,
 				0747FCE2224AA5BD004633BC /* libReactNativeAudioToolkit.a in Frameworks */,
@@ -590,6 +600,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		07ABF1A023294E0C009A641A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				07ABF1D023294E0D009A641A /* libRNPhotoView.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		139105B71AF99BAD00B5F7CC /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -686,6 +704,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				07ABF19F23294E0C009A641A /* RNPhotoView.xcodeproj */,
 				074F52482261461400030C36 /* RNCNetInfo.xcodeproj */,
 				070E54B22252B30F00C39BDC /* RNVectorIcons.xcodeproj */,
 				0747FCD7224AA599004633BC /* MusicControl.xcodeproj */,
@@ -937,6 +956,10 @@
 					ProjectRef = 074F52482261461400030C36 /* RNCNetInfo.xcodeproj */;
 				},
 				{
+					ProductGroup = 07ABF1A023294E0C009A641A /* Products */;
+					ProjectRef = 07ABF19F23294E0C009A641A /* RNPhotoView.xcodeproj */;
+				},
+				{
 					ProductGroup = 070E54B32252B30F00C39BDC /* Products */;
 					ProjectRef = 070E54B22252B30F00C39BDC /* RNVectorIcons.xcodeproj */;
 				},
@@ -1076,6 +1099,13 @@
 			fileType = archive.ar;
 			path = "libRNCNetInfo-tvOS.a";
 			remoteRef = 074F52792261461400030C36 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		07ABF1D023294E0D009A641A /* libRNPhotoView.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNPhotoView.a;
+			remoteRef = 07ABF1CF23294E0D009A641A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		139105C11AF99BAD00B5F7CC /* libRCTSettings.a */ = {

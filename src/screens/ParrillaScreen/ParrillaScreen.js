@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { connect } from 'react-redux';
-import ImageZoom from 'react-native-image-pan-zoom';
+import PhotoView from 'react-native-photo-view';
 import { SIDE_MENU_ID, MENU_BTN_ID } from '../../navigation/Screens';
 import { COLORS, TSELTAL, FIREB } from '../../redux/constants'
 import {
@@ -93,29 +93,22 @@ class ParrillaScreen extends Component {
       <View style={styles.flex}>
         <View style={styles.containerImage}>
           <Text style={styles.errorText}>{this.state.errorText}</Text>
-          <ImageZoom
-            centerOn={{
-                x: 0,
-                y: 0,
-                scale: .55,
-                duration: 300
-              }}
-            cropWidth={wp('95%')}
-            cropHeight={hp('50%')}
-            imageWidth={563}
-            imageHeight={462}
-            enableCenterFocus={false}
-            >
-            <Image
-              style={{width:563, height:462}}
-              source={{uri: this.state.parrillaLink}}/>
-          </ImageZoom>
+          <View>
+            <PhotoView
+              source={{uri: this.state.parrillaLink}}
+              minimumZoomScale={1}
+              maximumZoomScale={3}
+              androidScaleType="center"
+              onLoad={() => console.log("Image loaded!")}
+              style={{width: wp('95%'), height: hp('50%'), backgroundColor: '#fff'}} />
+          </View>
         </View>
         <View style={styles.containerData}>
           <ScrollView
             ref={this._setScrollView}
             horizontal
             bounces
+            directionalLockEnabled
             alwaysBounceHorizontal>
             {showData}
           </ScrollView>
@@ -124,7 +117,6 @@ class ParrillaScreen extends Component {
     );
   }
 }
-
 
 
 
