@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   View,
-  Image,
   Text,
   ScrollView
 } from 'react-native';
@@ -150,7 +149,6 @@ const styles = StyleSheet.create({
   cartTitle: {
     fontFamily: 'UbuntuCondensed-Regular',
     fontSize: 18,
-    color: "black",
     textAlign: 'center',
     marginTop: 5,
     color: "white"
@@ -158,7 +156,6 @@ const styles = StyleSheet.create({
   cardData: {
     fontFamily: 'UbuntuCondensed-Regular',
     fontSize: 14,
-    color: "#494D4B",
     textAlign: 'center',
     marginTop: 10,
     color: "white"

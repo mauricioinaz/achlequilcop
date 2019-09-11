@@ -4,14 +4,12 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Image,
-  Platform
+  Image
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import {connect} from 'react-redux';
 import {
   LANGUAGE_SCREEN,
-  SIDE_DRAWER,
   PARRILLA_SCREEN,
   ABOUT_SCREEN,
   NUMBERS_SCREEN,

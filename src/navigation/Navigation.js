@@ -1,7 +1,6 @@
 import { Navigation } from 'react-native-navigation';
 import {
   WELCOME_SCREEN,
-  SINGLE_APP_SCREEN,
   SIDE_DRAWER,
   PLAY_BUTTON,
   SIDE_MENU_ID,
@@ -15,7 +14,6 @@ import registerScreens from './registerScreens';
 import {
   widthPercentageToDP as wp
 } from 'react-native-responsive-screen';
-import Icon from 'react-native-vector-icons/FontAwesome'
 
 
 // Register all screens on launch
