@@ -47,6 +47,9 @@ class WelcomeScreen extends Component {
 
     Navigation.events().bindComponent(this);
     NetInfo.addEventListener('connectionChange', this._handleConnectionChange);
+
+    this.player = null;
+    this._reloadPlayer();
   }
 
   navigationButtonPressed({buttonId}) {
@@ -76,8 +79,7 @@ class WelcomeScreen extends Component {
   }
 
   componentWillMount() {
-    this.player = null;
-    this._reloadPlayer();
+
   }
 
   componentWillUnmount () {
