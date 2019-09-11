@@ -76,10 +76,7 @@ class WelcomeScreen extends Component {
   componentDidMount() {
     this._getAsyncStorage()
     this._getStreamLink()
-  }
-
-  componentWillMount() {
-
+    this._setupMusicControl()
   }
 
   componentWillUnmount () {
@@ -260,8 +257,8 @@ class WelcomeScreen extends Component {
     })
 
     // TODO: Check if functional in android
-    //MusicControl.enableBackgroundMode(true);
-    //MusicControl.handleAudioInterruptions(true);
+    MusicControl.enableBackgroundMode(true);
+    MusicControl.handleAudioInterruptions(true);
 
     MusicControl.enableControl('play', true)
     MusicControl.enableControl('pause', true)
