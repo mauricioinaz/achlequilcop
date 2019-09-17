@@ -42,7 +42,7 @@ class WelcomeScreen extends Component {
       playError: null,
       connection: null,
       refreshing: false,
-      stream: "http://162.210.196.142:36923" // ibero "http://noasrv.caster.fm:10182/live"
+      stream: "http://162.210.196.140:33094/" // ibero "http://noasrv.caster.fm:10182/live"
      };
 
     Navigation.events().bindComponent(this);
