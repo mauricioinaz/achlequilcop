@@ -17,11 +17,22 @@ export const Colors = {
   },
   dark: {
     text: '#ffffff',
-    background: '#000000',
-    backgroundElement: '#212225',
-    backgroundSelected: '#2E3135',
-    textSecondary: '#B0B4BA',
+    background: '#111416',
+    backgroundElement: '#1E2225',
+    backgroundSelected: '#2A2E32',
+    textSecondary: '#9BA8B0',
   },
+} as const;
+
+export const Brand = {
+  primary: '#1B7B8A',
+  primaryDark: '#145E6A',
+  primaryLight: '#2A9BAC',
+  primarySurface: '#EFF7F9',
+  accent: '#F5A623',
+  accentDark: '#D48A0C',
+  white: '#FFFFFF',
+  tabInactive: '#9BA8B0',
 } as const;
 
 export type ThemeColor = keyof typeof Colors.light & keyof typeof Colors.dark;
