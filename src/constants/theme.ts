@@ -3,9 +3,9 @@
  * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
  */
 
-import '@/global.css';
+import '@/global.css'
 
-import { Platform } from 'react-native';
+import { Platform } from 'react-native'
 
 export const Colors = {
   light: {
@@ -18,24 +18,28 @@ export const Colors = {
   dark: {
     text: '#ffffff',
     background: '#111416',
-    backgroundElement: '#1E2225',
+    backgroundElement: '#1231231',
     backgroundSelected: '#2A2E32',
     textSecondary: '#9BA8B0',
   },
-} as const;
+} as const
 
 export const Brand = {
-  primary: '#1B7B8A',
-  primaryDark: '#145E6A',
-  primaryLight: '#2A9BAC',
+  primary: '#006A91',
+  azul: '#006A91',
+  amarillo: '#FFAF05',
+  rojo: '#EC0029',
+  morado: '#A6004C',
+  primaryDark: '#006A91',
+  primaryLight: '#006A9105',
   primarySurface: '#EFF7F9',
   accent: '#F5A623',
   accentDark: '#D48A0C',
   white: '#FFFFFF',
   tabInactive: '#9BA8B0',
-} as const;
+} as const
 
-export type ThemeColor = keyof typeof Colors.light & keyof typeof Colors.dark;
+export type ThemeColor = keyof typeof Colors.light & keyof typeof Colors.dark
 
 export const Fonts = Platform.select({
   ios: {
@@ -60,7 +64,7 @@ export const Fonts = Platform.select({
     rounded: 'var(--font-rounded)',
     mono: 'var(--font-mono)',
   },
-});
+})
 
 export const Spacing = {
   half: 2,
@@ -70,7 +74,7 @@ export const Spacing = {
   four: 24,
   five: 32,
   six: 64,
-} as const;
+} as const
 
-export const BottomTabInset = Platform.select({ ios: 50, android: 80 }) ?? 0;
-export const MaxContentWidth = 800;
+export const BottomTabInset = Platform.select({ ios: 50, android: 80 }) ?? 0
+export const MaxContentWidth = 800

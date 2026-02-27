@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, useColorScheme, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useState } from 'react'
+import { Image, StyleSheet, Text, TouchableOpacity, useColorScheme, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
-import { Brand } from '@/constants/theme';
+import { Brand } from '@/constants/theme'
 
 export default function RadioScreen() {
-  const [playing, setPlaying] = useState(false);
-  const scheme = useColorScheme();
-  const isDark = scheme === 'dark';
+  const [playing, setPlaying] = useState(false)
+  const scheme = useColorScheme()
+  const isDark = scheme === 'dark'
 
   return (
     <View style={[styles.container, isDark && styles.containerDark]}>
@@ -31,13 +31,13 @@ export default function RadioScreen() {
         </View>
 
         {/* Now playing card */}
-        <View style={[styles.nowPlayingCard, isDark && styles.nowPlayingCardDark]}>
+        {/* <View style={[styles.nowPlayingCard, isDark && styles.nowPlayingCardDark]}>
           <Text style={styles.nowLabel}>AHORA EN VIVO</Text>
           <Text style={[styles.programTitle, isDark && styles.textLight]}>Programa Matutino</Text>
           <Text style={[styles.programSub, isDark && styles.taglineDark]}>
             Con José · 6:00 – 8:00 am
           </Text>
-        </View>
+        </View> */}
 
         {/* Live indicator + progress */}
         <View style={styles.progressBlock}>
@@ -52,24 +52,25 @@ export default function RadioScreen() {
 
         {/* Playback controls */}
         <View style={styles.controls}>
-          <TouchableOpacity style={styles.sideBtn}>
+          {/* <TouchableOpacity style={styles.sideBtn}>
             <Text style={[styles.sideBtnIcon, isDark && styles.sideBtnIconDark]}>{'⏮'}</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <TouchableOpacity
             style={[styles.playBtn, playing && styles.playBtnActive]}
             onPress={() => setPlaying(!playing)}
-            activeOpacity={0.85}>
+            activeOpacity={0.85}
+          >
             <Text style={styles.playIcon}>{playing ? '⏸' : '▶'}</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.sideBtn}>
+          {/* <TouchableOpacity style={styles.sideBtn}>
             <Text style={[styles.sideBtnIcon, isDark && styles.sideBtnIconDark]}>{'⏭'}</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </SafeAreaView>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -193,12 +194,12 @@ const styles = StyleSheet.create({
     width: 7,
     height: 7,
     borderRadius: 4,
-    backgroundColor: '#E84040',
+    backgroundColor: Brand.rojo,
   },
   liveText: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#E84040',
+    color: Brand.rojo,
     letterSpacing: 2,
   },
   controls: {
@@ -214,10 +215,10 @@ const styles = StyleSheet.create({
   },
   sideBtnIcon: {
     fontSize: 26,
-    color: '#5A7A84',
+    color: '#green',
   },
   sideBtnIconDark: {
-    color: '#4A6A74',
+    color: '#yellow',
   },
   playBtn: {
     width: 76,
@@ -233,11 +234,11 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 5 },
   },
   playBtnActive: {
-    backgroundColor: Brand.primaryDark,
+    backgroundColor: Brand.morado,
   },
   playIcon: {
     fontSize: 28,
     color: Brand.white,
     marginLeft: 3,
   },
-});
+})

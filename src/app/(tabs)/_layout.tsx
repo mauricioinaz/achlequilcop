@@ -1,16 +1,16 @@
 import { Tabs } from 'expo-router';
-import { Image, StyleSheet, useColorScheme } from 'react-native';
+import { Image, ImageSourcePropType, StyleSheet, useColorScheme } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Brand } from '@/constants/theme';
 
-type IconProps = { focused: boolean; size: number; src: ReturnType<typeof require> };
+type IconProps = { focused: boolean; size: number; src: ImageSourcePropType };
 
 function TabIcon({ src, focused, size }: IconProps) {
   return (
     <Image
       source={src}
-      style={{ width: size, height: size, tintColor: focused ? Brand.primary : Brand.tabInactive }}
+      style={{ width: size, height: size, opacity: focused ? 1 : 0.4 }}
       resizeMode="contain"
     />
   );
