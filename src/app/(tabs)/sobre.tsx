@@ -1,19 +1,28 @@
-import { Image, Linking, ScrollView, StyleSheet, Text, TouchableOpacity, useColorScheme, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {
+  Image,
+  Linking,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  useColorScheme,
+  View,
+} from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
-import { Brand } from '@/constants/theme';
+import { Brand } from '@/constants/theme'
 
 const TEAM = [
-  { role: 'Coordinadora', name: 'Amalia Hernández' },
+  { role: 'Directora', name: 'Amalia Hernández' },
   { role: 'Desarrollo', name: 'Mauricio González' },
   { role: 'Traducción', name: 'Francisco Guzmán' },
   { role: 'Diseño Logo', name: 'Aquila Diseño' },
-  { role: 'Equipo Radio', name: 'Gilberto Miranda y Ángel López' },
-];
+  { role: 'Equipo Radio', name: 'José Álvarez' },
+]
 
 export default function SobreScreen() {
-  const scheme = useColorScheme();
-  const isDark = scheme === 'dark';
+  const scheme = useColorScheme()
+  const isDark = scheme === 'dark'
 
   return (
     <SafeAreaView edges={['top']} style={[styles.container, isDark && styles.containerDark]}>
@@ -37,12 +46,19 @@ export default function SobreScreen() {
 
           {/* About section */}
           <View style={[styles.card, isDark && styles.cardDark]}>
-            <Text style={[styles.cardHeading, isDark && styles.textLight]}>Sobre nuestra radio</Text>
+            <Text style={[styles.cardHeading, isDark && styles.textLight]}>
+              Sobre nuestra radio
+            </Text>
             <Text style={[styles.body, isDark && styles.bodyDark]}>
-              Radio Ach' Lequilc'op es una radio comunitaria pertinente e integrada a la realidad de las comunidades de la Selva Norte de Chiapas. Sirve como sistema educativo, informativo y de concientización, para contribuir a una vida en armonía en la región, conformada por tseltales y mestizos.
+              Radio Ach' Lequilc'op es una radio comunitaria pertinente e integrada a la realidad de
+              las comunidades de la Selva Norte de Chiapas. Sirve como sistema educativo,
+              informativo y de concientización, para contribuir a una vida en armonía en la región,
+              conformada por tseltales y mestizos.
             </Text>
             <Text style={[styles.body, isDark && styles.bodyDark, styles.bodySpaced]}>
-              Además del equipo base, más de 30 personas dan su tiempo voluntario para traer la palabra de las diferentes regiones y procesos de las comunidades, brindando así un servicio a nuestro pueblo.
+              Además del equipo base, más de 30 personas dan su tiempo voluntario para traer la
+              palabra de las diferentes regiones y procesos de las comunidades, brindando así un
+              servicio a nuestro pueblo.
             </Text>
             <TouchableOpacity onPress={() => Linking.openURL('https://achlequilcop.org')}>
               <Text style={styles.link}>achlequilcop.org</Text>
@@ -53,7 +69,10 @@ export default function SobreScreen() {
           <View style={[styles.card, isDark && styles.cardDark]}>
             <Text style={[styles.cardHeading, isDark && styles.textLight]}>Esta aplicación</Text>
             <Text style={[styles.body, isDark && styles.bodyDark]}>
-              Desarrollamos esta app pensando en nuestros radioescuchas que están fuera de su comunidad, estado o país. Que con ella llevemos en nuestro bolsillo, donde quiera que estemos, los contenidos y horarios de Ach' Lequilc'op, y un pequeño recordatorio de nuestra cultura Tseltal.
+              Desarrollamos esta app pensando en nuestros radioescuchas que están fuera de su
+              comunidad, estado o país. Que con ella llevemos en nuestro bolsillo, donde quiera que
+              estemos, los contenidos y horarios de Ach' Lequilc'op, y un pequeño recordatorio de
+              nuestra cultura Tseltal.
             </Text>
           </View>
 
@@ -62,8 +81,17 @@ export default function SobreScreen() {
             <Text style={[styles.cardHeading, isDark && styles.textLight]}>Equipo</Text>
             <View style={styles.teamList}>
               {TEAM.map((member, i) => (
-                <View key={i} style={[styles.teamRow, i < TEAM.length - 1 && styles.teamRowBorder, isDark && styles.teamRowBorderDark]}>
-                  <Text style={[styles.teamRole, isDark && styles.teamRoleDark]}>{member.role}</Text>
+                <View
+                  key={i}
+                  style={[
+                    styles.teamRow,
+                    i < TEAM.length - 1 && styles.teamRowBorder,
+                    isDark && styles.teamRowBorderDark,
+                  ]}
+                >
+                  <Text style={[styles.teamRole, isDark && styles.teamRoleDark]}>
+                    {member.role}
+                  </Text>
                   <Text style={[styles.teamName, isDark && styles.textLight]}>{member.name}</Text>
                 </View>
               ))}
@@ -73,13 +101,14 @@ export default function SobreScreen() {
           {/* Licenses */}
           <TouchableOpacity
             style={[styles.licensesBtn, isDark && styles.licensesBtnDark]}
-            activeOpacity={0.75}>
+            activeOpacity={0.75}
+          >
             <Text style={styles.licensesText}>Licencias y Dependencias</Text>
           </TouchableOpacity>
         </SafeAreaView>
       </ScrollView>
     </SafeAreaView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -144,6 +173,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowRadius: 6,
     shadowOffset: { width: 0, height: 2 },
+    marginBottom: 14,
   },
   cardDark: { backgroundColor: '#1E2427', shadowOpacity: 0 },
   cardHeading: {
@@ -180,7 +210,14 @@ const styles = StyleSheet.create({
   teamRowBorderDark: { borderBottomColor: '#2A3A3E' },
   teamRole: { fontSize: 13, color: '#7A9098', fontWeight: '500' },
   teamRoleDark: { color: '#4A6870' },
-  teamName: { fontSize: 14, fontWeight: '600', color: '#1A2A30', textAlign: 'right', flex: 1, paddingLeft: 12 },
+  teamName: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#1A2A30',
+    textAlign: 'right',
+    flex: 1,
+    paddingLeft: 12,
+  },
   textLight: { color: '#D8E8EC' },
   licensesBtn: {
     alignItems: 'center',
@@ -198,4 +235,4 @@ const styles = StyleSheet.create({
     color: Brand.primary,
     letterSpacing: 0.3,
   },
-});
+})

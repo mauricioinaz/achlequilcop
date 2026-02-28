@@ -1,17 +1,25 @@
-import { useState } from 'react';
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, useColorScheme, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useState } from 'react'
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  useColorScheme,
+  View,
+} from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
-import { Brand } from '@/constants/theme';
+import { Brand } from '@/constants/theme'
 
-type Language = 'castellano' | 'tseltal';
-type Connection = 'wifi' | 'datos';
+type Language = 'castellano' | 'tseltal'
+type Connection = 'wifi' | 'datos'
 
 export default function ConfiguracionScreen() {
-  const [language, setLanguage] = useState<Language>('castellano');
-  const [connection, setConnection] = useState<Connection>('datos');
-  const scheme = useColorScheme();
-  const isDark = scheme === 'dark';
+  const [language, setLanguage] = useState<Language>('castellano')
+  const [connection, setConnection] = useState<Connection>('datos')
+  const scheme = useColorScheme()
+  const isDark = scheme === 'dark'
 
   return (
     <SafeAreaView edges={['top']} style={[styles.container, isDark && styles.containerDark]}>
@@ -37,9 +45,14 @@ export default function ConfiguracionScreen() {
 
             <View style={[styles.optionGroup, isDark && styles.optionGroupDark]}>
               <TouchableOpacity
-                style={[styles.option, language === 'castellano' && styles.optionActive, isDark && styles.optionDark]}
+                style={[
+                  styles.option,
+                  language === 'castellano' && styles.optionActive,
+                  isDark && styles.optionDark,
+                ]}
                 onPress={() => setLanguage('castellano')}
-                activeOpacity={0.8}>
+                activeOpacity={0.8}
+              >
                 <View style={styles.optionLeft}>
                   <Text style={styles.optionFlag}>🇲🇽</Text>
                   <Text style={[styles.optionLabel, isDark && styles.textLight]}>Castellano</Text>
@@ -52,9 +65,14 @@ export default function ConfiguracionScreen() {
               <View style={[styles.optionSeparator, isDark && styles.optionSeparatorDark]} />
 
               <TouchableOpacity
-                style={[styles.option, language === 'tseltal' && styles.optionActive, isDark && styles.optionDark]}
+                style={[
+                  styles.option,
+                  language === 'tseltal' && styles.optionActive,
+                  isDark && styles.optionDark,
+                ]}
                 onPress={() => setLanguage('tseltal')}
-                activeOpacity={0.8}>
+                activeOpacity={0.8}
+              >
                 <View style={styles.optionLeft}>
                   <Text style={styles.optionFlag}>🌽</Text>
                   <Text style={[styles.optionLabel, isDark && styles.textLight]}>Tseltal</Text>
@@ -82,14 +100,21 @@ export default function ConfiguracionScreen() {
 
             <View style={[styles.optionGroup, isDark && styles.optionGroupDark]}>
               <TouchableOpacity
-                style={[styles.option, connection === 'wifi' && styles.optionActive, isDark && styles.optionDark]}
+                style={[
+                  styles.option,
+                  connection === 'wifi' && styles.optionActive,
+                  isDark && styles.optionDark,
+                ]}
                 onPress={() => setConnection('wifi')}
-                activeOpacity={0.8}>
+                activeOpacity={0.8}
+              >
                 <View style={styles.optionLeft}>
                   <Text style={styles.optionFlag}>📡</Text>
                   <View>
                     <Text style={[styles.optionLabel, isDark && styles.textLight]}>Sólo WiFi</Text>
-                    <Text style={[styles.optionHint, isDark && styles.textMuted]}>Ahorra datos móviles</Text>
+                    <Text style={[styles.optionHint, isDark && styles.textMuted]}>
+                      Ahorra datos móviles
+                    </Text>
                   </View>
                 </View>
                 <View style={[styles.radio, connection === 'wifi' && styles.radioActive]}>
@@ -100,14 +125,23 @@ export default function ConfiguracionScreen() {
               <View style={[styles.optionSeparator, isDark && styles.optionSeparatorDark]} />
 
               <TouchableOpacity
-                style={[styles.option, connection === 'datos' && styles.optionActive, isDark && styles.optionDark]}
+                style={[
+                  styles.option,
+                  connection === 'datos' && styles.optionActive,
+                  isDark && styles.optionDark,
+                ]}
                 onPress={() => setConnection('datos')}
-                activeOpacity={0.8}>
+                activeOpacity={0.8}
+              >
                 <View style={styles.optionLeft}>
                   <Text style={styles.optionFlag}>📱</Text>
                   <View>
-                    <Text style={[styles.optionLabel, isDark && styles.textLight]}>WiFi y Datos</Text>
-                    <Text style={[styles.optionHint, isDark && styles.textMuted]}>Escucha en cualquier lugar</Text>
+                    <Text style={[styles.optionLabel, isDark && styles.textLight]}>
+                      WiFi y Datos
+                    </Text>
+                    <Text style={[styles.optionHint, isDark && styles.textMuted]}>
+                      Escucha en cualquier lugar
+                    </Text>
                   </View>
                 </View>
                 <View style={[styles.radio, connection === 'datos' && styles.radioActive]}>
@@ -127,7 +161,7 @@ export default function ConfiguracionScreen() {
         </SafeAreaView>
       </ScrollView>
     </SafeAreaView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -144,6 +178,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowRadius: 6,
     shadowOffset: { width: 0, height: 2 },
+    marginBottom: 14,
   },
   sectionDark: { backgroundColor: '#1E2427', shadowOpacity: 0 },
   sectionHeader: {
@@ -220,4 +255,4 @@ const styles = StyleSheet.create({
   infoNoteDark: { backgroundColor: '#1E2427', borderColor: '#2A3A3E' },
   infoIcon: { fontSize: 16 },
   infoText: { flex: 1, fontSize: 13, color: '#5A7A84', lineHeight: 19 },
-});
+})

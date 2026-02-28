@@ -76,7 +76,14 @@ export default function RadioScreen() {
             onPress={() => (playing ? player.pause() : player.play())}
             activeOpacity={0.85}
           >
-            <Text style={styles.playIcon}>{playing ? '⏸' : '▶'}</Text>
+            {playing ? (
+              <View style={styles.pauseIcon}>
+                <View style={styles.pauseBar} />
+                <View style={styles.pauseBar} />
+              </View>
+            ) : (
+              <Text style={styles.playIcon}>▶</Text>
+            )}
           </TouchableOpacity>
         </View>
       </SafeAreaView>
@@ -205,7 +212,7 @@ const styles = StyleSheet.create({
     width: 7,
     height: 7,
     borderRadius: 4,
-    backgroundColor: Brand.rojo,
+    backgroundColor: Brand.morado,
   },
   offlineDot: {
     width: 7,
@@ -216,7 +223,7 @@ const styles = StyleSheet.create({
   liveText: {
     fontSize: 11,
     fontWeight: '700',
-    color: Brand.rojo,
+    color: Brand.morado,
     letterSpacing: 2,
   },
   offlineText: {
@@ -263,5 +270,15 @@ const styles = StyleSheet.create({
     fontSize: 28,
     color: Brand.white,
     marginLeft: 3,
+  },
+  pauseIcon: {
+    flexDirection: 'row',
+    gap: 6,
+  },
+  pauseBar: {
+    width: 5,
+    height: 26,
+    borderRadius: 3,
+    backgroundColor: Brand.white,
   },
 })
