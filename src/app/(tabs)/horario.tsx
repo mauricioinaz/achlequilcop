@@ -1,246 +1,662 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react'
 import {
-  ScrollView,
+  ActivityIndicator,
+  Image,
   StyleSheet,
   Text,
   TouchableOpacity,
   useColorScheme,
   View,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+} from 'react-native'
+import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler'
+import Reanimated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated'
+import * as WebBrowser from 'expo-web-browser'
+import { Brand } from '@/constants/theme'
+import { fetchRemoteURLs } from '@/hooks/fetch-firebasedata'
 
-import { Brand } from '@/constants/theme';
+const SOUNDCLOUD_URL = 'https://soundcloud.com/achlequilcop-gmail-com'
+const YOUTUBE_URL = 'https://www.youtube.com/@radioachlequilcop8876'
 
-const DAYS = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+const TABS = [
+  { id: 'parrilla', label: 'Parrilla', emoji: '📡' },
+  { id: 'videos', label: 'Videos', emoji: '🎬' },
+  { id: 'audio', label: 'Audio', emoji: '🎙️' },
+] as const
 
-type Program = {
-  time: string;
-  title: string;
-  host: string;
-  category: string;
-  color: string;
-};
+type TabId = (typeof TABS)[number]['id']
 
-const SCHEDULE: Record<string, Program[]> = {
-  Lun: [
-    { time: '6:00 – 8:00', title: 'Programa Matutino', host: 'José', category: 'Informativo', color: '#1B7B8A' },
-    { time: '8:00 – 10:00', title: 'Círculo de Mujeres', host: 'Amalia', category: 'Cultural', color: '#8B3A9A' },
-    { time: '10:00 – 12:00', title: 'La Radio de los Pueblos', host: 'Toño', category: 'Educativo', color: '#C04A2A' },
-    { time: '12:00 – 13:00', title: 'Mediodía Informativo', host: 'Francisco', category: 'Informativo', color: '#1B7B8A' },
-    { time: '15:00 – 17:00', title: 'Voces de la Selva', host: 'Gilberto', category: 'Ambiental', color: '#3A8A3A' },
-    { time: '19:00 – 21:00', title: 'Noche Cultural', host: 'Ángel', category: 'Cultural', color: '#8B3A9A' },
-  ],
-  Mar: [
-    { time: '6:00 – 8:00', title: 'Programa Matutino', host: 'José', category: 'Informativo', color: '#1B7B8A' },
-    { time: '8:00 – 10:00', title: 'Educación en Familia', host: 'Toño', category: 'Educativo', color: '#C04A2A' },
-    { time: '10:00 – 12:00', title: 'Medicina Tradicional', host: 'Amalia', category: 'Cultural', color: '#8B3A9A' },
-    { time: '14:00 – 16:00', title: 'Derechos Comunitarios', host: 'Francisco', category: 'Social', color: '#C08A1A' },
-    { time: '18:00 – 20:00', title: 'Música Tseltal', host: 'Ángel', category: 'Cultural', color: '#8B3A9A' },
-  ],
-  Mié: [
-    { time: '6:00 – 8:00', title: 'Programa Matutino', host: 'José', category: 'Informativo', color: '#1B7B8A' },
-    { time: '9:00 – 11:00', title: 'Aguas y Bosques', host: 'Gilberto', category: 'Ambiental', color: '#3A8A3A' },
-    { time: '11:00 – 13:00', title: 'Tú Hablas con la Radio', host: 'Toño', category: 'Participativo', color: '#C04A2A' },
-    { time: '16:00 – 18:00', title: 'Historia de los Pueblos', host: 'Francisco', category: 'Educativo', color: '#C04A2A' },
-    { time: '20:00 – 22:00', title: 'El Rincón Nocturno', host: 'Ángel', category: 'Cultural', color: '#8B3A9A' },
-  ],
-  Jue: [
-    { time: '6:00 – 8:00', title: 'Programa Matutino', host: 'José', category: 'Informativo', color: '#1B7B8A' },
-    { time: '8:00 – 10:00', title: 'Artesanía de la Región', host: 'Amalia', category: 'Cultural', color: '#8B3A9A' },
-    { time: '10:00 – 12:00', title: 'Soberanía Alimentaria', host: 'Gilberto', category: 'Ambiental', color: '#3A8A3A' },
-    { time: '15:00 – 17:00', title: 'La Igualdad en las Comunidades', host: 'Francisco', category: 'Social', color: '#C08A1A' },
-  ],
-  Vie: [
-    { time: '6:00 – 8:00', title: 'Programa Matutino', host: 'José', category: 'Informativo', color: '#1B7B8A' },
-    { time: '8:00 – 10:00', title: 'Círculo de Mujeres', host: 'Amalia', category: 'Cultural', color: '#8B3A9A' },
-    { time: '10:00 – 12:00', title: 'Mixturas Musicales', host: 'Ángel', category: 'Cultural', color: '#8B3A9A' },
-    { time: '14:00 – 16:00', title: 'Noticias Regionales', host: 'Toño', category: 'Informativo', color: '#1B7B8A' },
-    { time: '19:00 – 21:00', title: 'Viernes Cultural', host: 'Francisco', category: 'Cultural', color: '#8B3A9A' },
-  ],
-  Sáb: [
-    { time: '8:00 – 10:00', title: 'Sabado Deportivo', host: 'Gilberto', category: 'Deportivo', color: '#2A6AC0' },
-    { time: '10:00 – 12:00', title: 'Para los Niños', host: 'Amalia', category: 'Educativo', color: '#C04A2A' },
-    { time: '14:00 – 16:00', title: 'Música de la Región', host: 'Ángel', category: 'Cultural', color: '#8B3A9A' },
-    { time: '17:00 – 19:00', title: 'Tardes del Sabado', host: 'José', category: 'Cultural', color: '#8B3A9A' },
-  ],
-  Dom: [
-    { time: '8:00 – 10:00', title: 'Buenos Dias Domingo', host: 'Francisco', category: 'Cultural', color: '#8B3A9A' },
-    { time: '10:00 – 12:00', title: 'Misa Comunitaria', host: 'Comunidad', category: 'Religioso', color: '#C08A1A' },
-    { time: '15:00 – 17:00', title: 'Cuentos de Chiapas', host: 'Amalia', category: 'Cultural', color: '#8B3A9A' },
-    { time: '19:00 – 21:00', title: 'Nuevas Voces Tseltales', host: 'Ángel', category: 'Cultural', color: '#8B3A9A' },
-  ],
-};
+// ─── Parrilla tab ──────────────────────────────────────────────────────────────
 
-export default function HorarioScreen() {
-  const today = new Date().getDay();
-  const initialDay = today === 0 ? 6 : today - 1;
-  const [selectedDay, setSelectedDay] = useState(initialDay);
-  const scheme = useColorScheme();
-  const isDark = scheme === 'dark';
+function ParrillaScreen({ isDark }: { isDark: boolean }) {
+  const [imageUrl, setImageUrl] = useState<string | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
 
-  const programs = SCHEDULE[DAYS[selectedDay]] ?? [];
+  useEffect(() => {
+    fetchRemoteURLs()
+      .then((data) => {
+        setImageUrl(data.url_parrilla)
+        setLoading(false)
+      })
+      .catch(() => {
+        setError(true)
+        setLoading(false)
+      })
+  }, [])
+
+  if (loading) {
+    return (
+      <View style={[styles.centered, isDark && styles.centerDark]}>
+        <ActivityIndicator size="large" color={Brand.primary} />
+      </View>
+    )
+  }
+
+  if (error || !imageUrl) {
+    return (
+      <View style={[styles.centered, isDark && styles.centerDark]}>
+        <Text style={[styles.emptyIcon]}>📡</Text>
+        <Text style={[styles.emptyTitle, isDark && styles.textLight]}>No se pudo cargar</Text>
+        <Text style={[styles.emptySubtitle, isDark && styles.textMuted]}>
+          Revisa tu conexión e intenta de nuevo.
+        </Text>
+      </View>
+    )
+  }
 
   return (
-    <View style={[styles.container, isDark && styles.containerDark]}>
-      {/* Day selector */}
-      <View style={[styles.dayRow, isDark && styles.dayRowDark]}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.dayScroll}>
-          {DAYS.map((day, i) => (
-            <TouchableOpacity
-              key={day}
-              style={[styles.dayChip, i === selectedDay && styles.dayChipActive]}
-              onPress={() => setSelectedDay(i)}
-              activeOpacity={0.75}>
-              <Text style={[styles.dayLabel, i === selectedDay && styles.dayLabelActive, isDark && styles.dayLabelDark]}>
-                {day}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+    <View style={[styles.fill, isDark && styles.centerDark]}>
+      <ZoomableImage uri={imageUrl} />
+    </View>
+  )
+}
+
+// ─── Zoomable image ────────────────────────────────────────────────────────────
+
+function ZoomableImage({ uri }: { uri: string }) {
+  const scale = useSharedValue(1)
+  const savedScale = useSharedValue(1)
+  const translateX = useSharedValue(0)
+  const translateY = useSharedValue(0)
+  const savedTranslateX = useSharedValue(0)
+  const savedTranslateY = useSharedValue(0)
+
+  const pinch = Gesture.Pinch()
+    .onUpdate((e) => {
+      scale.value = Math.max(1, Math.min(savedScale.value * e.scale, 6))
+    })
+    .onEnd(() => {
+      savedScale.value = scale.value
+      if (scale.value < 1.05) {
+        scale.value = withSpring(1)
+        savedScale.value = 1
+        translateX.value = withSpring(0)
+        translateY.value = withSpring(0)
+        savedTranslateX.value = 0
+        savedTranslateY.value = 0
+      }
+    })
+
+  const pan = Gesture.Pan()
+    .averageTouches(true)
+    .onUpdate((e) => {
+      translateX.value = savedTranslateX.value + e.translationX
+      translateY.value = savedTranslateY.value + e.translationY
+    })
+    .onEnd(() => {
+      savedTranslateX.value = translateX.value
+      savedTranslateY.value = translateY.value
+    })
+
+  const doubleTap = Gesture.Tap()
+    .numberOfTaps(2)
+    .onEnd(() => {
+      if (scale.value > 1.05) {
+        scale.value = withSpring(1)
+        savedScale.value = 1
+        translateX.value = withSpring(0)
+        translateY.value = withSpring(0)
+        savedTranslateX.value = 0
+        savedTranslateY.value = 0
+      } else {
+        scale.value = withSpring(2.5)
+        savedScale.value = 2.5
+      }
+    })
+
+  const composed = Gesture.Simultaneous(pinch, pan)
+  const withDoubleTap = Gesture.Exclusive(doubleTap, composed)
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [
+      { translateX: translateX.value },
+      { translateY: translateY.value },
+      { scale: scale.value },
+    ],
+  }))
+
+  return (
+    <GestureHandlerRootView style={styles.fill}>
+      <GestureDetector gesture={withDoubleTap}>
+        <Reanimated.View style={[styles.fill, animatedStyle]}>
+          <Image source={{ uri }} style={styles.fill} resizeMode="contain" />
+        </Reanimated.View>
+      </GestureDetector>
+    </GestureHandlerRootView>
+  )
+}
+
+// ─── Videos tab ────────────────────────────────────────────────────────────────
+
+const VIDEO_THUMBNAILS = [
+  { color: '#C00000' },
+  { color: '#A00000' },
+  { color: '#D50000' },
+]
+
+function VideosScreen({ isDark }: { isDark: boolean }) {
+  const [opening, setOpening] = useState(false)
+
+  async function openYouTube() {
+    setOpening(true)
+    await WebBrowser.openBrowserAsync(YOUTUBE_URL, {
+      toolbarColor: isDark ? '#1A1D20' : '#FFFFFF',
+      controlsColor: '#FF0000',
+      presentationStyle: WebBrowser.WebBrowserPresentationStyle.FULL_SCREEN,
+    })
+    setOpening(false)
+  }
+
+  return (
+    <View style={[styles.ytScreen, isDark && styles.centerDark]}>
+      {/* YouTube card */}
+      <View style={[styles.ytCard, isDark && styles.ytCardDark]}>
+        {/* Red accent strip */}
+        <View style={styles.ytStrip} />
+
+        <View style={styles.ytBody}>
+          {/* Logo row */}
+          <View style={styles.ytLogoRow}>
+            <View style={styles.ytIconCircle}>
+              <Text style={styles.ytIconText}>▶</Text>
+            </View>
+            <View style={styles.ytLogoText}>
+              <Text style={[styles.ytBrand, isDark && styles.textLight]}>YouTube</Text>
+              <Text style={styles.ytHandle}>@radioachlequilcop8876</Text>
+            </View>
+          </View>
+
+          {/* Divider */}
+          <View style={[styles.scDivider, isDark && styles.scDividerDark]} />
+
+          {/* Description */}
+          <Text style={[styles.ytDescription, isDark && styles.textMuted]}>
+            Mira los videos, transmisiones y contenido especial de Ach Lequilcop en nuestro canal de YouTube.
+          </Text>
+
+          {/* Thumbnail row decoration */}
+          <View style={styles.ytThumbRow}>
+            {VIDEO_THUMBNAILS.map((t, i) => (
+              <View key={i} style={[styles.ytThumb, { backgroundColor: t.color }]}>
+                <View style={styles.ytThumbPlay}>
+                  <Text style={styles.ytThumbPlayIcon}>▶</Text>
+                </View>
+              </View>
+            ))}
+          </View>
+
+          {/* CTA button */}
+          <TouchableOpacity
+            style={[styles.ytButton, opening && styles.ytButtonDisabled]}
+            onPress={openYouTube}
+            activeOpacity={0.85}
+            disabled={opening}
+          >
+            {opening ? (
+              <ActivityIndicator size="small" color="#FFFFFF" />
+            ) : (
+              <>
+                <Text style={styles.ytButtonIcon}>▶</Text>
+                <Text style={styles.ytButtonLabel}>Abrir canal en YouTube</Text>
+              </>
+            )}
+          </TouchableOpacity>
+        </View>
       </View>
 
-      {/* Program list */}
-      <ScrollView
-        style={styles.scroll}
-        contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}>
-        <SafeAreaView edges={['bottom']}>
-          {programs.map((prog, i) => (
-            <View key={i} style={[styles.card, isDark && styles.cardDark]}>
-              <View style={[styles.cardAccent, { backgroundColor: prog.color }]} />
-              <View style={styles.cardBody}>
-                <View style={styles.cardTop}>
-                  <Text style={[styles.cardTime, isDark && styles.cardTimeDark]}>{prog.time}</Text>
-                  <View style={[styles.badge, { backgroundColor: prog.color + '22' }]}>
-                    <Text style={[styles.badgeText, { color: prog.color }]}>{prog.category}</Text>
-                  </View>
-                </View>
-                <Text style={[styles.cardTitle, isDark && styles.cardTitleDark]}>{prog.title}</Text>
-                <Text style={[styles.cardHost, isDark && styles.cardHostDark]}>Con {prog.host}</Text>
-              </View>
-            </View>
-          ))}
-        </SafeAreaView>
-      </ScrollView>
+      <Text style={[styles.scFootnote, isDark && styles.textMuted]}>
+        Se abrirá en el navegador integrado de la app
+      </Text>
     </View>
-  );
+  )
+}
+
+// ─── Producciones de audio tab ─────────────────────────────────────────────────
+
+function ProduccionesScreen({ isDark }: { isDark: boolean }) {
+  const [opening, setOpening] = useState(false)
+
+  async function openSoundCloud() {
+    setOpening(true)
+    await WebBrowser.openBrowserAsync(SOUNDCLOUD_URL, {
+      toolbarColor: isDark ? '#1A1D20' : '#FFFFFF',
+      controlsColor: '#FF5500',
+      presentationStyle: WebBrowser.WebBrowserPresentationStyle.FULL_SCREEN,
+    })
+    setOpening(false)
+  }
+
+  return (
+    <View style={[styles.audioScreen, isDark && styles.centerDark]}>
+      {/* SoundCloud card */}
+      <View style={[styles.scCard, isDark && styles.scCardDark]}>
+        {/* Orange accent strip */}
+        <View style={styles.scStrip} />
+
+        <View style={styles.scBody}>
+          {/* Logo row */}
+          <View style={styles.scLogoRow}>
+            <View style={styles.scIconCircle}>
+              <Text style={styles.scIconText}>☁️</Text>
+            </View>
+            <View style={styles.scLogoText}>
+              <Text style={[styles.scBrand, isDark && styles.textLight]}>SoundCloud</Text>
+              <Text style={styles.scHandle}>@achlequilcop-gmail-com</Text>
+            </View>
+          </View>
+
+          {/* Divider */}
+          <View style={[styles.scDivider, isDark && styles.scDividerDark]} />
+
+          {/* Description */}
+          <Text style={[styles.scDescription, isDark && styles.textMuted]}>
+            Escucha las producciones de audio, podcasts y grabaciones de Ach Lequilcop directamente en SoundCloud.
+          </Text>
+
+          {/* Fake waveform decoration */}
+          <View style={styles.waveRow}>
+            {WAVE_BARS.map((h, i) => (
+              <View
+                key={i}
+                style={[styles.waveBar, { height: h }, i % 3 === 0 && styles.waveBarAccent]}
+              />
+            ))}
+          </View>
+
+          {/* CTA button */}
+          <TouchableOpacity
+            style={[styles.scButton, opening && styles.scButtonDisabled]}
+            onPress={openSoundCloud}
+            activeOpacity={0.85}
+            disabled={opening}
+          >
+            {opening ? (
+              <ActivityIndicator size="small" color="#FFFFFF" />
+            ) : (
+              <>
+                <Text style={styles.scButtonIcon}>▶</Text>
+                <Text style={styles.scButtonLabel}>Abrir en SoundCloud</Text>
+              </>
+            )}
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      <Text style={[styles.scFootnote, isDark && styles.textMuted]}>
+        Se abrirá en el navegador integrado de la app
+      </Text>
+    </View>
+  )
+}
+
+const WAVE_BARS = [14, 22, 10, 28, 18, 32, 12, 24, 8, 30, 20, 14, 26, 16, 32, 10, 22, 18, 28, 12, 24, 30, 16, 20, 14]
+
+// ─── Main screen ───────────────────────────────────────────────────────────────
+
+export default function HorarioScreen() {
+  const scheme = useColorScheme()
+  const isDark = scheme === 'dark'
+  const [activeTab, setActiveTab] = useState<TabId>('parrilla')
+
+  return (
+    <View style={[styles.screen, isDark && styles.screenDark]}>
+        {/* Chip-style tab bar */}
+        <View style={[styles.catRow, isDark && styles.catRowDark]}>
+          {TABS.map((tab) => {
+            const isActive = tab.id === activeTab
+            return (
+              <TouchableOpacity
+                key={tab.id}
+                style={[styles.catChip, isActive && styles.catChipActive]}
+                onPress={() => setActiveTab(tab.id)}
+                activeOpacity={0.8}
+              >
+                <Text style={styles.catEmoji}>{tab.emoji}</Text>
+                <Text
+                  style={[
+                    styles.catLabel,
+                    isDark && styles.catLabelDark,
+                    isActive && styles.catLabelActive,
+                  ]}
+                  numberOfLines={1}
+                >
+                  {tab.label}
+                </Text>
+              </TouchableOpacity>
+            )
+          })}
+        </View>
+
+      {/* Tab content */}
+      <View style={styles.fill}>
+        {activeTab === 'parrilla' && <ParrillaScreen isDark={isDark} />}
+        {activeTab === 'videos' && <VideosScreen isDark={isDark} />}
+        {activeTab === 'audio' && <ProduccionesScreen isDark={isDark} />}
+      </View>
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
-  container: {
+  screen: {
     flex: 1,
     backgroundColor: '#F7FBFC',
   },
-  containerDark: {
+  screenDark: {
     backgroundColor: '#111416',
   },
-  dayRow: {
+  // ── Chip tab bar ──
+  catRow: {
+    flexDirection: 'row',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
     backgroundColor: '#FFFFFF',
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: '#E0EBF0',
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOpacity: 0.04,
-    shadowRadius: 4,
-    shadowOffset: { width: 0, height: 2 },
-  },
-  dayRowDark: {
-    backgroundColor: '#1A1D20',
-    borderBottomColor: '#2A2E32',
-  },
-  dayScroll: {
-    paddingHorizontal: 16,
-    paddingVertical: 12,
     gap: 8,
   },
-  dayChip: {
-    paddingHorizontal: 18,
-    paddingVertical: 8,
-    borderRadius: 20,
+  catRowDark: { backgroundColor: '#1A1D20', borderBottomColor: '#2A2E32' },
+  catChip: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 5,
+    paddingVertical: 9,
+    borderRadius: 12,
     backgroundColor: '#F0F4F5',
   },
-  dayChipActive: {
-    backgroundColor: Brand.primary,
-  },
-  dayLabel: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#5A7A84',
-  },
-  dayLabelDark: {
-    color: '#7A9098',
-  },
-  dayLabelActive: {
-    color: '#FFFFFF',
-  },
-  scroll: {
+  catChipActive: { backgroundColor: Brand.primary },
+  catEmoji: { fontSize: 14 },
+  catLabel: { fontSize: 13, fontWeight: '600', color: '#5A7A84' },
+  catLabelDark: { color: '#6A8890' },
+  catLabelActive: { color: '#FFFFFF' },
+  // ── Content ──
+  fill: {
     flex: 1,
   },
-  scrollContent: {
-    padding: 16,
-    gap: 12,
-  },
-  card: {
-    flexDirection: 'row',
-    backgroundColor: '#FFFFFF',
-    borderRadius: 14,
-    overflow: 'hidden',
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOpacity: 0.05,
-    shadowRadius: 6,
-    shadowOffset: { width: 0, height: 2 },
-    marginBottom: 10,
-  },
-  cardDark: {
-    backgroundColor: '#1E2427',
-    shadowOpacity: 0,
-  },
-  cardAccent: {
-    width: 5,
-  },
-  cardBody: {
+  centered: {
     flex: 1,
-    padding: 14,
-    gap: 4,
-  },
-  cardTop: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#F7FBFC',
+    paddingHorizontal: 32,
   },
-  cardTime: {
-    fontSize: 12,
-    fontWeight: '600',
+  centerDark: {
+    backgroundColor: '#111416',
+  },
+  emptyIcon: {
+    fontSize: 48,
+    marginBottom: 16,
+  },
+  emptyTitle: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#1A2A30',
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+  emptySubtitle: {
+    fontSize: 14,
     color: '#7A9098',
-    letterSpacing: 0.3,
+    textAlign: 'center',
+    lineHeight: 20,
   },
-  cardTimeDark: {
+  textLight: {
+    color: '#D8E8EC',
+  },
+  textMuted: {
     color: '#5A7280',
   },
-  badge: {
-    paddingHorizontal: 10,
-    paddingVertical: 3,
-    borderRadius: 10,
+  // ── SoundCloud screen ──
+  audioScreen: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#F7FBFC',
+    paddingHorizontal: 24,
+    gap: 16,
   },
-  badgeText: {
-    fontSize: 10,
-    fontWeight: '700',
-    letterSpacing: 0.5,
+  scCard: {
+    width: '100%',
+    borderRadius: 20,
+    backgroundColor: '#FFFFFF',
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.10,
+    shadowRadius: 12,
+    elevation: 6,
   },
-  cardTitle: {
-    fontSize: 16,
+  scCardDark: {
+    backgroundColor: '#1A1D20',
+  },
+  scStrip: {
+    height: 5,
+    backgroundColor: '#FF5500',
+  },
+  scBody: {
+    padding: 20,
+    gap: 14,
+  },
+  scLogoRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  scIconCircle: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: '#FF5500',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  scIconText: {
+    fontSize: 22,
+  },
+  scLogoText: {
+    flex: 1,
+    gap: 2,
+  },
+  scBrand: {
+    fontSize: 17,
     fontWeight: '700',
     color: '#1A2A30',
   },
-  cardTitleDark: {
-    color: '#D8E8EC',
+  scHandle: {
+    fontSize: 12,
+    color: '#FF5500',
+    fontWeight: '500',
   },
-  cardHost: {
+  scDivider: {
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: '#E0EBF0',
+  },
+  scDividerDark: {
+    backgroundColor: '#2A2E32',
+  },
+  scDescription: {
+    fontSize: 14,
+    color: '#5A7A84',
+    lineHeight: 20,
+  },
+  waveRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    gap: 3,
+    height: 36,
+    paddingVertical: 2,
+  },
+  waveBar: {
+    flex: 1,
+    borderRadius: 2,
+    backgroundColor: '#FFB899',
+  },
+  waveBarAccent: {
+    backgroundColor: '#FF5500',
+  },
+  scButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    backgroundColor: '#FF5500',
+    borderRadius: 12,
+    paddingVertical: 14,
+  },
+  scButtonDisabled: {
+    opacity: 0.7,
+  },
+  scButtonIcon: {
+    color: '#FFFFFF',
     fontSize: 13,
-    color: '#7A9098',
+    fontWeight: '700',
   },
-  cardHostDark: {
-    color: '#5A7280',
+  scButtonLabel: {
+    color: '#FFFFFF',
+    fontSize: 15,
+    fontWeight: '700',
   },
-});
+  scFootnote: {
+    fontSize: 12,
+    color: '#9AB0B8',
+    textAlign: 'center',
+  },
+  // ── YouTube screen ──
+  ytScreen: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#F7FBFC',
+    paddingHorizontal: 24,
+    gap: 16,
+  },
+  ytCard: {
+    width: '100%',
+    borderRadius: 20,
+    backgroundColor: '#FFFFFF',
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.10,
+    shadowRadius: 12,
+    elevation: 6,
+  },
+  ytCardDark: {
+    backgroundColor: '#1A1D20',
+  },
+  ytStrip: {
+    height: 5,
+    backgroundColor: '#FF0000',
+  },
+  ytBody: {
+    padding: 20,
+    gap: 14,
+  },
+  ytLogoRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  ytIconCircle: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: '#FF0000',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  ytIconText: {
+    color: '#FFFFFF',
+    fontSize: 18,
+    fontWeight: '700',
+    marginLeft: 3,
+  },
+  ytLogoText: {
+    flex: 1,
+    gap: 2,
+  },
+  ytBrand: {
+    fontSize: 17,
+    fontWeight: '700',
+    color: '#1A2A30',
+  },
+  ytHandle: {
+    fontSize: 12,
+    color: '#FF0000',
+    fontWeight: '500',
+  },
+  ytDescription: {
+    fontSize: 14,
+    color: '#5A7A84',
+    lineHeight: 20,
+  },
+  ytThumbRow: {
+    flexDirection: 'row',
+    gap: 8,
+    height: 64,
+  },
+  ytThumb: {
+    flex: 1,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  ytThumbPlay: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    backgroundColor: 'rgba(255,255,255,0.9)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  ytThumbPlayIcon: {
+    color: '#FF0000',
+    fontSize: 12,
+    fontWeight: '700',
+    marginLeft: 2,
+  },
+  ytButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    backgroundColor: '#FF0000',
+    borderRadius: 12,
+    paddingVertical: 14,
+  },
+  ytButtonDisabled: {
+    opacity: 0.7,
+  },
+  ytButtonIcon: {
+    color: '#FFFFFF',
+    fontSize: 13,
+    fontWeight: '700',
+  },
+  ytButtonLabel: {
+    color: '#FFFFFF',
+    fontSize: 15,
+    fontWeight: '700',
+  },
+})

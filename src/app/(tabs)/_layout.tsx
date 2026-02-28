@@ -1,10 +1,10 @@
-import { Tabs } from 'expo-router';
-import { Image, ImageSourcePropType, StyleSheet, useColorScheme } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Tabs } from 'expo-router'
+import { Image, ImageSourcePropType, StyleSheet, useColorScheme } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { Brand } from '@/constants/theme';
+import { Brand } from '@/constants/theme'
 
-type IconProps = { focused: boolean; size: number; src: ImageSourcePropType };
+type IconProps = { focused: boolean; size: number; src: ImageSourcePropType }
 
 function TabIcon({ src, focused, size }: IconProps) {
   return (
@@ -13,20 +13,20 @@ function TabIcon({ src, focused, size }: IconProps) {
       style={{ width: size, height: size, opacity: focused ? 1 : 0.4 }}
       resizeMode="contain"
     />
-  );
+  )
 }
 
-const TAB_BAR_BASE_HEIGHT = 56;
-const TAB_BAR_PADDING_TOP = 6;
-const TAB_BAR_PADDING_BOTTOM = 8;
+const TAB_BAR_BASE_HEIGHT = 56
+const TAB_BAR_PADDING_TOP = 6
+const TAB_BAR_PADDING_BOTTOM = 8
 
 export default function TabsLayout() {
-  const scheme = useColorScheme();
-  const isDark = scheme === 'dark';
-  const insets = useSafeAreaInsets();
+  const scheme = useColorScheme()
+  const isDark = scheme === 'dark'
+  const insets = useSafeAreaInsets()
 
-  const tabBarHeight = TAB_BAR_BASE_HEIGHT + insets.bottom;
-  const tabBarPaddingBottom = TAB_BAR_PADDING_BOTTOM + insets.bottom;
+  const tabBarHeight = TAB_BAR_BASE_HEIGHT + insets.bottom
+  const tabBarPaddingBottom = TAB_BAR_PADDING_BOTTOM + insets.bottom
 
   return (
     <Tabs
@@ -43,7 +43,8 @@ export default function TabsLayout() {
         headerTintColor: Brand.white,
         headerTitleStyle: styles.headerTitle,
         headerTitleAlign: 'center',
-      }}>
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
@@ -57,7 +58,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="horario"
         options={{
-          title: 'Horario',
+          title: 'Contenido',
           tabBarIcon: ({ focused, size }) => (
             <TabIcon src={require('@/assets/IconoMaiz.png')} focused={focused} size={size} />
           ),
@@ -93,7 +94,7 @@ export default function TabsLayout() {
         }}
       />
     </Tabs>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -122,4 +123,4 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: Brand.white,
   },
-});
+})
