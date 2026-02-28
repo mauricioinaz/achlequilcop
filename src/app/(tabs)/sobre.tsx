@@ -16,7 +16,7 @@ export default function SobreScreen() {
   const isDark = scheme === 'dark';
 
   return (
-    <View style={[styles.container, isDark && styles.containerDark]}>
+    <SafeAreaView edges={['top']} style={[styles.container, isDark && styles.containerDark]}>
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         <SafeAreaView edges={['bottom']}>
           {/* Logo header */}
@@ -78,7 +78,7 @@ export default function SobreScreen() {
           </TouchableOpacity>
         </SafeAreaView>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 

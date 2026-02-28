@@ -30,7 +30,7 @@ export default function RadioScreen() {
   const playing = status.playing
   return (
     <View style={[styles.container, isDark && styles.containerDark]}>
-      <SafeAreaView style={styles.safeArea} edges={['bottom']}>
+      <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
         {/* Logo circle */}
         <View style={[styles.logoWrapper, isDark && styles.logoWrapperDark]}>
           <Image

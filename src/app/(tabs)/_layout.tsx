@@ -39,17 +39,13 @@ export default function TabsLayout() {
           { height: tabBarHeight, paddingBottom: tabBarPaddingBottom },
         ],
         tabBarLabelStyle: styles.label,
-        headerStyle: { backgroundColor: Brand.primary },
-        headerTintColor: Brand.white,
-        headerTitleStyle: styles.headerTitle,
-        headerTitleAlign: 'center',
+        headerShown: false,
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
           title: 'Radio',
-          headerTitle: "Ach' Lequilc'op",
           tabBarIcon: ({ focused, size }) => (
             <TabIcon src={require('@/assets/LogoSinLetraMenu.png')} focused={focused} size={size} />
           ),
@@ -77,7 +73,6 @@ export default function TabsLayout() {
         name="sobre"
         options={{
           title: 'Sobre',
-          headerTitle: 'Sobre la Radio',
           tabBarIcon: ({ focused, size }) => (
             <TabIcon src={require('@/assets/IconoPersonas.png')} focused={focused} size={size} />
           ),
@@ -87,7 +82,6 @@ export default function TabsLayout() {
         name="configuracion"
         options={{
           title: 'Config',
-          headerTitle: 'Configuración',
           tabBarIcon: ({ focused, size }) => (
             <TabIcon src={require('@/assets/IconoIdioma.png')} focused={focused} size={size} />
           ),
@@ -117,10 +111,5 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontWeight: '600',
     letterSpacing: 0.2,
-  },
-  headerTitle: {
-    fontWeight: '700',
-    fontSize: 18,
-    color: Brand.white,
   },
 })

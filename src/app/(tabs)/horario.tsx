@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native'
 import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import Reanimated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated'
 import * as WebBrowser from 'expo-web-browser'
 import { Brand } from '@/constants/theme'
@@ -319,7 +320,7 @@ export default function HorarioScreen() {
   const [activeTab, setActiveTab] = useState<TabId>('parrilla')
 
   return (
-    <View style={[styles.screen, isDark && styles.screenDark]}>
+    <SafeAreaView edges={['top']} style={[styles.screen, isDark && styles.screenDark]}>
         {/* Chip-style tab bar */}
         <View style={[styles.catRow, isDark && styles.catRowDark]}>
           {TABS.map((tab) => {
@@ -353,7 +354,7 @@ export default function HorarioScreen() {
         {activeTab === 'videos' && <VideosScreen isDark={isDark} />}
         {activeTab === 'audio' && <ProduccionesScreen isDark={isDark} />}
       </View>
-    </View>
+    </SafeAreaView>
   )
 }
 

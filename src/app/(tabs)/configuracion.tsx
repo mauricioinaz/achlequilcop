@@ -14,7 +14,7 @@ export default function ConfiguracionScreen() {
   const isDark = scheme === 'dark';
 
   return (
-    <View style={[styles.container, isDark && styles.containerDark]}>
+    <SafeAreaView edges={['top']} style={[styles.container, isDark && styles.containerDark]}>
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         <SafeAreaView edges={['bottom']}>
           {/* Language section */}
@@ -126,7 +126,7 @@ export default function ConfiguracionScreen() {
           </View>
         </SafeAreaView>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 

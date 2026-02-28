@@ -75,7 +75,7 @@ export default function AprenderScreen() {
 
   return (
     <View style={[styles.container, isDark && styles.containerDark]}>
-      <SafeAreaView style={styles.safeArea} edges={['bottom']}>
+      <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
         {/* Category tabs */}
         <View style={[styles.catRow, isDark && styles.catRowDark]}>
           {CATEGORIES.map((cat) => (
