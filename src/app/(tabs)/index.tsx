@@ -1,11 +1,13 @@
-import { useState } from 'react'
+import { useAudioPlayer, useAudioPlayerStatus } from 'expo-audio'
 import { Image, StyleSheet, Text, TouchableOpacity, useColorScheme, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { Brand } from '@/constants/theme'
 
 export default function RadioScreen() {
-  const [playing, setPlaying] = useState(false)
+  const player = useAudioPlayer('http://109.169.15.21:12983')
+  const status = useAudioPlayerStatus(player)
+  const playing = status.playing
   const scheme = useColorScheme()
   const isDark = scheme === 'dark'
 
@@ -30,43 +32,34 @@ export default function RadioScreen() {
           </Text>
         </View>
 
-        {/* Now playing card */}
-        {/* <View style={[styles.nowPlayingCard, isDark && styles.nowPlayingCardDark]}>
-          <Text style={styles.nowLabel}>AHORA EN VIVO</Text>
-          <Text style={[styles.programTitle, isDark && styles.textLight]}>Programa Matutino</Text>
-          <Text style={[styles.programSub, isDark && styles.taglineDark]}>
-            Con José · 6:00 – 8:00 am
-          </Text>
-        </View> */}
-
         {/* Live indicator + progress */}
         <View style={styles.progressBlock}>
           <View style={styles.progressTrack}>
             <View style={styles.progressPulse} />
           </View>
           <View style={styles.liveRow}>
-            <View style={styles.liveDot} />
-            <Text style={styles.liveText}>EN VIVO</Text>
+            {playing ? (
+              <>
+                <View style={styles.liveDot} /> <Text style={styles.liveText}>EN VIVO</Text>
+              </>
+            ) : (
+              <>
+                <View style={styles.offlineDot} />{' '}
+                <Text style={styles.offlineText}>FUERA DE LINEA</Text>
+              </>
+            )}
           </View>
         </View>
 
         {/* Playback controls */}
         <View style={styles.controls}>
-          {/* <TouchableOpacity style={styles.sideBtn}>
-            <Text style={[styles.sideBtnIcon, isDark && styles.sideBtnIconDark]}>{'⏮'}</Text>
-          </TouchableOpacity> */}
-
           <TouchableOpacity
             style={[styles.playBtn, playing && styles.playBtnActive]}
-            onPress={() => setPlaying(!playing)}
+            onPress={() => (playing ? player.pause() : player.play())}
             activeOpacity={0.85}
           >
             <Text style={styles.playIcon}>{playing ? '⏸' : '▶'}</Text>
           </TouchableOpacity>
-
-          {/* <TouchableOpacity style={styles.sideBtn}>
-            <Text style={[styles.sideBtnIcon, isDark && styles.sideBtnIconDark]}>{'⏭'}</Text>
-          </TouchableOpacity> */}
         </View>
       </SafeAreaView>
     </View>
@@ -196,10 +189,22 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     backgroundColor: Brand.rojo,
   },
+  offlineDot: {
+    width: 7,
+    height: 7,
+    borderRadius: 4,
+    backgroundColor: Brand.tabInactive,
+  },
   liveText: {
     fontSize: 11,
     fontWeight: '700',
     color: Brand.rojo,
+    letterSpacing: 2,
+  },
+  offlineText: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: Brand.tabInactive,
     letterSpacing: 2,
   },
   controls: {
