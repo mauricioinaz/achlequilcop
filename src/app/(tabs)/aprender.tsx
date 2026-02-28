@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from 'react'
 import {
   ScrollView,
   StyleSheet,
@@ -7,50 +7,28 @@ import {
   TouchableOpacity,
   useColorScheme,
   View,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+} from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
-import { Brand } from '@/constants/theme';
-
-const TSELTAL_NUMBERS: Record<number, string> = {
-  1: 'jun',
-  2: 'cheb',
-  3: 'oxeb',
-  4: 'chaneb',
-  5: "jo'eb",
-  6: 'wakeb',
-  7: 'jukub',
-  8: 'waxakib',
-  9: 'baluneb',
-  10: 'lajuneb',
-  11: "bulucheb",
-  12: "lajchab",
-  13: "oxlajuneb",
-  14: "chanlajuneb",
-  15: "jo'lajuneb",
-  16: "waklajuneb",
-  17: "juklajuneb",
-  18: "waxaklajuneb",
-  19: "balunlajuneb",
-  20: "jun winik",
-};
+import { Brand } from '@/constants/theme'
+import { sayTseltal } from '@mauricioinaz/say-tseltal'
 
 const CATEGORIES = [
   { id: 'numbers', label: 'Números', emoji: '🔢' },
   { id: 'greetings', label: 'Saludos', emoji: '👋' },
   { id: 'nature', label: 'Naturaleza', emoji: '🌿' },
-];
+]
 
 const GREETINGS: Array<{ spanish: string; tseltal: string }> = [
-  { spanish: 'Buenos días', tseltal: 'Lek awal te k\'inal' },
-  { spanish: 'Buenas tardes', tseltal: 'Lek awal te ajk\'ubal' },
+  { spanish: 'Buenos días', tseltal: "Lek awal te k'inal" },
+  { spanish: 'Buenas tardes', tseltal: "Lek awal te ajk'ubal" },
   { spanish: 'Buenas noches', tseltal: "Lek awal te ak'ubal" },
   { spanish: '¿Cómo estás?', tseltal: "K'ux awutsil?" },
-  { spanish: 'Estoy bien', tseltal: "Lek jinutik" },
+  { spanish: 'Estoy bien', tseltal: 'Lek jinutik' },
   { spanish: 'Gracias', tseltal: 'Kolawal' },
   { spanish: 'Por favor', tseltal: 'Sjalel' },
-  { spanish: 'Sí / No', tseltal: 'Jo\'  /  Ma\'' },
-];
+  { spanish: 'Sí / No', tseltal: "Jo'  /  Ma'" },
+]
 
 const NATURE: Array<{ spanish: string; tseltal: string }> = [
   { spanish: 'Agua', tseltal: "ja'" },
@@ -58,20 +36,30 @@ const NATURE: Array<{ spanish: string; tseltal: string }> = [
   { spanish: 'Sol', tseltal: "k'inal" },
   { spanish: 'Luna', tseltal: "u'" },
   { spanish: 'Maíz', tseltal: 'ixim' },
-  { spanish: 'Árbol', tseltal: 'te\'' },
+  { spanish: 'Árbol', tseltal: "te'" },
   { spanish: 'Montaña', tseltal: 'wits' },
-  { spanish: 'Río', tseltal: "nab" },
-];
+  { spanish: 'Río', tseltal: 'nab' },
+]
 
 export default function AprenderScreen() {
-  const [input, setInput] = useState('');
-  const [activeCategory, setActiveCategory] = useState<'numbers' | 'greetings' | 'nature'>('numbers');
-  const scheme = useColorScheme();
-  const isDark = scheme === 'dark';
+  const [input, setInput] = useState('')
+  const [activeCategory, setActiveCategory] = useState<'numbers' | 'greetings' | 'nature'>(
+    'numbers',
+  )
+  const scheme = useColorScheme()
+  const isDark = scheme === 'dark'
 
-  const numValue = parseInt(input, 10);
-  const tseltalWord = TSELTAL_NUMBERS[numValue];
-  const hasResult = input.length > 0;
+  const numValue = parseInt(input, 10)
+  let tseltalNumber: string | null = null
+  let tseltalError: string | null = null
+  if (input.length > 0 && !isNaN(numValue)) {
+    try {
+      tseltalNumber = sayTseltal(numValue)
+    } catch (e: any) {
+      tseltalError = e.message
+    }
+  }
+  const hasResult = input.length > 0
 
   return (
     <View style={[styles.container, isDark && styles.containerDark]}>
@@ -83,20 +71,34 @@ export default function AprenderScreen() {
               key={cat.id}
               style={[styles.catChip, activeCategory === cat.id && styles.catChipActive]}
               onPress={() => setActiveCategory(cat.id as typeof activeCategory)}
-              activeOpacity={0.8}>
+              activeOpacity={0.8}
+            >
               <Text style={styles.catEmoji}>{cat.emoji}</Text>
-              <Text style={[styles.catLabel, activeCategory === cat.id && styles.catLabelActive, isDark && styles.catLabelDark]}>
+              <Text
+                style={[
+                  styles.catLabel,
+                  activeCategory === cat.id && styles.catLabelActive,
+                  isDark && styles.catLabelDark,
+                ]}
+              >
                 {cat.label}
               </Text>
             </TouchableOpacity>
           ))}
         </View>
 
-        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.scrollContent}
+        >
           {activeCategory === 'numbers' && (
             <View style={styles.section}>
-              <Text style={[styles.sectionTitle, isDark && styles.textLight]}>Aprende a contar en Tseltal</Text>
-              <Text style={[styles.sectionSub, isDark && styles.textMuted]}>Escribe un número del 1 al 20</Text>
+              <Text style={[styles.sectionTitle, isDark && styles.textLight]}>
+                Aprende a contar en Tseltal
+              </Text>
+              <Text style={[styles.sectionSub, isDark && styles.textMuted]}>
+                Escribe cualquier número para traducirlo
+              </Text>
 
               {/* Input + result card */}
               <View style={[styles.inputCard, isDark && styles.inputCardDark]}>
@@ -104,53 +106,45 @@ export default function AprenderScreen() {
                   style={[styles.numberInput, isDark && styles.numberInputDark]}
                   value={input}
                   onChangeText={(t) => setInput(t.replace(/[^0-9]/g, ''))}
-                  keyboardType="number-pad"
+                  keyboardType="numeric"
                   placeholder="0"
                   placeholderTextColor={isDark ? '#3A5058' : '#C8D8DC'}
-                  maxLength={2}
                 />
-                <View style={styles.divider} />
+              </View>
+
+              <View style={[styles.inputCard, isDark && styles.inputCardDark]}>
                 {hasResult ? (
-                  tseltalWord ? (
-                    <Text style={styles.tseltalWord}>{tseltalWord}</Text>
+                  tseltalNumber ? (
+                    <Text style={styles.tseltalWord}>{tseltalNumber}</Text>
+                  ) : tseltalError ? (
+                    <Text style={[styles.outOfRange, isDark && styles.textMuted]}>
+                      {tseltalError}
+                    </Text>
                   ) : (
                     <Text style={[styles.outOfRange, isDark && styles.textMuted]}>
-                      Solo del 1 al 20
+                      Número no válido
                     </Text>
                   )
                 ) : (
-                  <Text style={[styles.placeholder, isDark && styles.textMuted]}>
-                    palabra en Tseltal
-                  </Text>
+                  <Text style={[styles.placeholder, isDark && styles.textMuted]}>--</Text>
                 )}
-              </View>
-
-              {/* Number grid quick-reference */}
-              <Text style={[styles.gridTitle, isDark && styles.textMuted]}>Referencia rápida</Text>
-              <View style={styles.grid}>
-                {Object.entries(TSELTAL_NUMBERS).map(([num, word]) => (
-                  <TouchableOpacity
-                    key={num}
-                    style={[styles.gridCell, isDark && styles.gridCellDark, input === num && styles.gridCellActive]}
-                    onPress={() => setInput(num)}
-                    activeOpacity={0.75}>
-                    <Text style={[styles.gridNum, input === num && styles.gridNumActive]}>{num}</Text>
-                    <Text style={[styles.gridWord, isDark && styles.textMuted, input === num && styles.gridWordActive]}>
-                      {word}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
               </View>
             </View>
           )}
 
           {activeCategory === 'greetings' && (
             <View style={styles.section}>
-              <Text style={[styles.sectionTitle, isDark && styles.textLight]}>Saludos en Tseltal</Text>
-              <Text style={[styles.sectionSub, isDark && styles.textMuted]}>Frases cotidianas básicas</Text>
+              <Text style={[styles.sectionTitle, isDark && styles.textLight]}>
+                Saludos en Tseltal
+              </Text>
+              <Text style={[styles.sectionSub, isDark && styles.textMuted]}>
+                Frases cotidianas básicas
+              </Text>
               {GREETINGS.map((item, i) => (
                 <View key={i} style={[styles.phraseCard, isDark && styles.phraseCardDark]}>
-                  <Text style={[styles.phraseSpanish, isDark && styles.textLight]}>{item.spanish}</Text>
+                  <Text style={[styles.phraseSpanish, isDark && styles.textLight]}>
+                    {item.spanish}
+                  </Text>
                   <Text style={styles.phraseTseltal}>{item.tseltal}</Text>
                 </View>
               ))}
@@ -159,13 +153,19 @@ export default function AprenderScreen() {
 
           {activeCategory === 'nature' && (
             <View style={styles.section}>
-              <Text style={[styles.sectionTitle, isDark && styles.textLight]}>La naturaleza en Tseltal</Text>
-              <Text style={[styles.sectionSub, isDark && styles.textMuted]}>Palabras del entorno natural</Text>
+              <Text style={[styles.sectionTitle, isDark && styles.textLight]}>
+                La naturaleza en Tseltal
+              </Text>
+              <Text style={[styles.sectionSub, isDark && styles.textMuted]}>
+                Palabras del entorno natural
+              </Text>
               <View style={styles.natureGrid}>
                 {NATURE.map((item, i) => (
                   <View key={i} style={[styles.natureCell, isDark && styles.natureCellDark]}>
                     <Text style={styles.natureTseltal}>{item.tseltal}</Text>
-                    <Text style={[styles.natureSpanish, isDark && styles.textMuted]}>{item.spanish}</Text>
+                    <Text style={[styles.natureSpanish, isDark && styles.textMuted]}>
+                      {item.spanish}
+                    </Text>
                   </View>
                 ))}
               </View>
@@ -174,7 +174,7 @@ export default function AprenderScreen() {
         </ScrollView>
       </SafeAreaView>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -247,10 +247,11 @@ const styles = StyleSheet.create({
     borderRadius: 1,
   },
   tseltalWord: {
-    fontSize: 36,
+    fontSize: 26,
     fontWeight: '700',
     color: '#1A2A30',
     letterSpacing: 1,
+    textAlign: 'center',
   },
   placeholder: {
     fontSize: 18,
@@ -262,32 +263,6 @@ const styles = StyleSheet.create({
     color: '#A8BEC4',
     fontStyle: 'italic',
   },
-  gridTitle: { fontSize: 13, fontWeight: '600', color: '#7A9098', letterSpacing: 0.5 },
-  grid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 8,
-  },
-  gridCell: {
-    width: '22%',
-    flexGrow: 1,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    paddingVertical: 10,
-    paddingHorizontal: 6,
-    alignItems: 'center',
-    elevation: 1,
-    shadowColor: '#000',
-    shadowOpacity: 0.04,
-    shadowRadius: 4,
-    shadowOffset: { width: 0, height: 1 },
-  },
-  gridCellDark: { backgroundColor: '#1E2427' },
-  gridCellActive: { backgroundColor: Brand.primary },
-  gridNum: { fontSize: 18, fontWeight: '800', color: Brand.primary },
-  gridNumActive: { color: '#FFFFFF' },
-  gridWord: { fontSize: 10, color: '#7A9098', textAlign: 'center', marginTop: 2 },
-  gridWordActive: { color: 'rgba(255,255,255,0.85)' },
   phraseCard: {
     backgroundColor: '#FFFFFF',
     borderRadius: 14,
@@ -322,4 +297,4 @@ const styles = StyleSheet.create({
   natureCellDark: { backgroundColor: '#1E2427' },
   natureTseltal: { fontSize: 22, fontWeight: '700', color: Brand.primary },
   natureSpanish: { fontSize: 13, color: '#7A9098' },
-});
+})
