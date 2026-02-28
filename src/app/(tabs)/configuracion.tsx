@@ -54,7 +54,6 @@ export default function ConfiguracionScreen() {
                 activeOpacity={0.8}
               >
                 <View style={styles.optionLeft}>
-                  <Text style={styles.optionFlag}>🇲🇽</Text>
                   <Text style={[styles.optionLabel, isDark && styles.textLight]}>Castellano</Text>
                 </View>
                 <View style={[styles.radio, language === 'castellano' && styles.radioActive]}>
@@ -74,7 +73,6 @@ export default function ConfiguracionScreen() {
                 activeOpacity={0.8}
               >
                 <View style={styles.optionLeft}>
-                  <Text style={styles.optionFlag}>🌽</Text>
                   <Text style={[styles.optionLabel, isDark && styles.textLight]}>Tseltal</Text>
                 </View>
                 <View style={[styles.radio, language === 'tseltal' && styles.radioActive]}>
@@ -82,81 +80,6 @@ export default function ConfiguracionScreen() {
                 </View>
               </TouchableOpacity>
             </View>
-          </View>
-
-          {/* Connection section */}
-          <View style={[styles.section, isDark && styles.sectionDark]}>
-            <View style={styles.sectionHeader}>
-              <View style={[styles.iconCircle, { backgroundColor: '#F0F8FF' }]}>
-                <Text style={styles.wifiEmoji}>📶</Text>
-              </View>
-              <View style={styles.sectionTitleBlock}>
-                <Text style={[styles.sectionTitle, isDark && styles.textLight]}>Conexión</Text>
-                <Text style={[styles.sectionSub, isDark && styles.textMuted]}>
-                  Cómo escuchar la radio
-                </Text>
-              </View>
-            </View>
-
-            <View style={[styles.optionGroup, isDark && styles.optionGroupDark]}>
-              <TouchableOpacity
-                style={[
-                  styles.option,
-                  connection === 'wifi' && styles.optionActive,
-                  isDark && styles.optionDark,
-                ]}
-                onPress={() => setConnection('wifi')}
-                activeOpacity={0.8}
-              >
-                <View style={styles.optionLeft}>
-                  <Text style={styles.optionFlag}>📡</Text>
-                  <View>
-                    <Text style={[styles.optionLabel, isDark && styles.textLight]}>Sólo WiFi</Text>
-                    <Text style={[styles.optionHint, isDark && styles.textMuted]}>
-                      Ahorra datos móviles
-                    </Text>
-                  </View>
-                </View>
-                <View style={[styles.radio, connection === 'wifi' && styles.radioActive]}>
-                  {connection === 'wifi' && <View style={styles.radioDot} />}
-                </View>
-              </TouchableOpacity>
-
-              <View style={[styles.optionSeparator, isDark && styles.optionSeparatorDark]} />
-
-              <TouchableOpacity
-                style={[
-                  styles.option,
-                  connection === 'datos' && styles.optionActive,
-                  isDark && styles.optionDark,
-                ]}
-                onPress={() => setConnection('datos')}
-                activeOpacity={0.8}
-              >
-                <View style={styles.optionLeft}>
-                  <Text style={styles.optionFlag}>📱</Text>
-                  <View>
-                    <Text style={[styles.optionLabel, isDark && styles.textLight]}>
-                      WiFi y Datos
-                    </Text>
-                    <Text style={[styles.optionHint, isDark && styles.textMuted]}>
-                      Escucha en cualquier lugar
-                    </Text>
-                  </View>
-                </View>
-                <View style={[styles.radio, connection === 'datos' && styles.radioActive]}>
-                  {connection === 'datos' && <View style={styles.radioDot} />}
-                </View>
-              </TouchableOpacity>
-            </View>
-          </View>
-
-          {/* Info note */}
-          <View style={[styles.infoNote, isDark && styles.infoNoteDark]}>
-            <Text style={styles.infoIcon}>ℹ️</Text>
-            <Text style={[styles.infoText, isDark && styles.textMuted]}>
-              Los cambios se aplican la próxima vez que inicies la transmisión.
-            </Text>
           </View>
         </SafeAreaView>
       </ScrollView>
@@ -169,6 +92,7 @@ const styles = StyleSheet.create({
   containerDark: { backgroundColor: '#111416' },
   scrollContent: { padding: 20, gap: 16, paddingBottom: 40 },
   section: {
+    marginTop: 34,
     backgroundColor: '#FFFFFF',
     borderRadius: 18,
     padding: 20,

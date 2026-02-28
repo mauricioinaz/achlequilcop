@@ -1,3 +1,6 @@
+import { Brand } from '@/constants/theme'
+import { fetchRemoteURLs } from '@/hooks/fetch-firebasedata'
+import * as WebBrowser from 'expo-web-browser'
 import { useEffect, useState } from 'react'
 import {
   ActivityIndicator,
@@ -9,17 +12,14 @@ import {
   View,
 } from 'react-native'
 import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import Reanimated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated'
-import * as WebBrowser from 'expo-web-browser'
-import { Brand } from '@/constants/theme'
-import { fetchRemoteURLs } from '@/hooks/fetch-firebasedata'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const SOUNDCLOUD_URL = 'https://soundcloud.com/achlequilcop-gmail-com'
 const YOUTUBE_URL = 'https://www.youtube.com/@radioachlequilcop8876'
 
 const TABS = [
-  { id: 'parrilla', label: 'Parrilla', emoji: '📡' },
+  { id: 'parrilla', label: 'Parrilla', emoji: '🗓️' },
   { id: 'videos', label: 'Videos', emoji: '🎬' },
   { id: 'audio', label: 'Audio', emoji: '🎙️' },
 ] as const
@@ -149,11 +149,7 @@ function ZoomableImage({ uri }: { uri: string }) {
 
 // ─── Videos tab ────────────────────────────────────────────────────────────────
 
-const VIDEO_THUMBNAILS = [
-  { color: '#C00000' },
-  { color: '#A00000' },
-  { color: '#D50000' },
-]
+const VIDEO_THUMBNAILS = [{ color: '#C00000' }, { color: '#A00000' }, { color: '#D50000' }]
 
 function VideosScreen({ isDark }: { isDark: boolean }) {
   const [opening, setOpening] = useState(false)
@@ -192,7 +188,8 @@ function VideosScreen({ isDark }: { isDark: boolean }) {
 
           {/* Description */}
           <Text style={[styles.ytDescription, isDark && styles.textMuted]}>
-            Mira los videos, transmisiones y contenido especial de Ach Lequilcop en nuestro canal de YouTube.
+            Mira los videos, transmisiones y contenido especial de Ach Lequilcop en nuestro canal de
+            YouTube.
           </Text>
 
           {/* Thumbnail row decoration */}
@@ -271,7 +268,8 @@ function ProduccionesScreen({ isDark }: { isDark: boolean }) {
 
           {/* Description */}
           <Text style={[styles.scDescription, isDark && styles.textMuted]}>
-            Escucha las producciones de audio, podcasts y grabaciones de Ach Lequilcop directamente en SoundCloud.
+            Escucha las producciones de audio, podcasts y grabaciones de Ach Lequilcop directamente
+            en SoundCloud.
           </Text>
 
           {/* Fake waveform decoration */}
@@ -310,7 +308,9 @@ function ProduccionesScreen({ isDark }: { isDark: boolean }) {
   )
 }
 
-const WAVE_BARS = [14, 22, 10, 28, 18, 32, 12, 24, 8, 30, 20, 14, 26, 16, 32, 10, 22, 18, 28, 12, 24, 30, 16, 20, 14]
+const WAVE_BARS = [
+  14, 22, 10, 28, 18, 32, 12, 24, 8, 30, 20, 14, 26, 16, 32, 10, 22, 18, 28, 12, 24, 30, 16, 20, 14,
+]
 
 // ─── Main screen ───────────────────────────────────────────────────────────────
 
@@ -321,32 +321,32 @@ export default function HorarioScreen() {
 
   return (
     <SafeAreaView edges={['top']} style={[styles.screen, isDark && styles.screenDark]}>
-        {/* Chip-style tab bar */}
-        <View style={[styles.catRow, isDark && styles.catRowDark]}>
-          {TABS.map((tab) => {
-            const isActive = tab.id === activeTab
-            return (
-              <TouchableOpacity
-                key={tab.id}
-                style={[styles.catChip, isActive && styles.catChipActive]}
-                onPress={() => setActiveTab(tab.id)}
-                activeOpacity={0.8}
+      {/* Chip-style tab bar */}
+      <View style={[styles.catRow, isDark && styles.catRowDark]}>
+        {TABS.map((tab) => {
+          const isActive = tab.id === activeTab
+          return (
+            <TouchableOpacity
+              key={tab.id}
+              style={[styles.catChip, isActive && styles.catChipActive]}
+              onPress={() => setActiveTab(tab.id)}
+              activeOpacity={0.8}
+            >
+              <Text style={styles.catEmoji}>{tab.emoji}</Text>
+              <Text
+                style={[
+                  styles.catLabel,
+                  isDark && styles.catLabelDark,
+                  isActive && styles.catLabelActive,
+                ]}
+                numberOfLines={1}
               >
-                <Text style={styles.catEmoji}>{tab.emoji}</Text>
-                <Text
-                  style={[
-                    styles.catLabel,
-                    isDark && styles.catLabelDark,
-                    isActive && styles.catLabelActive,
-                  ]}
-                  numberOfLines={1}
-                >
-                  {tab.label}
-                </Text>
-              </TouchableOpacity>
-            )
-          })}
-        </View>
+                {tab.label}
+              </Text>
+            </TouchableOpacity>
+          )
+        })}
+      </View>
 
       {/* Tab content */}
       <View style={styles.fill}>
@@ -445,7 +445,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.10,
+    shadowOpacity: 0.1,
     shadowRadius: 12,
     elevation: 6,
   },
@@ -560,7 +560,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.10,
+    shadowOpacity: 0.1,
     shadowRadius: 12,
     elevation: 6,
   },

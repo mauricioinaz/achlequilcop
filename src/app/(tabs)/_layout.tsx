@@ -1,5 +1,5 @@
 import { Tabs } from 'expo-router'
-import { Image, ImageSourcePropType, StyleSheet, useColorScheme } from 'react-native'
+import { Image, ImageSourcePropType, StyleSheet, useColorScheme, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { Brand } from '@/constants/theme'
@@ -8,11 +8,9 @@ type IconProps = { focused: boolean; size: number; src: ImageSourcePropType }
 
 function TabIcon({ src, focused, size }: IconProps) {
   return (
-    <Image
-      source={src}
-      style={{ width: size, height: size, opacity: focused ? 1 : 0.4 }}
-      resizeMode="contain"
-    />
+    <View style={[styles.iconWrapper, focused && styles.iconWrapperFocused]}>
+      <Image source={src} style={{ width: size, height: size }} resizeMode="contain" />
+    </View>
   )
 }
 
@@ -111,5 +109,17 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontWeight: '600',
     letterSpacing: 0.2,
+  },
+  iconWrapper: {
+    width: 44,
+    height: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 16,
+  },
+  iconWrapperFocused: {
+    // backgroundColor: '#006A9110',
+    borderWidth: 1.5,
+    borderColor: '#006A9180',
   },
 })
