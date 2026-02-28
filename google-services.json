@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "392352319821",
+    "firebase_url": "https://achlequilcop-atel.firebaseio.com",
+    "project_id": "achlequilcop-atel",
+    "storage_bucket": "achlequilcop-atel.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:392352319821:android:a3fb41a2c6143bceaf4f04",
+        "android_client_info": {
+          "package_name": "com.achlequilcop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGews13JcDnM_XqIBSc5zPgvvmRLRjTwE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

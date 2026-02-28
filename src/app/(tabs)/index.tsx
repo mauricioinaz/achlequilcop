@@ -1,16 +1,33 @@
 import { useAudioPlayer, useAudioPlayerStatus } from 'expo-audio'
+import { useEffect, useState } from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, useColorScheme, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { Brand } from '@/constants/theme'
+import { fetchRemoteURLs, RemoteURLs } from '@/hooks/fetch-firebasedata'
+
+const FALLBACK_RADIO_URL = 'http://109.169.15.21:12983'
 
 export default function RadioScreen() {
-  const player = useAudioPlayer('http://109.169.15.21:12983')
-  const status = useAudioPlayerStatus(player)
-  const playing = status.playing
   const scheme = useColorScheme()
   const isDark = scheme === 'dark'
+  const [urls, setUrls] = useState<RemoteURLs | null>(null)
 
+  useEffect(() => {
+    fetchRemoteURLs()
+      .then((data) => {
+        console.log('[RemoteConfig] Fetched URLs:', data)
+        setUrls(data)
+      })
+      .catch((err) => {
+        console.error('[RemoteConfig] Failed to fetch URLs:', err)
+      })
+  }, [])
+
+  const radioUrl = urls?.url_radio ?? FALLBACK_RADIO_URL
+  const player = useAudioPlayer(radioUrl)
+  const status = useAudioPlayerStatus(player)
+  const playing = status.playing
   return (
     <View style={[styles.container, isDark && styles.containerDark]}>
       <SafeAreaView style={styles.safeArea} edges={['bottom']}>
@@ -40,11 +57,12 @@ export default function RadioScreen() {
           <View style={styles.liveRow}>
             {playing ? (
               <>
-                <View style={styles.liveDot} /> <Text style={styles.liveText}>EN VIVO</Text>
+                <View style={styles.liveDot} />
+                <Text style={styles.liveText}>EN VIVO</Text>
               </>
             ) : (
               <>
-                <View style={styles.offlineDot} />{' '}
+                <View style={styles.offlineDot} />
                 <Text style={styles.offlineText}>FUERA DE LINEA</Text>
               </>
             )}
