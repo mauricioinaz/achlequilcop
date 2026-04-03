@@ -1,4 +1,6 @@
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   Image,
   ScrollView,
@@ -11,15 +13,23 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { Brand } from '@/constants/theme'
-
-type Language = 'castellano' | 'tseltal'
-type Connection = 'wifi' | 'datos'
+import i18n, { LANGUAGE_KEY, type AppLanguage } from '@/i18n'
 
 export default function ConfiguracionScreen() {
-  const [language, setLanguage] = useState<Language>('castellano')
-  const [connection, setConnection] = useState<Connection>('datos')
+  const { t } = useTranslation()
   const scheme = useColorScheme()
   const isDark = scheme === 'dark'
+
+  const [currentLanguage, setCurrentLanguage] = useState<AppLanguage>(
+    i18n.language as AppLanguage,
+  )
+
+  async function handleLanguageChange(lang: AppLanguage) {
+    if (lang === currentLanguage) return
+    setCurrentLanguage(lang)
+    await i18n.changeLanguage(lang)
+    await AsyncStorage.setItem(LANGUAGE_KEY, lang)
+  }
 
   return (
     <SafeAreaView edges={['top']} style={[styles.container, isDark && styles.containerDark]}>
@@ -36,9 +46,11 @@ export default function ConfiguracionScreen() {
                 />
               </View>
               <View style={styles.sectionTitleBlock}>
-                <Text style={[styles.sectionTitle, isDark && styles.textLight]}>Idioma</Text>
+                <Text style={[styles.sectionTitle, isDark && styles.textLight]}>
+                  {t('config.languageTitle')} --- {currentLanguage}
+                </Text>
                 <Text style={[styles.sectionSub, isDark && styles.textMuted]}>
-                  Elige el idioma de la app
+                  {t('config.languageSubtitle')}
                 </Text>
               </View>
             </View>
@@ -47,17 +59,21 @@ export default function ConfiguracionScreen() {
               <TouchableOpacity
                 style={[
                   styles.option,
-                  language === 'castellano' && styles.optionActive,
+                  currentLanguage === 'castellano' && styles.optionActive,
                   isDark && styles.optionDark,
                 ]}
-                onPress={() => setLanguage('castellano')}
+                onPress={() => handleLanguageChange('castellano')}
                 activeOpacity={0.8}
               >
                 <View style={styles.optionLeft}>
-                  <Text style={[styles.optionLabel, isDark && styles.textLight]}>Castellano</Text>
+                  <Text style={[styles.optionLabel, isDark && styles.textLight]}>
+                    {t('config.castellano')}
+                  </Text>
                 </View>
-                <View style={[styles.radio, language === 'castellano' && styles.radioActive]}>
-                  {language === 'castellano' && <View style={styles.radioDot} />}
+                <View
+                  style={[styles.radio, currentLanguage === 'castellano' && styles.radioActive]}
+                >
+                  {currentLanguage === 'castellano' && <View style={styles.radioDot} />}
                 </View>
               </TouchableOpacity>
 
@@ -66,17 +82,19 @@ export default function ConfiguracionScreen() {
               <TouchableOpacity
                 style={[
                   styles.option,
-                  language === 'tseltal' && styles.optionActive,
+                  currentLanguage === 'tseltal' && styles.optionActive,
                   isDark && styles.optionDark,
                 ]}
-                onPress={() => setLanguage('tseltal')}
+                onPress={() => handleLanguageChange('tseltal')}
                 activeOpacity={0.8}
               >
                 <View style={styles.optionLeft}>
-                  <Text style={[styles.optionLabel, isDark && styles.textLight]}>Tseltal</Text>
+                  <Text style={[styles.optionLabel, isDark && styles.textLight]}>
+                    {t('config.tseltal')}
+                  </Text>
                 </View>
-                <View style={[styles.radio, language === 'tseltal' && styles.radioActive]}>
-                  {language === 'tseltal' && <View style={styles.radioDot} />}
+                <View style={[styles.radio, currentLanguage === 'tseltal' && styles.radioActive]}>
+                  {currentLanguage === 'tseltal' && <View style={styles.radioDot} />}
                 </View>
               </TouchableOpacity>
             </View>

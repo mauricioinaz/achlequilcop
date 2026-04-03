@@ -14,21 +14,15 @@ import {
 import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler'
 import Reanimated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { useTranslation } from 'react-i18next'
 
 const SOUNDCLOUD_URL = 'https://soundcloud.com/achlequilcop-gmail-com'
 const YOUTUBE_URL = 'https://www.youtube.com/@radioachlequilcop8876'
 
-const TABS = [
-  { id: 'parrilla', label: 'Parrilla', emoji: '🗓️' },
-  { id: 'videos', label: 'Videos', emoji: '🎬' },
-  { id: 'audio', label: 'Audio', emoji: '🎙️' },
-] as const
-
-type TabId = (typeof TABS)[number]['id']
-
 // ─── Parrilla tab ──────────────────────────────────────────────────────────────
 
 function ParrillaScreen({ isDark }: { isDark: boolean }) {
+  const { t } = useTranslation()
   const [imageUrl, setImageUrl] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
@@ -57,9 +51,11 @@ function ParrillaScreen({ isDark }: { isDark: boolean }) {
     return (
       <View style={[styles.centered, isDark && styles.centerDark]}>
         <Text style={[styles.emptyIcon]}>📡</Text>
-        <Text style={[styles.emptyTitle, isDark && styles.textLight]}>No se pudo cargar</Text>
+        <Text style={[styles.emptyTitle, isDark && styles.textLight]}>
+          {t('horario.errorTitle')}
+        </Text>
         <Text style={[styles.emptySubtitle, isDark && styles.textMuted]}>
-          Revisa tu conexión e intenta de nuevo.
+          {t('horario.errorSubtitle')}
         </Text>
       </View>
     )
@@ -152,6 +148,7 @@ function ZoomableImage({ uri }: { uri: string }) {
 const VIDEO_THUMBNAILS = [{ color: '#C00000' }, { color: '#A00000' }, { color: '#D50000' }]
 
 function VideosScreen({ isDark }: { isDark: boolean }) {
+  const { t } = useTranslation()
   const [opening, setOpening] = useState(false)
 
   async function openYouTube() {
@@ -188,14 +185,13 @@ function VideosScreen({ isDark }: { isDark: boolean }) {
 
           {/* Description */}
           <Text style={[styles.ytDescription, isDark && styles.textMuted]}>
-            Mira los videos, transmisiones y contenido especial de Ach Lequilcop en nuestro canal de
-            YouTube.
+            {t('horario.youtubeDescription')}
           </Text>
 
           {/* Thumbnail row decoration */}
           <View style={styles.ytThumbRow}>
-            {VIDEO_THUMBNAILS.map((t, i) => (
-              <View key={i} style={[styles.ytThumb, { backgroundColor: t.color }]}>
+            {VIDEO_THUMBNAILS.map((thumb, i) => (
+              <View key={i} style={[styles.ytThumb, { backgroundColor: thumb.color }]}>
                 <View style={styles.ytThumbPlay}>
                   <Text style={styles.ytThumbPlayIcon}>▶</Text>
                 </View>
@@ -215,7 +211,7 @@ function VideosScreen({ isDark }: { isDark: boolean }) {
             ) : (
               <>
                 <Text style={styles.ytButtonIcon}>▶</Text>
-                <Text style={styles.ytButtonLabel}>Abrir canal en YouTube</Text>
+                <Text style={styles.ytButtonLabel}>{t('horario.youtubeButton')}</Text>
               </>
             )}
           </TouchableOpacity>
@@ -223,7 +219,7 @@ function VideosScreen({ isDark }: { isDark: boolean }) {
       </View>
 
       <Text style={[styles.scFootnote, isDark && styles.textMuted]}>
-        Se abrirá en el navegador integrado de la app
+        {t('horario.opensBrowser')}
       </Text>
     </View>
   )
@@ -232,6 +228,7 @@ function VideosScreen({ isDark }: { isDark: boolean }) {
 // ─── Producciones de audio tab ─────────────────────────────────────────────────
 
 function ProduccionesScreen({ isDark }: { isDark: boolean }) {
+  const { t } = useTranslation()
   const [opening, setOpening] = useState(false)
 
   async function openSoundCloud() {
@@ -268,8 +265,7 @@ function ProduccionesScreen({ isDark }: { isDark: boolean }) {
 
           {/* Description */}
           <Text style={[styles.scDescription, isDark && styles.textMuted]}>
-            Escucha las producciones de audio, podcasts y grabaciones de Ach Lequilcop directamente
-            en SoundCloud.
+            {t('horario.soundcloudDescription')}
           </Text>
 
           {/* Fake waveform decoration */}
@@ -294,7 +290,7 @@ function ProduccionesScreen({ isDark }: { isDark: boolean }) {
             ) : (
               <>
                 <Text style={styles.scButtonIcon}>▶</Text>
-                <Text style={styles.scButtonLabel}>Abrir en SoundCloud</Text>
+                <Text style={styles.scButtonLabel}>{t('horario.soundcloudButton')}</Text>
               </>
             )}
           </TouchableOpacity>
@@ -302,7 +298,7 @@ function ProduccionesScreen({ isDark }: { isDark: boolean }) {
       </View>
 
       <Text style={[styles.scFootnote, isDark && styles.textMuted]}>
-        Se abrirá en el navegador integrado de la app
+        {t('horario.opensBrowser')}
       </Text>
     </View>
   )
@@ -315,9 +311,18 @@ const WAVE_BARS = [
 // ─── Main screen ───────────────────────────────────────────────────────────────
 
 export default function HorarioScreen() {
+  const { t } = useTranslation()
   const scheme = useColorScheme()
   const isDark = scheme === 'dark'
+
+  type TabId = 'parrilla' | 'videos' | 'audio'
   const [activeTab, setActiveTab] = useState<TabId>('parrilla')
+
+  const TABS = [
+    { id: 'parrilla' as TabId, label: t('horario.tabParrilla'), emoji: '🗓️' },
+    { id: 'videos' as TabId, label: t('horario.tabVideos'), emoji: '🎬' },
+    { id: 'audio' as TabId, label: t('horario.tabAudio'), emoji: '🎙️' },
+  ]
 
   return (
     <SafeAreaView edges={['top']} style={[styles.screen, isDark && styles.screenDark]}>

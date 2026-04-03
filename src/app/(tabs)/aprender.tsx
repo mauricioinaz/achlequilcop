@@ -7,12 +7,14 @@ import {
   useColorScheme,
   View,
 } from 'react-native'
+import { useTranslation } from 'react-i18next'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { Brand } from '@/constants/theme'
 import { sayTseltal } from '@mauricioinaz/say-tseltal'
 
 export default function AprenderScreen() {
+  const { t } = useTranslation()
   const [input, setInput] = useState('')
   const scheme = useColorScheme()
   const isDark = scheme === 'dark'
@@ -38,17 +40,17 @@ export default function AprenderScreen() {
         >
           <View style={styles.section}>
             <Text style={[styles.sectionTitle, isDark && styles.textLight]}>
-              Aprende a contar en Tseltal
+              {t('aprender.title')}
             </Text>
             <Text style={[styles.sectionSub, isDark && styles.textMuted]}>
-              Escribe cualquier número para traducirlo
+              {t('aprender.subtitle')}
             </Text>
 
             <View style={[styles.inputCard, isDark && styles.inputCardDark]}>
               <TextInput
                 style={[styles.numberInput, isDark && styles.numberInputDark]}
                 value={input}
-                onChangeText={(t) => setInput(t.replace(/[^0-9]/g, ''))}
+                onChangeText={(text) => setInput(text.replace(/[^0-9]/g, ''))}
                 keyboardType="numeric"
                 placeholder="0"
                 placeholderTextColor={isDark ? '#3A5058' : '#C8D8DC'}
@@ -65,7 +67,7 @@ export default function AprenderScreen() {
                   </Text>
                 ) : (
                   <Text style={[styles.outOfRange, isDark && styles.textMuted]}>
-                    Número no válido
+                    {t('aprender.invalidNumber')}
                   </Text>
                 )
               ) : (

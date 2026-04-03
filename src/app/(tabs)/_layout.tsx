@@ -1,4 +1,5 @@
 import { Tabs } from 'expo-router'
+import { useTranslation } from 'react-i18next'
 import { Image, ImageSourcePropType, StyleSheet, useColorScheme, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -19,6 +20,7 @@ const TAB_BAR_PADDING_TOP = 6
 const TAB_BAR_PADDING_BOTTOM = 8
 
 export default function TabsLayout() {
+  const { t } = useTranslation()
   const scheme = useColorScheme()
   const isDark = scheme === 'dark'
   const insets = useSafeAreaInsets()
@@ -43,7 +45,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Radio',
+          title: t('tabs.radio'),
           tabBarIcon: ({ focused, size }) => (
             <TabIcon src={require('@/assets/LogoSinLetraMenu.png')} focused={focused} size={size} />
           ),
@@ -52,7 +54,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="horario"
         options={{
-          title: 'Contenido',
+          title: t('tabs.contenido'),
           tabBarIcon: ({ focused, size }) => (
             <TabIcon src={require('@/assets/IconoMaiz.png')} focused={focused} size={size} />
           ),
@@ -61,7 +63,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="aprender"
         options={{
-          title: 'Aprender',
+          title: t('tabs.aprender'),
           tabBarIcon: ({ focused, size }) => (
             <TabIcon src={require('@/assets/IconoMano.png')} focused={focused} size={size} />
           ),
@@ -70,7 +72,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="sobre"
         options={{
-          title: 'Sobre',
+          title: t('tabs.sobre'),
           tabBarIcon: ({ focused, size }) => (
             <TabIcon src={require('@/assets/IconoPersonas.png')} focused={focused} size={size} />
           ),
@@ -79,7 +81,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="configuracion"
         options={{
-          title: 'Config',
+          title: t('tabs.config'),
           tabBarIcon: ({ focused, size }) => (
             <TabIcon src={require('@/assets/IconoIdioma.png')} focused={focused} size={size} />
           ),

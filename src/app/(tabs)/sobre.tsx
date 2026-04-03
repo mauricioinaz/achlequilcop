@@ -8,21 +8,23 @@ import {
   useColorScheme,
   View,
 } from 'react-native'
+import { useTranslation } from 'react-i18next'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { Brand } from '@/constants/theme'
 
-const TEAM = [
-  { role: 'Directora', name: 'Amalia Hernández' },
-  { role: 'Desarrollo', name: 'Mauricio González' },
-  { role: 'Traducción', name: 'Francisco Guzmán' },
-  { role: 'Diseño Logo', name: 'Aquila Diseño' },
-  { role: 'Equipo Radio', name: 'José Álvarez' },
-]
-
 export default function SobreScreen() {
+  const { t } = useTranslation()
   const scheme = useColorScheme()
   const isDark = scheme === 'dark'
+
+  const TEAM = [
+    { role: t('sobre.teamDirectora'), name: 'Amalia Hernández' },
+    { role: t('sobre.teamDesarrollo'), name: 'Mauricio González' },
+    { role: t('sobre.teamTraduccion'), name: 'Francisco Guzmán' },
+    { role: t('sobre.teamDiseno'), name: 'Aquila Diseño' },
+    { role: t('sobre.teamEquipoRadio'), name: 'José Álvarez' },
+  ]
 
   return (
     <SafeAreaView edges={['top']} style={[styles.container, isDark && styles.containerDark]}>
@@ -40,25 +42,20 @@ export default function SobreScreen() {
             <Text style={[styles.radioName, isDark && styles.textLight]}>Ach' Lequilc'op</Text>
             <Text style={styles.frequency}>98.7 FM</Text>
             <View style={styles.versionBadge}>
-              <Text style={styles.versionText}>Versión 1.03</Text>
+              <Text style={styles.versionText}>{t('sobre.version')}</Text>
             </View>
           </View>
 
           {/* About section */}
           <View style={[styles.card, isDark && styles.cardDark]}>
             <Text style={[styles.cardHeading, isDark && styles.textLight]}>
-              Sobre nuestra radio
+              {t('sobre.aboutTitle')}
             </Text>
             <Text style={[styles.body, isDark && styles.bodyDark]}>
-              Radio Ach' Lequilc'op es una radio comunitaria pertinente e integrada a la realidad de
-              las comunidades de la Selva Norte de Chiapas. Sirve como sistema educativo,
-              informativo y de concientización, para contribuir a una vida en armonía en la región,
-              conformada por tseltales y mestizos.
+              {t('sobre.aboutBody1')}
             </Text>
             <Text style={[styles.body, isDark && styles.bodyDark, styles.bodySpaced]}>
-              Además del equipo base, más de 30 personas dan su tiempo voluntario para traer la
-              palabra de las diferentes regiones y procesos de las comunidades, brindando así un
-              servicio a nuestro pueblo.
+              {t('sobre.aboutBody2')}
             </Text>
             <TouchableOpacity onPress={() => Linking.openURL('https://achlequilcop.org')}>
               <Text style={styles.link}>achlequilcop.org</Text>
@@ -67,18 +64,19 @@ export default function SobreScreen() {
 
           {/* App description */}
           <View style={[styles.card, isDark && styles.cardDark]}>
-            <Text style={[styles.cardHeading, isDark && styles.textLight]}>Esta aplicación</Text>
+            <Text style={[styles.cardHeading, isDark && styles.textLight]}>
+              {t('sobre.appTitle')}
+            </Text>
             <Text style={[styles.body, isDark && styles.bodyDark]}>
-              Desarrollamos esta app pensando en nuestros radioescuchas que están fuera de su
-              comunidad, estado o país. Que con ella llevemos en nuestro bolsillo, donde quiera que
-              estemos, los contenidos y horarios de Ach' Lequilc'op, y un pequeño recordatorio de
-              nuestra cultura Tseltal.
+              {t('sobre.appBody')}
             </Text>
           </View>
 
           {/* Team section */}
           <View style={[styles.card, isDark && styles.cardDark]}>
-            <Text style={[styles.cardHeading, isDark && styles.textLight]}>Equipo</Text>
+            <Text style={[styles.cardHeading, isDark && styles.textLight]}>
+              {t('sobre.teamTitle')}
+            </Text>
             <View style={styles.teamList}>
               {TEAM.map((member, i) => (
                 <View
@@ -103,7 +101,7 @@ export default function SobreScreen() {
             style={[styles.licensesBtn, isDark && styles.licensesBtnDark]}
             activeOpacity={0.75}
           >
-            <Text style={styles.licensesText}>Licencias y Dependencias</Text>
+            <Text style={styles.licensesText}>{t('sobre.licenses')}</Text>
           </TouchableOpacity>
         </SafeAreaView>
       </ScrollView>

@@ -1,6 +1,7 @@
 import { useAudioPlayer, useAudioPlayerStatus } from 'expo-audio'
 import { useEffect, useState } from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, useColorScheme, View } from 'react-native'
+import { useTranslation } from 'react-i18next'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { Brand } from '@/constants/theme'
@@ -9,6 +10,7 @@ import { fetchRemoteURLs, RemoteURLs } from '@/hooks/fetch-firebasedata'
 const FALLBACK_RADIO_URL = 'http://109.169.15.21:12983'
 
 export default function RadioScreen() {
+  const { t } = useTranslation()
   const scheme = useColorScheme()
   const isDark = scheme === 'dark'
   const [urls, setUrls] = useState<RemoteURLs | null>(null)
@@ -45,7 +47,7 @@ export default function RadioScreen() {
           <Text style={[styles.stationName, isDark && styles.textLight]}>Ach' Lequilc'op</Text>
           <Text style={styles.frequency}>98.7 FM</Text>
           <Text style={[styles.tagline, isDark && styles.taglineDark]}>
-            Radio Comunitaria · Selva Norte, Chiapas
+            {t('radio.tagline')}
           </Text>
         </View>
 
@@ -58,12 +60,12 @@ export default function RadioScreen() {
             {playing ? (
               <>
                 <View style={styles.liveDot} />
-                <Text style={styles.liveText}>EN VIVO</Text>
+                <Text style={styles.liveText}>{t('radio.live')}</Text>
               </>
             ) : (
               <>
                 <View style={styles.offlineDot} />
-                <Text style={styles.offlineText}>FUERA DE LINEA</Text>
+                <Text style={styles.offlineText}>{t('radio.offline')}</Text>
               </>
             )}
           </View>
