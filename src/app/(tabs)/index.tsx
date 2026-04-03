@@ -1,4 +1,4 @@
-import { useAudioPlayer, useAudioPlayerStatus } from 'expo-audio'
+import { setAudioModeAsync, useAudioPlayer, useAudioPlayerStatus } from 'expo-audio'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Image, StyleSheet, Text, TouchableOpacity, useColorScheme, View } from 'react-native'
@@ -37,6 +37,16 @@ export default function RadioScreen() {
   const previousRadioUrlRef = useRef(radioUrl)
 
   useEffect(() => {
+    setAudioModeAsync({
+      playsInSilentMode: true,
+      shouldPlayInBackground: true,
+      interruptionMode: 'doNotMix',
+    }).catch((error) => {
+      console.error('[Audio] Failed to set audio mode:', error)
+    })
+  }, [])
+
+  useEffect(() => {
     playingRef.current = playing
     if (playing) {
       setIsTryingToPlay(false)
@@ -53,6 +63,18 @@ export default function RadioScreen() {
       player.replace(radioUrl)
     }
   }, [player, radioUrl])
+
+  useEffect(() => {
+    if (playing) {
+      player.setActiveForLockScreen(true, {
+        title: "Ach' Lequilc'op",
+        artist: '98.7 FM',
+      })
+      return
+    }
+
+    player.setActiveForLockScreen(false)
+  }, [player, playing])
 
   const statusLabel = playing
     ? t('radio.live')
