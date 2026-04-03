@@ -65,16 +65,22 @@ export default function RadioScreen() {
   }, [player, radioUrl])
 
   useEffect(() => {
-    if (playing) {
-      player.setActiveForLockScreen(true, {
+    player.setActiveForLockScreen(
+      true,
+      {
         title: "Ach' Lequilc'op",
         artist: '98.7 FM',
-      })
-      return
-    }
+      },
+      {
+        showSeekForward: false,
+        showSeekBackward: false,
+      },
+    )
 
-    player.setActiveForLockScreen(false)
-  }, [player, playing])
+    return () => {
+      player.setActiveForLockScreen(false)
+    }
+  }, [player])
 
   const statusLabel = playing
     ? t('radio.live')
@@ -85,8 +91,6 @@ export default function RadioScreen() {
         : t('radio.offline')
 
   const handlePlayPress = () => {
-    console.log('playing>>', playing)
-
     if (playing) {
       playAttemptIdRef.current += 1
       setIsTryingToPlay(false)
