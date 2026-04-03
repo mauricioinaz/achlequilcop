@@ -9,7 +9,9 @@ const es = {
   radio: {
     tagline: 'Radio Comunitaria · Selva Norte, Chiapas',
     live: 'EN VIVO',
+    connecting: 'CONECTANDO...',
     offline: 'FUERA DE LINEA',
+    unavailable: 'ESTACION NO DISPONIBLE',
   },
   horario: {
     tabParrilla: 'Parrilla',

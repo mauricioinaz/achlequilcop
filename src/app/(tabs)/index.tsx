@@ -1,19 +1,21 @@
 import { useAudioPlayer, useAudioPlayerStatus } from 'expo-audio'
-import { useEffect, useState } from 'react'
-import { Image, StyleSheet, Text, TouchableOpacity, useColorScheme, View } from 'react-native'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Image, StyleSheet, Text, TouchableOpacity, useColorScheme, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { Brand } from '@/constants/theme'
 import { fetchRemoteURLs, RemoteURLs } from '@/hooks/fetch-firebasedata'
 
-const FALLBACK_RADIO_URL = 'http://109.169.15.21:12983'
+const FALLBACK_RADIO_URL = 'http://37.157.242.103:12190'
 
 export default function RadioScreen() {
   const { t } = useTranslation()
   const scheme = useColorScheme()
   const isDark = scheme === 'dark'
   const [urls, setUrls] = useState<RemoteURLs | null>(null)
+  const [isTryingToPlay, setIsTryingToPlay] = useState(false)
+  const [didFailToPlay, setDidFailToPlay] = useState(false)
 
   useEffect(() => {
     fetchRemoteURLs()
@@ -30,6 +32,61 @@ export default function RadioScreen() {
   const player = useAudioPlayer(radioUrl)
   const status = useAudioPlayerStatus(player)
   const playing = status.playing
+  const playingRef = useRef(playing)
+  const playAttemptIdRef = useRef(0)
+  const previousRadioUrlRef = useRef(radioUrl)
+
+  useEffect(() => {
+    playingRef.current = playing
+    if (playing) {
+      setIsTryingToPlay(false)
+      setDidFailToPlay(false)
+    }
+  }, [playing])
+
+  useEffect(() => {
+    if (previousRadioUrlRef.current !== radioUrl) {
+      previousRadioUrlRef.current = radioUrl
+      playAttemptIdRef.current += 1
+      setIsTryingToPlay(false)
+      setDidFailToPlay(false)
+      player.replace(radioUrl)
+    }
+  }, [player, radioUrl])
+
+  const statusLabel = playing
+    ? t('radio.live')
+    : isTryingToPlay
+      ? t('radio.connecting')
+      : didFailToPlay
+        ? t('radio.unavailable')
+        : t('radio.offline')
+
+  const handlePlayPress = () => {
+    console.log('playing>>', playing)
+
+    if (playing) {
+      playAttemptIdRef.current += 1
+      setIsTryingToPlay(false)
+      setDidFailToPlay(false)
+      player.pause()
+      return
+    }
+
+    const attemptId = playAttemptIdRef.current + 1
+    playAttemptIdRef.current = attemptId
+    setDidFailToPlay(false)
+    setIsTryingToPlay(true)
+    player.play()
+
+    setTimeout(() => {
+      if (playAttemptIdRef.current === attemptId && !playingRef.current) {
+        setIsTryingToPlay(false)
+        setDidFailToPlay(true)
+      }
+    }, 7000)
+  }
+
   return (
     <View style={[styles.container, isDark && styles.containerDark]}>
       <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
@@ -46,9 +103,7 @@ export default function RadioScreen() {
         <View style={styles.stationBlock}>
           <Text style={[styles.stationName, isDark && styles.textLight]}>Ach' Lequilc'op</Text>
           <Text style={styles.frequency}>98.7 FM</Text>
-          <Text style={[styles.tagline, isDark && styles.taglineDark]}>
-            {t('radio.tagline')}
-          </Text>
+          <Text style={[styles.tagline, isDark && styles.taglineDark]}>{t('radio.tagline')}</Text>
         </View>
 
         {/* Live indicator + progress */}
@@ -60,12 +115,12 @@ export default function RadioScreen() {
             {playing ? (
               <>
                 <View style={styles.liveDot} />
-                <Text style={styles.liveText}>{t('radio.live')}</Text>
+                <Text style={styles.liveText}>{statusLabel}</Text>
               </>
             ) : (
               <>
                 <View style={styles.offlineDot} />
-                <Text style={styles.offlineText}>{t('radio.offline')}</Text>
+                <Text style={styles.offlineText}>{statusLabel}</Text>
               </>
             )}
           </View>
@@ -75,7 +130,7 @@ export default function RadioScreen() {
         <View style={styles.controls}>
           <TouchableOpacity
             style={[styles.playBtn, playing && styles.playBtnActive]}
-            onPress={() => (playing ? player.pause() : player.play())}
+            onPress={handlePlayPress}
             activeOpacity={0.85}
           >
             {playing ? (

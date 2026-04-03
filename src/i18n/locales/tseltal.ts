@@ -9,7 +9,9 @@ const tseltal = {
   radio: {
     tagline: "Radio cu'untic · Selva Norte, Chiapas",
     live: 'LAJ STAC SBAH',
+    connecting: '',
     offline: '',
+    unavailable: '',
   },
   horario: {
     tabParrilla: "Sc'ahc'alel a'tel",
