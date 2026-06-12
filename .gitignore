@@ -45,3 +45,4 @@ my-new-upload-key.keystore
 
 # EAS local credentials (contains keystore passwords)
 credentials.json
+fill_credentials.sh
