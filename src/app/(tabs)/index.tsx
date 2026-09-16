@@ -1,19 +1,25 @@
 import { setAudioModeAsync, useAudioPlayer, useAudioPlayerStatus } from 'expo-audio'
-import { useEffect, useRef, useState } from 'react'
+import { useFocusEffect } from 'expo-router'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Image, StyleSheet, Text, TouchableOpacity, useColorScheme, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { Brand } from '@/constants/theme'
-import { fetchRemoteURLs, RemoteURLs } from '@/hooks/fetch-firebasedata'
-
-const FALLBACK_RADIO_URL = 'http://37.157.242.103:12190'
+import {
+  fetchRemoteURLs,
+  FALLBACK_RADIO_URL,
+  getRadioUrlOverride,
+  RemoteURLs,
+  resolveRadioUrl,
+} from '@/hooks/fetch-firebasedata'
 
 export default function RadioScreen() {
   const { t } = useTranslation()
   const scheme = useColorScheme()
   const isDark = scheme === 'dark'
   const [urls, setUrls] = useState<RemoteURLs | null>(null)
+  const [radioUrlOverride, setRadioUrlOverride] = useState<string | null>(null)
   const [isTryingToPlay, setIsTryingToPlay] = useState(false)
   const [didFailToPlay, setDidFailToPlay] = useState(false)
 
@@ -28,8 +34,28 @@ export default function RadioScreen() {
       })
   }, [])
 
-  const radioUrl = urls?.url_radio ?? FALLBACK_RADIO_URL
-  const player = useAudioPlayer(radioUrl)
+  const loadRadioUrlOverride = useCallback(() => {
+    getRadioUrlOverride()
+      .then((override) => {
+        setRadioUrlOverride(override)
+      })
+      .catch((err) => {
+        console.error('[Radio] Failed to load URL override:', err)
+      })
+  }, [])
+
+  useEffect(() => {
+    loadRadioUrlOverride()
+  }, [loadRadioUrlOverride])
+
+  useFocusEffect(
+    useCallback(() => {
+      loadRadioUrlOverride()
+    }, [loadRadioUrlOverride]),
+  )
+
+  const radioUrl = resolveRadioUrl(radioUrlOverride, urls?.url_radio)
+  const player = useAudioPlayer(FALLBACK_RADIO_URL)
   const status = useAudioPlayerStatus(player)
   const playing = status.playing
   const playingRef = useRef(playing)
@@ -76,10 +102,6 @@ export default function RadioScreen() {
         showSeekBackward: false,
       },
     )
-
-    return () => {
-      player.setActiveForLockScreen(false)
-    }
   }, [player])
 
   const statusLabel = playing
@@ -110,7 +132,7 @@ export default function RadioScreen() {
         setIsTryingToPlay(false)
         setDidFailToPlay(true)
       }
-    }, 7000)
+    }, 15000)
   }
 
   return (

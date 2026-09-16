@@ -43,7 +43,7 @@ const es = {
       "Desarrollamos esta app pensando en nuestros radioescuchas que están fuera de su comunidad, estado o país. Que con ella llevemos en nuestro bolsillo, donde quiera que estemos, los contenidos y horarios de Ach' Lequilc'op, y un pequeño recordatorio de nuestra cultura Tseltal.",
     teamTitle: 'Equipo',
     licenses: 'Licencias y Dependencias',
-    version: 'Versión 2.0',
+    version: 'Versión 1.1',
     teamDirectora: 'Directora',
     teamDesarrollo: 'Desarrollo',
     teamTraduccion: 'Traducción',
@@ -55,6 +55,13 @@ const es = {
     languageSubtitle: 'Elige el idioma de la app',
     castellano: 'Castellano',
     tseltal: 'Tseltal',
+    advancedTitle: 'Avanzado',
+    advancedSubtitle: 'URL de la estación de radio',
+    advancedHint: 'URL que usa la app para conectar a la radio en vivo.',
+    advancedCurrentUrl: 'URL actual',
+    advancedSave: 'Guardar',
+    advancedReset: 'Restablecer',
+    advancedPlaceholder: 'http://...',
   },
 }
 

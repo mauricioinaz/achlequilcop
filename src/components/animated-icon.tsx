@@ -14,20 +14,14 @@ export function AnimatedSplashOverlay() {
 
   const splashKeyframe = new Keyframe({
     0: {
-      transform: [{ scale: INITIAL_SCALE_FACTOR }],
       opacity: 1,
     },
-    20: {
+    60: {
       opacity: 1,
-    },
-    70: {
-      opacity: 0,
-      easing: Easing.elastic(0.7),
     },
     100: {
       opacity: 0,
-      transform: [{ scale: 1 }],
-      easing: Easing.elastic(0.7),
+      easing: Easing.out(Easing.ease),
     },
   });
 
@@ -40,7 +34,13 @@ export function AnimatedSplashOverlay() {
         }
       })}
       style={styles.backgroundSolidColor}
-    />
+    >
+      <Image
+        style={styles.splashLogo}
+        source={require('@/assets/LogoSinLetra.png')}
+        contentFit="contain"
+      />
+    </Animated.View>
   );
 }
 
@@ -126,7 +126,13 @@ const styles = StyleSheet.create({
   },
   backgroundSolidColor: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: '#208AEF',
+    backgroundColor: '#FFFFFF',
+    alignItems: 'center',
+    justifyContent: 'center',
     zIndex: 1000,
+  },
+  splashLogo: {
+    width: 200,
+    height: 200,
   },
 });

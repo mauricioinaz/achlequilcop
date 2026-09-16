@@ -42,7 +42,7 @@ const tseltal = {
       "Laj jchahpancotic ha'i a'tel ini ta sc'oblal jaytuhl mach'atic ma' nacal ta slumalic, chican teme li' ta yutil nix squ'inal Chiapas ay ma'uc teme ayic ta namal. Yu'un hich xhu' bayuc ban ayotic, ya jchupojtic ta jujutuhl bin a'tel ya xlaj pasaluc.",
     teamTitle: "Whohc'",
     licenses: 'Licencias y Dependencias',
-    version: 'Version 2.0',
+    version: 'Version 1.1',
     teamDirectora: "Jolal ta c'opojibal",
     teamDesarrollo: "te a'tejibal",
     teamTraduccion: "Sohltesej ta tseltal c'op",
@@ -54,6 +54,13 @@ const tseltal = {
     languageSubtitle: "Tsaha te ac'opojel",
     castellano: 'Castellano',
     tseltal: "Tseltal - Bats'il C'op",
+    advancedTitle: 'Avanzado',
+    advancedSubtitle: 'URL te radio',
+    advancedHint: "URL ya x'ak' ta sbah te radio.",
+    advancedCurrentUrl: "URL a'tel",
+    advancedSave: "K'ejel",
+    advancedReset: "Suht'el",
+    advancedPlaceholder: 'http://...',
   },
 }
 
