@@ -10,6 +10,7 @@ import {
 import { useTranslation } from 'react-i18next'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
+import { BrandHeader } from '@/components/brand-header'
 import { Brand } from '@/constants/theme'
 import { sayTseltal } from '@mauricioinaz/say-tseltal'
 
@@ -32,64 +33,57 @@ export default function AprenderScreen() {
   const hasResult = input.length > 0
 
   return (
-    <View style={[styles.container, isDark && styles.containerDark]}>
-      <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={styles.scrollContent}
-        >
-          <View style={styles.section}>
-            <Text style={[styles.sectionTitle, isDark && styles.textLight]}>
-              {t('aprender.title')}
-            </Text>
-            <Text style={[styles.sectionSub, isDark && styles.textMuted]}>
-              {t('aprender.subtitle')}
-            </Text>
+    <SafeAreaView edges={['top']} style={[styles.container, isDark && styles.containerDark]}>
+      <BrandHeader title={t('aprender.title')} />
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.scrollContent}
+      >
+        <View style={styles.section}>
+          <Text style={[styles.sectionSub, isDark && styles.textMuted]}>
+            {t('aprender.subtitle')}
+          </Text>
 
-            <View style={[styles.inputCard, isDark && styles.inputCardDark]}>
-              <TextInput
-                style={[styles.numberInput, isDark && styles.numberInputDark]}
-                value={input}
-                onChangeText={(text) => setInput(text.replace(/[^0-9]/g, ''))}
-                keyboardType="numeric"
-                placeholder="0"
-                placeholderTextColor={isDark ? '#3A5058' : '#C8D8DC'}
-              />
-            </View>
-
-            <View style={[styles.inputCard, isDark && styles.inputCardDark]}>
-              {hasResult ? (
-                tseltalNumber ? (
-                  <Text style={styles.tseltalWord}>{tseltalNumber}</Text>
-                ) : tseltalError ? (
-                  <Text style={[styles.outOfRange, isDark && styles.textMuted]}>
-                    {tseltalError}
-                  </Text>
-                ) : (
-                  <Text style={[styles.outOfRange, isDark && styles.textMuted]}>
-                    {t('aprender.invalidNumber')}
-                  </Text>
-                )
-              ) : (
-                <Text style={[styles.placeholder, isDark && styles.textMuted]}>--</Text>
-              )}
-            </View>
+          <View style={[styles.inputCard, isDark && styles.inputCardDark]}>
+            <TextInput
+              style={[styles.numberInput, isDark && styles.numberInputDark]}
+              value={input}
+              onChangeText={(text) => setInput(text.replace(/[^0-9]/g, ''))}
+              keyboardType="numeric"
+              placeholder="0"
+              placeholderTextColor={isDark ? '#3A5058' : '#C8D8DC'}
+            />
           </View>
-        </ScrollView>
-      </SafeAreaView>
-    </View>
+
+          <View style={[styles.inputCard, isDark && styles.inputCardDark]}>
+            {hasResult ? (
+              tseltalNumber ? (
+                <Text style={styles.tseltalWord}>{tseltalNumber}</Text>
+              ) : tseltalError ? (
+                <Text style={[styles.outOfRange, isDark && styles.textMuted]}>
+                  {tseltalError}
+                </Text>
+              ) : (
+                <Text style={[styles.outOfRange, isDark && styles.textMuted]}>
+                  {t('aprender.invalidNumber')}
+                </Text>
+              )
+            ) : (
+              <Text style={[styles.placeholder, isDark && styles.textMuted]}>--</Text>
+            )}
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#F7FBFC' },
   containerDark: { backgroundColor: '#111416' },
-  safeArea: { flex: 1 },
   scrollContent: { padding: 20, paddingBottom: 40 },
   section: { gap: 14 },
-  sectionTitle: { fontSize: 20, fontWeight: '700', color: '#1A2A30' },
-  sectionSub: { fontSize: 13, color: '#7A9098', marginTop: -8 },
-  textLight: { color: '#D8E8EC' },
+  sectionSub: { fontSize: 13, color: '#7A9098' },
   textMuted: { color: '#5A7280' },
   inputCard: {
     backgroundColor: '#FFFFFF',

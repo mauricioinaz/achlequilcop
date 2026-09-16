@@ -51,6 +51,7 @@ const es = {
     teamEquipoRadio: 'Equipo Radio',
   },
   config: {
+    title: 'Configuración',
     languageTitle: 'Idioma',
     languageSubtitle: 'Elige el idioma de la app',
     castellano: 'Castellano',

@@ -50,6 +50,7 @@ const tseltal = {
     teamEquipoRadio: "J'a'tel ta jwohc' c'opojibal",
   },
   config: {
+    title: 'Schahpanel',
     languageTitle: "C'opojel",
     languageSubtitle: "Tsaha te ac'opojel",
     castellano: 'Castellano',

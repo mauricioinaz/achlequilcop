@@ -16,6 +16,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { Brand } from '@/constants/theme'
+import { BrandHeader } from '@/components/brand-header'
 import {
   clearRadioUrlOverride,
   fetchRemoteURLs,
@@ -96,6 +97,7 @@ export default function ConfiguracionScreen() {
 
   return (
     <SafeAreaView edges={['top']} style={[styles.container, isDark && styles.containerDark]}>
+      <BrandHeader title={t('config.title')} />
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         <SafeAreaView edges={['bottom']}>
           {/* Language section */}
@@ -239,7 +241,6 @@ const styles = StyleSheet.create({
   containerDark: { backgroundColor: '#111416' },
   scrollContent: { padding: 20, gap: 16, paddingBottom: 40 },
   section: {
-    marginTop: 34,
     backgroundColor: '#FFFFFF',
     borderRadius: 18,
     padding: 20,
