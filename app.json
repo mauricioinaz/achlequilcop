@@ -20,7 +20,7 @@
       },
       "predictiveBackGestureEnabled": false,
       "package": "com.achlequilcop",
-      "versionCode": 4000006,
+      "versionCode": 4000007,
       "usesCleartextTraffic": true,
       "blockedPermissions": [
         "com.google.android.gms.permission.AD_ID"
