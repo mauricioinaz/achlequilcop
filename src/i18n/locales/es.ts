@@ -43,7 +43,7 @@ const es = {
       "Desarrollamos esta app pensando en nuestros radioescuchas que están fuera de su comunidad, estado o país. Que con ella llevemos en nuestro bolsillo, donde quiera que estemos, los contenidos y horarios de Ach' Lequilc'op, y un pequeño recordatorio de nuestra cultura Tseltal.",
     teamTitle: 'Equipo',
     licenses: 'Licencias y Dependencias',
-    version: 'Versión 1.1',
+    version: 'Versión 1.3',
     teamDirectora: 'Directora',
     teamDesarrollo: 'Desarrollo',
     teamTraduccion: 'Traducción',

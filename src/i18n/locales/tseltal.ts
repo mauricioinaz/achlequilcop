@@ -42,7 +42,7 @@ const tseltal = {
       "Laj jchahpancotic ha'i a'tel ini ta sc'oblal jaytuhl mach'atic ma' nacal ta slumalic, chican teme li' ta yutil nix squ'inal Chiapas ay ma'uc teme ayic ta namal. Yu'un hich xhu' bayuc ban ayotic, ya jchupojtic ta jujutuhl bin a'tel ya xlaj pasaluc.",
     teamTitle: "Whohc'",
     licenses: 'Licencias y Dependencias',
-    version: 'Version 1.1',
+    version: 'Version 1.3',
     teamDirectora: "Jolal ta c'opojibal",
     teamDesarrollo: "te a'tejibal",
     teamTraduccion: "Sohltesej ta tseltal c'op",
