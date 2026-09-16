@@ -50,7 +50,8 @@
         {
           "enableBackgroundPlayback": true
         }
-      ]
+      ],
+      "expo-asset"
     ],
     "updates": {
       "enabled": false
