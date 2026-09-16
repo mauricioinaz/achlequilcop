@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import {
   Image,
   Linking,
@@ -8,7 +9,6 @@ import {
   useColorScheme,
   View,
 } from 'react-native'
-import { useTranslation } from 'react-i18next'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { Brand } from '@/constants/theme'
@@ -23,7 +23,7 @@ export default function SobreScreen() {
     { role: t('sobre.teamDesarrollo'), name: 'Mauricio González' },
     { role: t('sobre.teamTraduccion'), name: 'Francisco Guzmán' },
     { role: t('sobre.teamDiseno'), name: 'Aquila Diseño' },
-    { role: t('sobre.teamEquipoRadio'), name: 'José Álvarez' },
+    { role: t('sobre.teamEquipoRadio'), name: 'José Álvarez, José Ángel' },
   ]
 
   return (
@@ -51,9 +51,7 @@ export default function SobreScreen() {
             <Text style={[styles.cardHeading, isDark && styles.textLight]}>
               {t('sobre.aboutTitle')}
             </Text>
-            <Text style={[styles.body, isDark && styles.bodyDark]}>
-              {t('sobre.aboutBody1')}
-            </Text>
+            <Text style={[styles.body, isDark && styles.bodyDark]}>{t('sobre.aboutBody1')}</Text>
             <Text style={[styles.body, isDark && styles.bodyDark, styles.bodySpaced]}>
               {t('sobre.aboutBody2')}
             </Text>
@@ -67,9 +65,7 @@ export default function SobreScreen() {
             <Text style={[styles.cardHeading, isDark && styles.textLight]}>
               {t('sobre.appTitle')}
             </Text>
-            <Text style={[styles.body, isDark && styles.bodyDark]}>
-              {t('sobre.appBody')}
-            </Text>
+            <Text style={[styles.body, isDark && styles.bodyDark]}>{t('sobre.appBody')}</Text>
           </View>
 
           {/* Team section */}
