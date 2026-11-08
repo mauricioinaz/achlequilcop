@@ -13,6 +13,7 @@ import {
   RemoteURLs,
   resolveRadioUrl,
 } from '@/hooks/fetch-firebasedata'
+import { useStreamMetadata } from '@/hooks/use-stream-metadata'
 
 export default function RadioScreen() {
   const { t } = useTranslation()
@@ -60,6 +61,7 @@ export default function RadioScreen() {
   const playing = status.playing
   const playingRef = useRef(playing)
   const playAttemptIdRef = useRef(0)
+  const nowPlaying = useStreamMetadata(radioUrl, playing)
   const previousRadioUrlRef = useRef(radioUrl)
 
   useEffect(() => {
@@ -153,6 +155,20 @@ export default function RadioScreen() {
           <Text style={styles.frequency}>98.7 FM</Text>
           <Text style={[styles.tagline, isDark && styles.taglineDark]}>{t('radio.tagline')}</Text>
         </View>
+
+        {/* Now playing (stream metadata) */}
+        {playing && nowPlaying ? (
+          <View style={[styles.nowPlayingCard, isDark && styles.nowPlayingCardDark]}>
+            <Text style={styles.nowLabel}>{t('radio.nowPlaying')}</Text>
+            <Text
+              style={[styles.programTitle, isDark && styles.textLight]}
+              numberOfLines={2}
+              ellipsizeMode="tail"
+            >
+              {nowPlaying}
+            </Text>
+          </View>
+        ) : null}
 
         {/* Live indicator + progress */}
         <View style={styles.progressBlock}>
@@ -285,6 +301,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '700',
     color: '#1A2A30',
+    textAlign: 'center',
   },
   programSub: {
     fontSize: 13,

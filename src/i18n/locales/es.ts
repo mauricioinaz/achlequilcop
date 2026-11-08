@@ -12,6 +12,7 @@ const es = {
     connecting: 'CONECTANDO...',
     offline: 'FUERA DE LINEA',
     unavailable: 'ESTACION NO DISPONIBLE',
+    nowPlaying: 'SONANDO AHORA',
   },
   horario: {
     tabParrilla: 'Parrilla',

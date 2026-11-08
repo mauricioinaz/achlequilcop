@@ -12,6 +12,7 @@ const tseltal = {
     connecting: '',
     offline: "MA' STSACOJ SBAH",
     unavailable: "MA' STSACOJ SBAH.",
+    nowPlaying: "C'AYOJ",
   },
   horario: {
     tabParrilla: "Sc'ahc'alel a'tel",
